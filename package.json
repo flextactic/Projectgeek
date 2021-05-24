@@ -1,0 +1,15 @@
+{
+  "name": "projecthub",
+  "version": "1.0.0",
+  "description": "Place where you can show off your projects",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Anshul Sharma , Krishan Mishra , Drishtdyumn Srivastava",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "joi-password-complexity": "^5.1.0"
+  }
+}
