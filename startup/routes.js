@@ -1,10 +1,10 @@
 const express = require('express')
-const user = require('../routes/user')
+const user = require('../routes/users')
 
 
 module.exports = function(app)
 {
    app.use(express.json());
    app.use(express.static("public"));
-   app.use('./api/user',user);
+  // app.use('./api/user',user);
 }
