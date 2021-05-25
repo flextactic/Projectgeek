@@ -1,4 +1,5 @@
 const Joi = require('joi')
+const _ =  require('lodash')
 const mongoose = require('mongoose')
 
 const userSchema = new mongoose.Schema({
@@ -23,6 +24,24 @@ const userSchema = new mongoose.Schema({
       minlength: 4,
       maxlength: 1024,
     },
+    projects:[
+    {
+      id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'Project',
+        required: true,
+      },
+    },
+   ],
+    projectInRequirement:[
+     {
+      id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'Project',
+        required: true,
+      },
+     },
+    ],
     upvoted: [
       {
         _id: false,
@@ -40,7 +59,6 @@ const userSchema = new mongoose.Schema({
           type: mongoose.Schema.Types.ObjectId,
           ref:'Project',
           required: true,
-
         },
       },
     ],
@@ -78,8 +96,7 @@ const userSchema = new mongoose.Schema({
       password: Joi.string().min(4).max(1024).required(),
     });
   
-    if (schema.validate(req).error) return schema.validate(req);
-    return validateData(_.omit(req, ["password"]));
+    return schema.validate(req);
   }
 
   function validateUser(user) {
@@ -89,10 +106,35 @@ const userSchema = new mongoose.Schema({
       password: Joi.required(),
     });
   
-    if (schema.validate(user).error) return schema.validate(user);
-    return validateData(user);
+    return schema.validate(user);
   }
 
+  function pickData(userData) {
+    return _.pick(userData, ["name", "email", "password"]);
+  }
+
+  function validateEditUser(userData) {
+    const schema = Joi.object({
+      name: Joi.string().required(),
+      about: Joi.string().allow(""),
+      githubUrl: Joi.string().allow(""),
+      sex: Joi.string().allow(""),
+    });
+  
+    return schema.validate(userData);
+  }
+
+  function validatePassReset(req) {
+    const schema = Joi.object({
+      old_password: Joi.string().required(),
+      new_password: Joi.string().required(),
+    });
+    return schema.validate(req);
+  }
+  
   exports.User = User;
+  exports.validatePassReset= validatePassReset;
+  exports.validateEditUser=validateEditUser;
   exports.validateUser= validateUser;
+  exports.pickUserData=pickData;
   exports.validateLogin= validateLogin;

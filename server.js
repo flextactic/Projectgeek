@@ -1,8 +1,9 @@
 const express = require('express')
 const app = express()
+require('dotenv').config()
 
 //db connection
-require('./startup/db')
+require('./startup/db')();
 
 //routes 
 require("./startup/routes")(app);

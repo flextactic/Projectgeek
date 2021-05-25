@@ -1,5 +1,5 @@
 {
-  "name": "projecthub",
+  "name": "projectgeek",
   "version": "1.0.0",
   "description": "Place where you can show off your projects",
   "main": "index.js",
@@ -10,9 +10,12 @@
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "joi": "^17.4.0",
     "joi-password-complexity": "^5.1.0",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.21",
     "mongoose": "^5.12.11"
   }
 }
