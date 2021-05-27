@@ -2,6 +2,8 @@ const express = require('express')
 const user = require('../routes/users')
 const login = require('../routes/login');
 const verify = require('../routes/verify')
+const project = require('../routes/user_projects');
+
 
 module.exports = function(app)
 {
@@ -10,4 +12,5 @@ module.exports = function(app)
    app.use('/api/users',user);
    app.use('/api/login',login);
    app.use('/api/verify',verify);
+   app.use(project);
 }

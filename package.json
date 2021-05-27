@@ -21,6 +21,7 @@
     "lodash": "^4.17.21",
     "mongoose": "^5.12.11",
     "nodemailer": "^6.6.1",
-    "randomstring": "^1.2.1"
+    "randomstring": "^1.2.1",
+    "validator": "^13.6.0"
   }
 }
