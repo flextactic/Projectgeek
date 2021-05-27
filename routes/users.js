@@ -1,9 +1,15 @@
+const sgMail = require('@sendgrid/mail')
+sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 const express= require('express')
 const mongoose =require('mongoose')
+require('dotenv').config();
 const route = express.Router();
 const bcrypt = require('bcryptjs')
 const _ = require('lodash')
 const auth =require('../middlewares/auth')
+const nodemailer = require('nodemailer')
+const randomString = require('randomstring')
+const {TokenVerification} = require('../models/tokenVerification')
 const {User, validateUser, validateLogin, validateEditUser,pickUserData,validatePassReset} = require('../models/user')
 
 route.get('/me', async(req,res)=>{
@@ -48,7 +54,36 @@ route.post('/add', async(req,res)=>{
   user = new User(pickUserData(req.body));
   const salt = await bcrypt.genSalt(10);
   user.password = await bcrypt.hash(user.password, salt);
+
+  const usertoken = {
+    token: randomString.generate({ length: 128 }),
+    user: user._id,
+  };
+  const verificationToken = new TokenVerification(usertoken);
+  await verificationToken.save();
+  const msg = {
+    to: user.email, 
+    from: 'anshulmudgil38@gmail.com',
+    subject: 'Sending with SendGrid is Fun',
+    text: 'and easy to do anywhere, even with Node.js',
+    html:  `<p>Hi ${user.name},<br/>enter the following token on the link provided to verify your email address with us:</p>
+    <br/><br/>
+    <center><a href = "http://localhost:3000/#/verify/${usertoken.token}" target="_blank" rel="noopener noreferrer"><button>Click here to verify your account</button></a></center>
+    <br/><br/>
+    <strong>Your verification token:</strong>
+    <br/>
+    <center>${usertoken.token}</center>
+    `,
+  }
   await user.save();
+  sgMail
+  .send(msg)
+  .then(() => {
+    console.log('Email sent')
+  })
+  .catch((error) => {
+    console.error(error)
+  })
   res.status(200).send(_.pick(user, ["_id", "name", "email"]));
 });
 
