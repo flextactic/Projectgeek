@@ -7,6 +7,7 @@ const auth =require('../middlewares/auth')
 const mongoose =require('mongoose')
 const validateProject= require("../models/user_project");
 const validateEditProject= require("../models/user_project");
+const { Router } = require("express");
 
 // TODO: "CREATE PROJECT API";
 router.post("/create_project", async(req, res)=>{
@@ -26,7 +27,7 @@ router.post("/create_project", async(req, res)=>{
 
 // TODO: GET MY PROJECT
 
-route.get("/my_project",auth,async(req,res)=>{
+router.get("/my_project",auth,async(req,res)=>{
     try{
         const projectData=await Project.find(req.user._id);
         res.status(200).send(projectData);
