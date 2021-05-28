@@ -1,12 +1,8 @@
 const express = require("express");
-const router = new express.Router();
-const Project= require("../models/user_project");
-const bcrypt = require('bcryptjs')
-const _ = require('lodash')
+const router =  express.Router();
 const auth =require('../middlewares/auth')
 const mongoose =require('mongoose')
-const validateProject= require("../models/user_project");
-const validateEditProject= require("../models/user_project");
+const {Project,validateProject,validateEditProject} = require("../models/user_project");
 
 // TODO: "CREATE PROJECT API";
 router.post("/create_project", async(req, res)=>{
@@ -42,9 +38,11 @@ router.get("/get_project/:id", async(req,res)=>{
         const _id= req.params.id; 
         const projectData= await Project.findById(_id).populate("User");
 
-        if(!projectData){
+        if(!projectData)
+        {
             return res.status(404).send();
-        }else
+        }
+        else
         {
             res.send(projectData);
         }
@@ -65,7 +63,6 @@ router.put("/update_project/:id", async(req,res)=>{
         if(!_id) return res.status(400).send();
 
         const updateProject= await Project.findByIdAndUpdate(_id,req.body,{new :true});
-        console.log(updateProject);
         res.status(200).send(updateProject);
     }catch(e)
     {

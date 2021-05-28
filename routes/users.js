@@ -12,8 +12,8 @@ const randomString = require('randomstring')
 const {TokenVerification} = require('../models/tokenVerification')
 const {User, validateUser, validateLogin, validateEditUser,pickUserData,validatePassReset} = require('../models/user')
 
-route.get('/me', async(req,res)=>{
-    const user=await User.find(req.user.id)
+route.get('/me',auth, async(req,res)=>{
+    const user=await User.find(req.user._id)
     .populate('Project')
     .select([
         "name",
