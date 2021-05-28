@@ -44,7 +44,7 @@ route.get('/profile/:id', async(req, res)=>{
     res.status(200).send(user);
 });
 
-route.post('/add', async(req,res)=>{
+route.post('/add',auth, async(req,res)=>{
   const { error } = validateUser(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
