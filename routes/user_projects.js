@@ -24,6 +24,17 @@ router.post("/create_project", async(req, res)=>{
     }
 })
 
+// TODO: GET MY PROJECT
+
+route.get("/my_project",auth,async(req,res)=>{
+    try{
+        const projectData=await Project.find(req.user._id);
+        res.status(200).send(projectData);
+    }catch{
+        res.status(400).send("Something went wrong try again later...");
+    }
+})
+
 // TODO: GET PROJECTS API
 
 router.get("/get_projects",async(req,res)=>{
@@ -43,7 +54,7 @@ router.get("/get_project/:id", async(req,res)=>{
         const projectData= await Project.findById(_id).populate("User");
 
         if(!projectData){
-            return res.status(404).send();
+            return res.status(404).send("No project is their for this user.");
         }else
         {
             res.send(projectData);
@@ -53,17 +64,23 @@ router.get("/get_project/:id", async(req,res)=>{
     }
 })
 
-// TODO Update the project detail by it id
+// TODO UPDATE YOUR PROJECT DETAIL
 
-router.put("/update_project/:id", async(req,res)=>{
+router.put("/update_project",auth, async(req,res)=>{
 
     const { error } = validateEditProject(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
     try{
-        const _id= req.params.id;
-        if(!_id) return res.status(400).send();
 
+        const _id= req.user._id;
+        if(!_id) return res.status(400).send("User not found...");
+        
+        if(req.params.id!==_id)
+        {
+            res.status(420).send("Sorry you not have the access to update this project..");
+        }
+       
         const updateProject= await Project.findByIdAndUpdate(_id,req.body,{new :true});
         console.log(updateProject);
         res.status(200).send(updateProject);
@@ -76,16 +93,23 @@ router.put("/update_project/:id", async(req,res)=>{
 
 // TODO: Delete particular project of a user
 
-router.delete("/delete_project/:id",async(req,res)=>{
+router.delete("/delete_project",auth,async(req,res)=>{
     try{
-        const deleteProject= await Project.findByIdAndDelete(req.params.id);
-        if(!req.params.id){
-            return res.status(400).send();
+        if(!req.user._id){
+            return res.status(400).send("Something went wrong...");
         }
-        res.send(deleteProject);
+        
+        if(req.params.id!==_id)
+        {
+            res.status(420).send("Sorry you not have the access to delete this project..");
+        }
+
+
+        const deleteProject= await Project.findByIdAndDelete(req.user._id);
+        res.status(200).send(deleteProject);
     }
     catch(e){
-        res.status(500).send("Opps... Please try again later");
+        res.status(500).send("OPPS... Please try again later");
     }
 })
 
