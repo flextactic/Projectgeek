@@ -17,6 +17,7 @@ route.post('/', async(req, res)=>{
     const user = await User.findByIdAndUpdate(verificationToken.user, {isVerified: true}, {new: true});
     if(!user) return res.status(404).send('Invalid token, the user does not exist.');
     user.save();
+    await TokenVerification.deleteOne({token:req.body.token});
     res.status(200).send('User successfully verified! you may now login');
     
     //TODO: Delete the verification token after the user successfully verify and do it by  transactions

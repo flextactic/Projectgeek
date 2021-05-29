@@ -13,6 +13,7 @@ const {TokenVerification} = require('../models/tokenVerification')
 const {User, validateUser, validateLogin, validateEditUser,pickUserData,validatePassReset} = require('../models/user')
 
 route.get('/me',auth, async(req,res)=>{
+  try{
     const user=await User.find(req.user._id)
     .populate('Project')
     .select([
@@ -24,9 +25,15 @@ route.get('/me',auth, async(req,res)=>{
         "porjectInRequirement"
     ]);
     res.status(200).send(user);
+  }
+  catch(ex)
+  {
+     res.status(500).send('Something failed');
+  }
 });
 
 route.get('/profile/:id', async(req, res)=>{
+  try{
     const user = await User.findById(req.params.id)
     .populate('Project')
     .select([
@@ -42,53 +49,65 @@ route.get('/profile/:id', async(req, res)=>{
        res.status(400).send("User with given id doesn't exist");
     }
     res.status(200).send(user);
+  }
+  catch(ex)
+  {
+      res.status(500).send('Something failed');
+  }
 });
 
-route.post('/add',auth, async(req,res)=>{
-  const { error } = validateUser(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
-
-  let user = await User.findOne({ email: req.body.email });
-  if (user) return res.status(400).send("User already registered.");
-
-  user = new User(pickUserData(req.body));
-  const salt = await bcrypt.genSalt(10);
-  user.password = await bcrypt.hash(user.password, salt);
-
-  const usertoken = {
-    token: randomString.generate({ length: 128 }),
-    user: user._id,
-  };
-  const verificationToken = new TokenVerification(usertoken);
-  await verificationToken.save();
-  const msg = {
-    to: user.email, 
-    from: 'anshulmudgil38@gmail.com',
-    subject: 'Sending with SendGrid is Fun',
-    text: 'and easy to do anywhere, even with Node.js',
-    html:  `<p>Hi ${user.name},<br/>enter the following token on the link provided to verify your email address with us:</p>
-    <br/><br/>
-    <center><a href = "http://localhost:3000/#/verify/${usertoken.token}" target="_blank" rel="noopener noreferrer"><button>Click here to verify your account</button></a></center>
-    <br/><br/>
-    <strong>Your verification token:</strong>
-    <br/>
-    <center>${usertoken.token}</center>
-    `,
+route.post('/add',async(req,res)=>{
+  try{
+    const { error } = validateUser(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
+  
+    let user = await User.findOne({ email: req.body.email });
+    if (user) return res.status(400).send("User already registered.");
+  
+    user = new User(pickUserData(req.body));
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(user.password, salt);
+  
+    const usertoken = {
+      token: randomString.generate({ length: 128 }),
+      user: user._id,
+    };
+    const verificationToken = new TokenVerification(usertoken);
+    await verificationToken.save();
+    // const msg = {
+    //   to: user.email, 
+    //   from: 'anshulmudgil38@gmail.com',
+    //   subject: 'Sending with SendGrid is Fun',
+    //   text: 'and easy to do anywhere, even with Node.js',
+    //   html:  `<p>Hi ${user.name},<br/>enter the following token on the link provided to verify your email address with us:</p>
+    //   <br/><br/>
+    //   <center><a href = "http://localhost:3000/#/verify/${usertoken.token}" target="_blank" rel="noopener noreferrer"><button>Click here to verify your account</button></a></center>
+    //   <br/><br/>
+    //   <strong>Your verification token:</strong>
+    //   <br/>
+    //   <center>${usertoken.token}</center>
+    //   `,
+    // }
+    await user.save();
+    // sgMail
+    // .send(msg)
+    // .then(() => {
+    //   console.log('Email sent')
+    // })
+    // .catch((error) => {
+    //   console.error(error)
+    // })
+    res.status(200).send(_.pick(user, ["_id", "name", "email"]));
   }
-  await user.save();
-  sgMail
-  .send(msg)
-  .then(() => {
-    console.log('Email sent')
-  })
-  .catch((error) => {
-    console.error(error)
-  })
-  res.status(200).send(_.pick(user, ["_id", "name", "email"]));
+  catch(ex)
+  {
+     res.status(500).send('Something fialed');
+  }
 });
 
 route.put('/edit', auth, async(req,res)=>{
 
+  try{
     const { error } = validateEditUser(req.body);
     if (error) return res.status(400).send(error.details[0].message);
     
@@ -107,9 +126,16 @@ route.put('/edit', auth, async(req,res)=>{
       if (result.n)
         res.status(200).send("Your profile has been successfully updated.");
       else res.status(500).send("Error! please, try again later...");
+  }
+  catch(ex)
+  {
+     res.status(500).send('Something Failed');
+  }
+    
 });
 
 route.put("/resetPassword",auth, async (req, res) => {
+  try{
     const { error } = validatePassReset(req.body);
     if (error) return res.status(400).send(error.details[0].message);
   
@@ -124,6 +150,11 @@ route.put("/resetPassword",auth, async (req, res) => {
     user.password = await bcrypt.hash(req.body.new_password, salt);
     await user.save();
     res.status(200).send(_.pick(user, ["_id", "name", "email"]));
+  }
+  catch(ex)
+  {
+     res.status(500).send("Something failed");
+  }
   });
 
 module.exports=route;

@@ -17,6 +17,10 @@ const projectInRequirement = new mongoose.Schema({
         required: true,
         trim:true,
     },
+    createdAt:{
+        type:Date,
+        default:Date.now(),
+    },
 })
 function validateData(data)
 {
