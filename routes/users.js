@@ -12,7 +12,7 @@ const randomString = require('randomstring')
 const {TokenVerification} = require('../models/tokenVerification')
 const {User, validateUser, validateLogin, validateEditUser,pickUserData,validatePassReset} = require('../models/user')
 
-route.get('/me', async(req,res)=>{
+route.get('/me',auth, async(req,res)=>{
     const user=await User.find(req.user._id)
     .populate('Project')
     .select([
@@ -44,7 +44,7 @@ route.get('/profile/:id', async(req, res)=>{
     res.status(200).send(user);
 });
 
-route.post('/add', async(req,res)=>{
+route.post('/add',auth, async(req,res)=>{
   const { error } = validateUser(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
@@ -87,7 +87,7 @@ route.post('/add', async(req,res)=>{
   res.status(200).send(_.pick(user, ["_id", "name", "email"]));
 });
 
-route.put('/edit', async(req,res)=>{
+route.put('/edit',auth, async(req,res)=>{
 
     const { error } = validateEditUser(req.body);
     if (error) return res.status(400).send(error.details[0].message);
@@ -109,7 +109,7 @@ route.put('/edit', async(req,res)=>{
       else res.status(500).send("Error! please, try again later...");
 });
 
-route.put("/resetPassword", async (req, res) => {
+route.put("/resetPassword",auth, async (req, res) => {
     const { error } = validatePassReset(req.body);
     if (error) return res.status(400).send(error.details[0].message);
   
