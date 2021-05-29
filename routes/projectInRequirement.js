@@ -43,7 +43,7 @@ route.put('/update',auth, async(req,res)=>{
     const { error } = validateEdit(req.body);
     if (error) return res.status(400).send(error.details[0].message);
     const project = await ProjectInRequirement.findById(req.body.id);
-    if(!project) return res.status(400).send('Project doesnot exist with the given id');
+    if(!project) return res.status(400).send('Project does not exist with the given id');
     if(project.authorID!=req.user._id) return res.status(404).send('You dont have proper rights to update this project');
     project.description=req.body.description;
     project.save();

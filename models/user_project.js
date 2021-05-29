@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const Joi = require('joi');
+Joi.objectId = require("joi-objectid")(Joi);
 const validator = require("validator");
+const {User} = require("../models/user");
 
 const projectModel = new mongoose.Schema({
      name:{
@@ -11,11 +13,9 @@ const projectModel = new mongoose.Schema({
          trim:true,
      },
      Author: {
-         user:{
             type: mongoose.Schema.Types.ObjectId,
             ref:'User',
             required: true,
-         }
      },
     description:{
          type: String,
@@ -24,18 +24,7 @@ const projectModel = new mongoose.Schema({
      },
      tags:
      {
-        type: Array,
-        validate:{
-            isAsync:true,
-            validator: async function(v,callback)
-            {
-                 setTimeout(() =>{
-                     const result = v && v.length >0;
-                     callback(result);
-                 },2000);
-            },
-            message : 'A Project Should have atleast one tag.'
-        },
+        type: Array, 
         required: true,
      },
      dateuploadedAt:
@@ -62,8 +51,8 @@ const projectModel = new mongoose.Schema({
 function validateProject(project) {
     const schema = Joi.object({
         name: Joi.string().required().min(3).max(50),
-        Author: Joi.string().required().min(3).max(50),
-        tags: Joi.Array().required(),
+        Author: Joi.objectId().required(),
+        tags: Joi.array().items(Joi.string()),
         description: Joi.string().required().min(10).max(200),
         githubUrl: Joi.string().required(),
     });
@@ -76,8 +65,7 @@ function validateProject(project) {
 function validateEditProject(projectData) {
     const schema = Joi.object({
       name: Joi.string().required().min(3).max(50),
-      tags: Joi.Array().required(),
-      Author: Joi.string().required().min(3).max(50),
+      tags: Joi.array().items(Joi.string()),
       description: Joi.string().required().min(10).max(200),
       githubUrl: Joi.string().required(),
     });
@@ -88,9 +76,9 @@ function validateEditProject(projectData) {
 
 
 
-const Project = new mongoose.model('Project',projectModel);
+const Project = mongoose.model('Project',projectModel);
 
 
-module.exports= Project;
+exports.Project = Project;
 exports.validateProject=validateProject;
 exports.validateEditProject=validateEditProject;

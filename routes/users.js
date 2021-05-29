@@ -105,7 +105,7 @@ route.post('/add',async(req,res)=>{
   }
 });
 
-route.put('/edit', auth, async(req,res)=>{
+route.put('/edit',auth, async(req,res)=>{
 
   try{
     const { error } = validateEditUser(req.body);
