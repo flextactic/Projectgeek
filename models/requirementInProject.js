@@ -21,6 +21,18 @@ const projectInRequirement = new mongoose.Schema({
         type:Date,
         default:Date.now(),
     },
+    like:
+    {
+        type:Number,
+        default:0,
+        min:0.
+    },
+    dislike:
+    {
+        type:Number,
+        default:0,
+        min:0,
+    },
 })
 function validateData(data)
 {

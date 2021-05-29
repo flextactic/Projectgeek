@@ -56,7 +56,7 @@ route.get('/profile/:id', async(req, res)=>{
   }
 });
 
-route.post('/add',async(req,res)=>{
+route.post('/add',auth,async(req,res)=>{
   try{
     const { error } = validateUser(req.body);
     if (error) return res.status(400).send(error.details[0].message);
@@ -74,29 +74,29 @@ route.post('/add',async(req,res)=>{
     };
     const verificationToken = new TokenVerification(usertoken);
     await verificationToken.save();
-    // const msg = {
-    //   to: user.email, 
-    //   from: 'anshulmudgil38@gmail.com',
-    //   subject: 'Sending with SendGrid is Fun',
-    //   text: 'and easy to do anywhere, even with Node.js',
-    //   html:  `<p>Hi ${user.name},<br/>enter the following token on the link provided to verify your email address with us:</p>
-    //   <br/><br/>
-    //   <center><a href = "http://localhost:3000/#/verify/${usertoken.token}" target="_blank" rel="noopener noreferrer"><button>Click here to verify your account</button></a></center>
-    //   <br/><br/>
-    //   <strong>Your verification token:</strong>
-    //   <br/>
-    //   <center>${usertoken.token}</center>
-    //   `,
-    // }
+    const msg = {
+      to: user.email, 
+      from: 'anshulmudgil38@gmail.com',
+      subject: 'Sending with SendGrid is Fun',
+      text: 'and easy to do anywhere, even with Node.js',
+      html:  `<p>Hi ${user.name},<br/>enter the following token on the link provided to verify your email address with us:</p>
+      <br/><br/>
+      <center><a href = "http://localhost:3000/#/verify/${usertoken.token}" target="_blank" rel="noopener noreferrer"><button>Click here to verify your account</button></a></center>
+      <br/><br/>
+      <strong>Your verification token:</strong>
+      <br/>
+      <center>${usertoken.token}</center>
+      `,
+    }
     await user.save();
-    // sgMail
-    // .send(msg)
-    // .then(() => {
-    //   console.log('Email sent')
-    // })
-    // .catch((error) => {
-    //   console.error(error)
-    // })
+    sgMail
+    .send(msg)
+    .then(() => {
+      console.log('Email sent')
+    })
+    .catch((error) => {
+      console.error(error)
+    })
     res.status(200).send(_.pick(user, ["_id", "name", "email"]));
   }
   catch(ex)
