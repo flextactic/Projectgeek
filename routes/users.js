@@ -87,7 +87,7 @@ route.post('/add',auth, async(req,res)=>{
   res.status(200).send(_.pick(user, ["_id", "name", "email"]));
 });
 
-route.put('/edit', auth, async(req,res)=>{
+route.put('/edit',auth, async(req,res)=>{
 
     const { error } = validateEditUser(req.body);
     if (error) return res.status(400).send(error.details[0].message);
