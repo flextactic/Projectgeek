@@ -10,12 +10,13 @@ const auth =require('../middlewares/auth')
 const nodemailer = require('nodemailer')
 const randomString = require('randomstring')
 const {TokenVerification} = require('../models/tokenVerification')
-const {User, validateUser, validateLogin, validateEditUser,pickUserData,validatePassReset} = require('../models/user')
+const {User, validateUser, validateEditUser,pickUserData,validatePassReset} = require('../models/user')
 
 route.get('/me',auth, async(req,res)=>{
   try{
     const user=await User.find(req.user._id)
-    .populate('Project')
+    .populate('projects')
+    .populate('projectInRequirement')
     .select([
         "name",
         "email",
@@ -35,7 +36,8 @@ route.get('/me',auth, async(req,res)=>{
 route.get('/profile/:id', async(req, res)=>{
   try{
     const user = await User.findById(req.params.id)
-    .populate('Project')
+    .populate('projects')
+    .populate('projectInRequirement')
     .select([
         "name",
         "email",
