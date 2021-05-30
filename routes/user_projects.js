@@ -128,4 +128,107 @@ router.delete("/delete_project/:id",auth,async(req,res)=>{
     }
 })
 
+router.put("/like/:id",auth,async(req,res)=>{
+    const user_id=req.user._id;
+    const id=req.params.id;
+    const project= await Project.findById(id);
+    if(!project) 
+    {
+        res.status(400).send("Project is not a function..")
+        return;
+    }
+    const user=await User.findById(user_id);
+    if(!user) res.status(400).send("Register Yourself to Like the Project...");
+    const upvoted =await User.findOne({_id:req.user._id,upvoted:{id:project._id}});
+    if(!upvoted){
+        
+        const downvoted =await User.findOne({_id:req.user._id,downvoted:{id:project._id}});
+
+        if(downvoted)
+        {
+            const user = await User.updateOne(
+                { _id: user_id },
+                {
+                  $pull: {
+                    downvoted: { id: project.id, contentType: mongoose.Schema.Types.ObjectId },
+                  },
+                }
+              );
+              project.dislikes=project.dislikes-1;
+        }
+
+        user.upvoted.push({id:req.params.id});
+        project.likes=project.likes+1;
+        user.save();
+        project.save();
+        res.status(200).send("Successfully Like...");
+    }
+    else {
+        const user = await User.updateOne(
+            { _id: user_id },
+            {
+              $pull: {
+                upvoted: { id: project.id, contentType: mongoose.Schema.Types.ObjectId },
+              },
+            }
+          );
+          project.likes=project.likes-1;
+          project.save();
+          res.status(200).send("Succesfully Unlike..");
+    }
+})
+
+// TODO: DISLIKE THE PROJECT
+
+router.put("/dislike/:id",auth,async(req,res)=>{
+    const user_id=req.user._id;
+    const id=req.params.id;
+    const project= await Project.findById(id);
+    if(!project) 
+    {
+        res.status(400).send("Project is not a function..")
+        return;
+    }
+    const user=await User.findById(user_id);
+    if(!user) res.status(400).send("Register Yourself to Like the Project...");
+    const downvoted =await User.findOne({_id:req.user._id,downvoted:{id:project._id}});
+    if(!downvoted){
+        
+        const upvoted =await User.findOne({_id:req.user._id,upvoted:{id:project._id}});
+
+        if(upvoted)
+        {
+            const user = await User.updateOne(
+                { _id: user_id },
+                {
+                  $pull: {
+                    upvoted: { id: project.id, contentType: mongoose.Schema.Types.ObjectId },
+                  },
+                }
+              );
+              project.likes=project.likes-1;
+        }
+        
+        user.downvoted.push({id:req.params.id});
+        project.dislikes=project.dislikes+1;
+        user.save();
+        project.save();
+        res.status(200).send("Successfully dislike...");
+    }
+    else {
+        const user = await User.updateOne(
+            { _id: user_id },
+            {
+              $pull: {
+                downvoted: { id: project.id, contentType: mongoose.Schema.Types.ObjectId },
+              },
+            }
+          );
+          project.dislikes=project.dislikes-1;
+          project.save();
+          res.status(200).send("Succesfully Undislike..");
+    }
+})
+
+
 module.exports = router;
