@@ -17,7 +17,7 @@ route.post('/add',auth,async(req,res)=>{
     const projectInRequirement = new ProjectInRequirement({authorID: req.user._id, projectID: req.body.projectId, description:req.body.description});
     const user = await User.findById(req.user._id);
     if(!user) return res.status(404).send('User not Found.');
-    user.projectInRequirement.push({id:req.body.projectId});
+    user.projectInRequirement.push({id:req.body.projectId,reqDescription:req.body.description});
     user.save();
     projectInRequirement.save();
     res.status(200).send('Project Successfully added in requirement seciton');
@@ -32,6 +32,18 @@ route.get('/', async(req,res)=>{
   try{
     const projectInRequirement= await ProjectInRequirement.find().populate('authorID');
     if(!projectInRequirement)  return res.status(400).send('NO project exist in this section.');
+    res.status(200).send(projectInRequirement);
+  }
+  catch(ex)
+  {
+     res.status(500).send("Something failed");
+  }
+});
+
+route.get('/me',auth, async(req,res)=>{
+  try{
+    const projectInRequirement= await ProjectInRequirement.find({authorID:req.user._id}).populate('projectID');
+    if(!projectInRequirement)  return res.status(400).send('NO project exist for this user.');
     res.status(200).send(projectInRequirement);
   }
   catch(ex)

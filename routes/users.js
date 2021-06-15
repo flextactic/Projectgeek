@@ -14,9 +14,9 @@ const {User, validateUser, validateEditUser,pickUserData,validatePassReset} = re
 
 route.get('/me',auth, async(req,res)=>{
   try{
-    const user=await User.find(req.user._id)
-    .populate('projects')
-    .populate('projectInRequirement')
+    const user=await User.find({_id:req.user._id})
+    .populate('projects.id')
+    .populate('projectInRequirement.id','-description')
     .select([
         "name",
         "email",
@@ -29,6 +29,7 @@ route.get('/me',auth, async(req,res)=>{
   }
   catch(ex)
   {
+     console.log(ex);
      res.status(500).send('Something failed');
   }
 });
@@ -58,7 +59,7 @@ route.get('/profile/:id', async(req, res)=>{
   }
 });
 
-route.post('/add',auth,async(req,res)=>{
+route.post('/add',async(req,res)=>{
   try{
     const { error } = validateUser(req.body);
     if (error) return res.status(400).send(error.details[0].message);
