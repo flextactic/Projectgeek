@@ -1,5 +1,4 @@
-  
-  /* Add some padding inside the card container */
+    /* Add some padding inside the card container */
   .container {
     position: relative;
     display: flex;
@@ -52,4 +51,4 @@
       /* object-fit: cover; */
       border-radius: 50%;
       
-  }
+  } 

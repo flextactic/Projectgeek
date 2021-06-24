@@ -1,8 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Userdata from './Components/Userdata';
-import './App.css';
+// import Userdata from './Components/Userdata';
 import Navbar from './Components/Layout/Navbar';
+import Home from './Components/Layout/Homepage';
+// import Login from './Components/Loginpage';
+import './App.css';
 
 class App extends Component {
   state={
@@ -12,10 +14,12 @@ class App extends Component {
   }
   render(){
     return(
-      <div>
+      <Fragment>
+        {/* <Login/> */}
         <Navbar/>
+        <Home/>
         {/* <Userdata userinfo={this.state.user}/> */}
-      </div>
+      </Fragment>
     );
   }
 }
