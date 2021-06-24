@@ -27,11 +27,16 @@ const error = (state, action) => {
         ...state,
         projects: [action.payload, ...state.projects],
       };
-      case SHOW_PROJECT:
-        return{
-          ...state,
-          projectary:action.payload,
-        }
+    case SHOW_PROJECT:
+      return {
+        ...state,
+        projectary: action.payload,
+      };
+    case SHOW_PROJECTREQ:
+      return {
+        ...state,
+        requiredary: action.payload,
+      };
     case UPDATE_PROJECT:
       return {
         ...state,

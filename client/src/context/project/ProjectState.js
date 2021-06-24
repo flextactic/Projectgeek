@@ -85,7 +85,7 @@ const ProjectState = (props) => {
   //show project array
   const showProject = async () => {
     try {
-      const res = await axios.get('/api/user_projects/get_projects');
+      const res = await axios.get('/get_projects');
 
       dispatch({
         type: SHOW_PROJECT,
@@ -102,7 +102,7 @@ const ProjectState = (props) => {
   //show required array
   const showProjectreq = async () => {
     try {
-      const res = await axios.get('/api/users/me');
+      const res = await axios.get('/api/requirement/');
 
       dispatch({
         type: SHOW_PROJECTREQ,

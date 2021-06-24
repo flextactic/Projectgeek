@@ -20,9 +20,18 @@ const Profilepage = () => {
     //eslint-disable-next-line
   }, []);
 
-  const [userProfile, setuserProfile] = useState({ profile });
+  const [userProfile, setuserProfile] = useState({
+    name: '',
+    eamil: '',
+    sex: '',
+    githubUrl: '',
+    projects: '',
+    porjectInRequirement: '',
+  });
 
-  const { projects, projectsinrequirement } = userProfile;
+  setuserProfile({ profile });
+
+  const { projects, porjectInRequirement } = userProfile;
 
   return (
     <Fragment>
@@ -39,9 +48,7 @@ const Profilepage = () => {
           <div className='user-projects'>
             <Userprojects projects={projects} />
             <h3>PROJECT IN REQUIREMENT </h3>
-            <Requireduserprojects
-              projectinrequirement={projectsinrequirement}
-            />
+            <Requireduserprojects porjectInRequirement={porjectInRequirement} />
           </div>
         </div>
       </div>

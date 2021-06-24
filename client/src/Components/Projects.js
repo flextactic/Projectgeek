@@ -4,7 +4,8 @@ import Tag from './Tags';
 function Projects(props) {
   const { project } = props;
 
-  const { name, Author, description, tags, githubUrl, like, dislike } = project;
+  const { name, Author, description, tags, githubUrl, likes, dislikes } =
+    project;
 
   const likeproject = () => {};
 
@@ -27,8 +28,7 @@ function Projects(props) {
       </div>
       <div id='popup-project'>
         <i className='fas fa-window-close' onClick={toggle}></i>
-        <h2>popup</h2>
-        <h3>Autor: {Author} </h3>
+        <h3>Autor: {Author.name} </h3>
         <h3>Description</h3>
         <p>{description}</p>
         <h2>Tags</h2>

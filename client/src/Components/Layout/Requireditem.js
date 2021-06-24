@@ -5,10 +5,10 @@ import './Requireditem.css';
 const Requireditem = () => {
   const projectContext = useContext(ProjectContext);
 
-  const { showProject, requiredary } = projectContext;
+  const { showProjectreq, requiredary } = projectContext;
 
   useEffect(() => {
-    showProject();
+    showProjectreq();
     //eslint-disable-next-line
   }, []);
 

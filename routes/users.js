@@ -6,6 +6,7 @@ require('dotenv').config();
 const route = express.Router();
 const bcrypt = require('bcryptjs');
 const _ = require('lodash');
+const jwt = require('jsonwebtoken');
 const auth = require('../middlewares/auth');
 const nodemailer = require('nodemailer');
 const randomString = require('randomstring');
@@ -18,13 +19,25 @@ const {
   validatePassReset,
 } = require('../models/user');
 
+route.get('/verifyToken', async (req, res) => {
+  const token = req.header('x-auth-token');
+  if (!token) return res.status(401).send('Access denied. No token provided. ');
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_PRIVATE_KEY);
+    res.status(200).send(decoded);
+  } catch (ex) {
+    res.status(400).send('Invalid token.');
+  }
+});
+
 route.get('/me', auth, async (req, res) => {
   try {
-    const user = await User.find(req.user._id)
-      .populate('projects')
-      .populate('projectInRequirement')
+    const user = await User.find({ _id: req.user._id })
+      .populate('projects.id')
+      .populate('projectInRequirement.id', '-description')
       .select([
         'name',
+        'about',
         'email',
         'sex',
         'githubUrl',
@@ -33,6 +46,7 @@ route.get('/me', auth, async (req, res) => {
       ]);
     res.status(200).send(user);
   } catch (ex) {
+    console.log(ex);
     res.status(500).send('Something failed');
   }
 });

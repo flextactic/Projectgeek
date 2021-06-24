@@ -20,11 +20,8 @@ const Required = (props) => {
       <div className='empty'></div>
       <div className='requiredglass-panel'>
         <i class='fas fa-expand-arrows-alt' onClick={toggle}></i>
-        <h1>C1</h1>
-        <p>
-          Glassmorphism is achieved using transparency and background blur to
-          get a frosted-glass like effect.
-        </p>
+        <h1>{name}</h1>
+        <p>{description}</p>
         <div className='requiredglass-toolbar' style={{ display: 'flex' }}>
           <i className='far fa-thumbs-up '></i>
           <i className='far fa-thumbs-down '></i>
@@ -33,44 +30,23 @@ const Required = (props) => {
       <div id='requiredpopup-project'>
         <i class='fas fa-window-close' onClick={toggle}></i>
         <h2>popup</h2>
-        <h3>Autor: </h3>
-        <h3>Description</h3>
-        <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cumque
-          corrupti consequuntur modi tempore, ducimus adipisci deleniti est
-          sequi, laborum ipsam voluptatem recusandae fuga quas molestias aliquam
-          at pariatur dolor assumenda? Lorem ipsum dolor, sit amet consectetur
-          adipisicing elit. Cumque corrupti consequuntur modi tempore, ducimus
-          adipisci deleniti est sequi, laborum ipsam voluptatem recusandae fuga
-          quas molestias aliquam at pariatur dolor assumenda? Lorem ipsum dolor,
-          sit amet consectetur adipisicing elit. Cumque corrupti consequuntur
-          modi tempore, ducimus adipisci deleniti est sequi, laborum ipsam
-          voluptatem recusandae fuga quas molestias aliquam at pariatur dolor
-          assumenda?
-        </p>
+        <h3>Autor: {Author.name}</h3>
         <h3>Requirement</h3>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis
-          assumenda quasi fugit debitis ab praesentium repudiandae eaque,
-          dolorem nemo obcaecati temporibus ducimus similique distinctio,
-          doloribus molestias! Numquam maxime sapiente amet? Ex, quasi sunt
-          tempora reiciendis ratione eaque voluptatum nisi cupiditate voluptate
-          veniam deleniti omnis quibusdam aperiam debitis cum perspiciatis
-          corrupti. At, consequuntur eligendi voluptates dolor possimus atque.
-          Nemo, quam culpa.
-        </p>
+        <p>{description}</p>
         <h2>Tags</h2>
         <div
           className='requiredprojectags'
           style={{ display: 'flex', flexWrap: 'wrap' }}
         >
-          <Tag />
+          {tags.map((tag) => (
+            <Tag tag={tag} />
+          ))}
         </div>
         <br />
         <br />
         <i class='fab fa-github' style={{ float: 'left', fontSize: '1.6em' }}>
           {' '}
-          GithubUrl
+          {githubUrl}
         </i>
       </div>
     </Fragment>

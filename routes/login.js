@@ -23,6 +23,8 @@ route.post("/", async (req, res) => {
     const token = jwt.sign(
       {
         _id: user._id,
+        email:req.body.email,
+        user:user.name,
       },
       process.env.JWT_PRIVATE_KEY
     );

@@ -31,7 +31,7 @@ const AuthState = (props) => {
       setAuthToken(localStorage.token);
     }
     try {
-      const res = await axios.get('/api/login');
+      const res = await axios.get('/api/users/verifyToken');
 
       dispatch({
         type: USER_LOADED,
