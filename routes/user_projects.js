@@ -13,7 +13,7 @@ router.post("/create_project",auth,async(req, res)=>{
         if (error) return res.status(400).send(error.details[0].message);
         const project= new Project({
             name: req.body.name,
-            Author: req.body.Author,
+            Author: req.user._id,
             description: req.body.description,
             tags: req.body.tags,
             githubUrl: req.body.githubUrl

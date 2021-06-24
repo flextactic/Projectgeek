@@ -6,11 +6,23 @@ require('dotenv').config();
 const route = express.Router();
 const bcrypt = require('bcryptjs')
 const _ = require('lodash')
+const jwt=require('jsonwebtoken');
 const auth =require('../middlewares/auth')
 const nodemailer = require('nodemailer')
 const randomString = require('randomstring')
 const {TokenVerification} = require('../models/tokenVerification')
 const {User, validateUser, validateEditUser,pickUserData,validatePassReset} = require('../models/user')
+
+route.get('/verifyToken',async(req,res)=>{
+  const token = req.header('x-auth-token');
+  if (!token) return res.status(401).send("Access denied. No token provided. ");
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_PRIVATE_KEY);
+    res.status(200).send(decoded);
+  } catch (ex) {
+    res.status(400).send("Invalid token.");
+  }
+})
 
 route.get('/me',auth, async(req,res)=>{
   try{
@@ -19,6 +31,7 @@ route.get('/me',auth, async(req,res)=>{
     .populate('projectInRequirement.id','-description')
     .select([
         "name",
+        "about",
         "email",
         "sex",
         "githubUrl",
