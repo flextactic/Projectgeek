@@ -1,0 +1,14 @@
+.projectcontainer{
+    height: 100%;
+    background: url(https://image.freepik.com/free-photo/neon-circle-dark-street-background-reflection-blue-red-neon-asphalt_129911-28.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    font-family: 'Open Sans', sans-serif;
+    min-height: 100vh;
+}
+
+.empty{
+    height: 60px!important;
+}

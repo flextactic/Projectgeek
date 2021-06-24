@@ -1,0 +1,120 @@
+.user-glasspanel {
+    color: #000;
+    background-color: #000;
+    border: 1px solid ;
+    border-radius: 15px;
+    padding: 32px;
+    margin: 50px;
+    max-height: 400px;
+  }
+  
+  .user-glasspanel {  
+    max-width: 90%;
+  }
+
+  .user-glasspanel i{
+    float: right;
+    font-size: 2rem;
+    cursor: pointer;
+  }
+  
+  h1, h1 a {
+    min-height: 80px;
+    width: 90%;
+    max-width: 700px;
+    vertical-align: middle;
+    text-align: left;
+    text-decoration: none;
+    color: #fff;
+    color: rgba(255,255,255,1);
+  }
+  
+  p {
+    width: 80%;
+    padding-bottom: 32px;
+    color: rgba(255,255,255,1);
+  }
+
+
+/* project description pop up */
+  #popup-userproject{
+    position: fixed;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    max-height: 500px;
+    padding: 50px;
+    box-shadow: 0 5px 30px rgba(0,0,0,.30);
+    border-radius: 15px;
+    background-color: black ;
+    visibility: hidden;
+    opacity: 0;
+    z-index: 50;
+    overflow-y: auto;
+    width: 90%;
+    max-width: 700px;
+  }
+  #popup-userproject i{
+      float: right;
+      font-size: 1.3rem;
+      cursor: pointer;
+  }
+
+  #popup-userproject h2 {
+    min-height: 80px;
+    width: 90%;
+    max-width: 700px;
+    vertical-align: middle;
+    text-align: left;
+    text-decoration: none;
+    text-transform: capitalize;
+    color: #fff;
+    color: rgba(255,255,255,1);
+  }
+
+  #popup-userproject p {
+    width: 100%;
+    padding-bottom: 32px;
+    color: rgba(255,255,255,1);
+  }
+  
+  #popup-userproject.active{
+    visibility: visible;
+    opacity: 1;
+    max-height: 500px;
+  }
+
+
+  .user-glasstoolbar{
+    margin: 10% 0;
+    color: rgba(255,255,255,0.6);
+  }
+
+  .user-glasstoolbar i{
+    font-size: 2rem;
+  }
+  .subtoolbar{
+      width: 100%;
+  }
+  .subtoolbar i{
+      padding-left: 30px;
+}
+
+@media(max-width:1020px){
+    .user-glasspanel{
+        width: 100%;
+    }
+}
+@media(max-width:700px){
+    .user-glasspanel{
+    margin-left: 5%;
+    }
+}
+
+@media(max-width:340px){
+    .user-glasspanel{
+        height: 850px;
+        }
+}
+
+
