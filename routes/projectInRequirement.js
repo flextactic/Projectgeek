@@ -28,7 +28,7 @@ route.post('/add',auth,async(req,res)=>{
   }
 });
 
-route.get('/', async(req,res)=>{
+route.get('/projects', async(req,res)=>{
   try{
     const projectInRequirement= await ProjectInRequirement.find().populate('authorID').populate('projectID');
     if(!projectInRequirement)  return res.status(400).send('NO project exist in this section.');
