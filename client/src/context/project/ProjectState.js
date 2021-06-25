@@ -102,17 +102,19 @@ const ProjectState = (props) => {
   //show required array
   const showProjectreq = async () => {
     try {
-      const res = await axios.get('/api/requirement/');
+      const res = await axios.get('/api/requirement/projects');
 
       dispatch({
         type: SHOW_PROJECTREQ,
         payload: res.data,
       });
     } catch (err) {
-      dispatch({
-        type: PROJECT_ERROR,
-        payload: err.response.data,
-      });
+      if (err.response && err.response.data) {
+        dispatch({
+          type: PROJECT_ERROR,
+          payload: err.response.data,
+        });
+      }
     }
   };
 

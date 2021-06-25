@@ -3,8 +3,8 @@ import Userprojects from './Userprojects';
 import Requireduserprojects from './Requireduserprojects';
 import ProjectContext from '../../context/project/projectContext';
 import AuthContext from '../../context/auth/authContext';
-import Profile from './Profile';
 import './Profilepage.css';
+import Profile from './Profile';
 const Profilepage = () => {
   const projectContext = useContext(ProjectContext);
 
@@ -20,19 +20,6 @@ const Profilepage = () => {
     //eslint-disable-next-line
   }, []);
 
-  const [userProfile, setuserProfile] = useState({
-    name: '',
-    eamil: '',
-    sex: '',
-    githubUrl: '',
-    projects: '',
-    porjectInRequirement: '',
-  });
-
-  setuserProfile({ profile });
-
-  const { projects, porjectInRequirement } = userProfile;
-
   return (
     <Fragment>
       <div className='empty'></div>
@@ -41,14 +28,14 @@ const Profilepage = () => {
         style={{ display: 'flex', flexWrap: 'wrap' }}
       >
         <div className='card-container'>
-          <Profile />
+          <Profile profile={profile} />
         </div>
         {/* projects */}
         <div className='project-main'>
           <div className='user-projects'>
-            <Userprojects projects={projects} />
+            <Userprojects />
             <h3>PROJECT IN REQUIREMENT </h3>
-            <Requireduserprojects porjectInRequirement={porjectInRequirement} />
+            <Requireduserprojects />
           </div>
         </div>
       </div>

@@ -4,8 +4,9 @@ import Tag from '../Tags';
 const Required = (props) => {
   const { required } = props;
 
-  const { name, Author, description, tags, githubUrl, like, dislike } =
-    required;
+  const { authorID, description, projectID, like, dislike } = required;
+
+  const { tags, name, githubUrl } = projectID;
 
   const likeproject = () => {};
 
@@ -30,7 +31,7 @@ const Required = (props) => {
       <div id='requiredpopup-project'>
         <i class='fas fa-window-close' onClick={toggle}></i>
         <h2>popup</h2>
-        <h3>Autor: {Author.name}</h3>
+        <h3>Autor: {authorID.name}</h3>
         <h3>Requirement</h3>
         <p>{description}</p>
         <h2>Tags</h2>

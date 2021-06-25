@@ -47,7 +47,7 @@ route.post('/add', auth, async (req, res) => {
   }
 });
 
-route.get('/', async (req, res) => {
+route.get('/projects', async (req, res) => {
   try {
     const projectInRequirement = await ProjectInRequirement.find()
       .populate('authorID')

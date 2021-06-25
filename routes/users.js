@@ -62,7 +62,7 @@ route.get('/profile/:id', async (req, res) => {
         'sex',
         'githubUrl',
         'projects',
-        'porjectInRequirement',
+        'projectInRequirement',
       ]);
     if (!user) {
       res.status(400).send("User with given id doesn't exist");

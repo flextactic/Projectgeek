@@ -6,16 +6,18 @@ import Tag from '../Tags';
 const Requireduserprojects = () => {
   const projectContext = useContext(ProjectContext);
 
-  const { addProject, setCurrentreq, deleteProject, updateProject } =
+  const { addProject, setCurrentreq, deleteProject, updateProject, profile } =
     projectContext;
 
+  const { projectInRequirement } = profile;
+
   const [project, setProject] = useState({
-    id: 'aaaaaaaaaa',
-    tags: 'aaaaaaaaa',
-    name: 'aaaaaaaa',
-    description: 'aaaaaaaaaaaa',
-    requirement: 'aaaaaaaaa',
-    url: 'aaaaaaaaaaaaa',
+    id: '',
+    tags: '',
+    name: '',
+    description: '',
+    requirement: '',
+    url: '',
   });
 
   const { id, tags, name, requirement, description, url } = project;
