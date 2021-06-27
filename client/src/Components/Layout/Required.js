@@ -2,9 +2,9 @@ import React, { Fragment } from 'react';
 import './Required.css';
 import Tag from '../Tags';
 const Required = (props) => {
-  const { required } = props;
+  const { key, required } = props;
 
-  const { authorID, description, projectID, like, dislike } = required;
+  const { authorID, _id, description, projectID, like, dislike } = required;
 
   const { tags, name, githubUrl } = projectID;
 
@@ -13,7 +13,7 @@ const Required = (props) => {
   const dislikeproject = () => {};
 
   const toggle = () => {
-    var popup = document.getElementById('requiredpopup-project');
+    var popup = document.getElementById(`requiredpopup-project${_id}`);
     popup.classList.toggle('active');
   };
   return (
@@ -28,9 +28,11 @@ const Required = (props) => {
           <i className='far fa-thumbs-down '></i>
         </div>
       </div>
-      <div id='requiredpopup-project'>
+
+      {/* popup */}
+      <div id={`requiredpopup-project${_id}`}>
         <i class='fas fa-window-close' onClick={toggle}></i>
-        <h2>popup</h2>
+        <h2>{name}</h2>
         <h3>Autor: {authorID.name}</h3>
         <h3>Requirement</h3>
         <p>{description}</p>

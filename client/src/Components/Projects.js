@@ -2,9 +2,9 @@ import React, { Fragment } from 'react';
 import './Projects.css';
 import Tag from './Tags';
 function Projects(props) {
-  const { project } = props;
+  const { project, key } = props;
 
-  const { name, Author, description, tags, githubUrl, likes, dislikes } =
+  const { name, _id, Author, description, tags, githubUrl, likes, dislikes } =
     project;
 
   const likeproject = () => {};
@@ -12,7 +12,7 @@ function Projects(props) {
   const dislikeproject = () => {};
 
   const toggle = () => {
-    var popup = document.getElementById('popup-project');
+    let popup = document.getElementById(`popup-project${_id}`);
     popup.classList.toggle('active');
   };
   return (
@@ -26,8 +26,10 @@ function Projects(props) {
           <i className='far fa-thumbs-down ' onClick={dislikeproject}></i>
         </div>
       </div>
-      <div id='popup-project'>
+
+      <div id={`popup-project${_id}`}>
         <i className='fas fa-window-close' onClick={toggle}></i>
+        <h1>{name}</h1>
         <h3>Autor: {Author.name} </h3>
         <h3>Description</h3>
         <p>{description}</p>
