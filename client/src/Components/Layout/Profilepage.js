@@ -23,22 +23,30 @@ const Profilepage = () => {
   return (
     <Fragment>
       <div className='empty'></div>
-      <div
-        className='user-profile'
-        style={{ display: 'flex', flexWrap: 'wrap' }}
-      >
-        <div className='card-container'>
-          <Profile profile={profile} />
-        </div>
-        {/* projects */}
-        <div className='project-main'>
-          <div className='user-projects'>
-            <Userprojects />
-            <h3>PROJECT IN REQUIREMENT </h3>
-            <Requireduserprojects />
+      {profile == null ? (
+        <div>Loading...</div>
+      ) : (
+        <Fragment>
+          <div
+            className='user-profile'
+            style={{ display: 'flex', flexWrap: 'wrap' }}
+          >
+            <div className='card-container'>
+              {profile.map((profile) => (
+                <Profile profile={profile} />
+              ))}
+            </div>
+            {/* projects */}
+            <div className='project-main'>
+              <div className='user-projects'>
+                <Userprojects />
+                <h3>PROJECT IN REQUIREMENT </h3>
+                <Requireduserprojects />
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        </Fragment>
+      )}
     </Fragment>
   );
 };
