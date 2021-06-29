@@ -20,7 +20,7 @@ function Projectitem() {
         style={{ display: 'flex', flexWrap: 'wrap' }}
       >
         {projectary.map((project) => (
-          <Project project={project} />
+          <Project key={project.name} project={project} />
         ))}
       </div>
     </Fragment>

@@ -1,110 +1,109 @@
+.glass-panel {
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.06);
+  border: 1px solid;
+  width: 600px;
+  border-radius: 15px;
+  padding: 32px;
+  backdrop-filter: blur(50px);
+  margin: 50px;
+  max-height: 400px;
+}
 
 .glass-panel {
-    color: #fff;
-    background-color: rgba(255,255,255,0.06);
-    border: 1px solid ;
-    width: 600px ;
-    border-radius: 15px;
-    padding: 32px;
-    backdrop-filter: blur(50px);
-    margin: 50px;
-    max-height: 400px;
-  }
-  
-  .glass-panel {  
-    max-width: 70%;
-  }
+  max-width: 70%;
+}
 
-  .glass-panel i{
-    float: right;
-    font-size: 2rem;
-    cursor: pointer;
-  }
-  
-  h1, h1 a {
-    min-height: 80px;
-    width: 90%;
-    max-width: 700px;
-    vertical-align: middle;
-    text-align: left;
-    text-decoration: none;
-    color: #fff;
-    color: rgba(255,255,255,1);
-  }
-  
-  p {
-    width: 80%;
-    padding-bottom: 32px;
-    color: rgba(255,255,255,1);
-  }
+.glass-panel i {
+  float: right;
+  font-size: 2rem;
+  cursor: pointer;
+}
 
-  .glass-toolbar{
-    width: 80%;
-    margin: 10% 0;
-    padding-bottom: 32px;
-    color: rgba(255,255,255,0.6);
-  }
-  .glass-toolbar i {
-    margin-right: 40px;
-  }
-  @media (max-width:600px){
-  .glass-panel i{
+h1,
+h1 a {
+  min-height: 80px;
+  width: 90%;
+  max-width: 700px;
+  vertical-align: middle;
+  text-align: left;
+  text-decoration: none;
+  color: #fff;
+  color: rgba(255, 255, 255, 1);
+}
+
+p {
+  width: 80%;
+  padding-bottom: 32px;
+  color: rgba(255, 255, 255, 1);
+}
+
+.glass-toolbar {
+  width: 80%;
+  margin: 10% 0;
+  padding-bottom: 32px;
+  color: rgba(255, 255, 255, 0.6);
+}
+.glass-toolbar i {
+  margin-right: 40px;
+}
+@media (max-width: 600px) {
+  .glass-panel i {
     font-size: 1.4rem;
-   }
   }
+}
 
-  @media (max-width:320px){
-    .glass-panel{
-      max-height: 500px;
-    }
-  }
-
-  #popup-project{
-    position: fixed;
-    top: 55%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    max-height: 500px;
-    padding: 50px;
-    box-shadow: 0 5px 30px rgba(0,0,0,.30);
-    border-radius: 15px;
-    background-color: black ;
-    visibility: hidden;
-    opacity: 0;
-    z-index: 100;
-    overflow-y: scroll;
-    width: 90%;
-    max-width: 700px;
-  }
-  #popup-project i{
-      float: right;
-      font-size: 1.3rem;
-      cursor: pointer;
-  }
-
-  #popup-project h2 {
-    min-height: 80px;
-    width: 90%;
-    max-width: 700px;
-    vertical-align: middle;
-    text-align: left;
-    text-decoration: none;
-    text-transform: capitalize;
-    color: #fff;
-    color: rgba(255,255,255,1);
-  }
-  #popup-project h3{
-    margin: 0 0 50px 0;
-  }
-  #popup-project p {
-    width: 100%;
-    padding-bottom: 32px;
-    color: rgba(255,255,255,1);
-  }
-  
-  #popup-project.active{
-    visibility: visible;
-    opacity: 1;
+@media (max-width: 320px) {
+  .glass-panel {
     max-height: 500px;
   }
-  
+}
+
+div[id*='popup-project'] {
+  position: fixed;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-height: 500px;
+  padding: 50px;
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+  background-color: black;
+  visibility: hidden;
+  opacity: 0;
+  z-index: 100;
+  overflow-y: scroll;
+  width: 90%;
+  max-width: 700px;
+}
+div[id*='popup-project'] i {
+  float: right;
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+
+div[id*='popup-project'] h2 {
+  min-height: 80px;
+  width: 90%;
+  max-width: 700px;
+  vertical-align: middle;
+  text-align: left;
+  text-decoration: none;
+  text-transform: capitalize;
+  color: #fff;
+  color: rgba(255, 255, 255, 1);
+}
+div[id*='popup-project'] h3 {
+  margin: 0 0 50px 0;
+}
+div[id*='popup-project'] p {
+  width: 100%;
+  padding-bottom: 32px;
+  color: rgba(255, 255, 255, 1);
+}
+
+div[id*='popup-project'].active {
+  visibility: visible;
+  opacity: 1;
+  max-height: 500px;
+}

@@ -22,7 +22,7 @@ import {
 
 const ProjectState = (props) => {
   const initialState = {
-    profile: [],
+    profile: null,
     projectary: [],
     requiredary: [],
     projects: [],

@@ -20,7 +20,7 @@ const Requireditem = () => {
         style={{ display: 'flex', flexWrap: 'wrap' }}
       >
         {requiredary.map((required) => (
-          <Required required={required} />
+          <Required key={required.projectID} required={required} />
         ))}
       </div>
     </Fragment>

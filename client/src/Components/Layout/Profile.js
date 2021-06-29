@@ -1,17 +1,23 @@
 import React, { Fragment, useState, useEffect, useContext } from 'react';
 import ProjectContext from '../../context/project/projectContext';
 import './Profile.css';
-const Profile = () => {
-  const projectContext = useContext(ProjectContext);
-
-  const { getUser, profile, updateProfile } = projectContext;
-
+const Profile = (props) => {
   useEffect(() => {
-    getUser();
+    setuserProfile(profile);
     //eslint-disable-next-line
   }, []);
+  const projectContext = useContext(ProjectContext);
 
-  const [userProfile, setuserProfile] = useState({ profile });
+  const [userProfile, setuserProfile] = useState({
+    name: '',
+    email: '',
+    description: '',
+    githuburl: '',
+  });
+
+  console.log(props);
+
+  const { profile } = props;
 
   const { name, email, description, githuburl } = userProfile;
 
@@ -47,28 +53,33 @@ const Profile = () => {
             style={{ fontSize: '1.8em' }}
             onClick={toggle}
           ></i>
-          <h3>{name}</h3>
+          <h3>{name.charAt(0).toUpperCase() + name.slice(1)}</h3>
           <h4>Description</h4>
         </div>
         <div className='contact-main'>
           <div>
-            <p>{description}</p>
+            <p>description</p>
           </div>
           <div className='contact'>
-            <a href='#'>
-              {' '}
-              <i className='fas fa-envelope' style={{ fontSize: '1.8em' }}>
-                {' ' + email}
-              </i>
-            </a>
+            {email && (
+              <a href='#'>
+                {' '}
+                <i className='fas fa-envelope' style={{ fontSize: '1.4rem' }}>
+                  {' ' + email}
+                </i>
+              </a>
+            )}
+
             <br />
             <br />
-            <a href='#'>
-              {' '}
-              <i className='fab fa-github' style={{ fontSize: '1.8em' }}>
-                {' ' + githuburl}
-              </i>
-            </a>
+            {githuburl && (
+              <a href='#'>
+                {' '}
+                <i className='fab fa-github' style={{ fontSize: '1.4em' }}>
+                  {' ' + githuburl}
+                </i>
+              </a>
+            )}
           </div>
         </div>
       </div>
