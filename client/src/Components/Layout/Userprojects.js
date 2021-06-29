@@ -8,35 +8,35 @@ const Userprojects = () => {
 
   const { addProject, projects } = projectContext;
 
-  // const [project, setProject] = useState({
-  //   tags: '',
-  //   name: '',
-  //   description: '',
-  //   url: '',
-  // });
+  const [project, setProject] = useState({
+    tags: '',
+    name: '',
+    description: '',
+    githubUrl: '',
+  });
 
-  // const { tags, name, description, url } = project;
+  const { tags, name, description, githubUrl } = project;
 
-  // const onChange = (e) =>
-  //   setProject({ ...project, [e.target.name]: e.target.value });
+  const onChange = (e) =>
+    setProject({ ...project, [e.target.name]: e.target.value });
 
-  // const onSubmit = (e) => {
-  //   e.preventDefault();
-  //   toggleproject();
-  //   addProject(project);
-  //   console.log('this is project ' + project);
-  //   setProject({
-  //     tags: '',
-  //     name: '',
-  //     description: '',
-  //     url: '',
-  //   });
-  // };
+  const onSubmit = (e) => {
+    toggleproject();
+    e.preventDefault();
+    toggleproject();
+    addProject(project);
+    setProject({
+      tags: '',
+      name: '',
+      description: '',
+      githubUrl: '',
+    });
+  };
 
-  // const toggleproject = () => {
-  //   var popup = document.getElementById('popup-projectfield');
-  //   popup.classList.toggle('active');
-  // };
+  const toggleproject = () => {
+    var popup = document.getElementById('popup-projectfield');
+    popup.classList.toggle('active');
+  };
 
   return (
     <Fragment>
@@ -65,7 +65,7 @@ const Userprojects = () => {
         <Userproject usrproject={usrproject} />
       ))}
       {/* popup for edit project */}
-      {/* <div id='popup-projectfield'>
+      <div id='popup-projectfield'>
         <i className='fas fa-window-close' onClick={toggleproject}></i>
         <form className='profile-form2' onSubmit={onSubmit}>
           <input
@@ -85,8 +85,8 @@ const Userprojects = () => {
           <input
             type='url'
             placeholder='Project GithubUrl'
-            name='url'
-            value={url}
+            name='githubUrl'
+            value={githubUrl}
             onChange={onChange}
           />
           <textarea
@@ -99,7 +99,7 @@ const Userprojects = () => {
           />
           <input type='submit' />
         </form>
-      </div> */}
+      </div>
     </Fragment>
   );
 };

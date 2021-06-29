@@ -78,9 +78,7 @@ const Userproject = (props) => {
   };
 
   const change = () => {
-    setProjectdetail({ _id: _id, description: description });
-    addRequired(setProjectdetail);
-    setProjectdetail({ _id: '', description: '' });
+    addRequired(usrproject);
   };
 
   return (
@@ -91,7 +89,7 @@ const Userproject = (props) => {
         <p>{description}</p>
         <button
           style={{ padding: '2px 5px', borderRadius: '5px' }}
-          onclick={change}
+          onClick={change}
         >
           Move to requirement
         </button>
