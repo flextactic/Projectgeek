@@ -25,7 +25,7 @@ route.post('/add', auth, async (req, res) => {
       return res
         .status(400)
         .send('This project is already in the requirement section');
-    const projectData = await Project.findById(req.body.projectId);
+    const projectData = await Project.findById(data.projectId);
     if (projectData.Author != req.user._id)
       return res
         .send(400)
@@ -34,13 +34,13 @@ route.post('/add', auth, async (req, res) => {
         );
     const projectInRequirement = new ProjectInRequirement({
       authorID: req.user._id,
-      projectID: req.body.projectId,
-      description: req.body.description,
+      projectID: data.projectId,
+      description: data.description,
     });
     const user = await User.findById(req.user._id);
     if (!user) return res.status(404).send('User not Found.');
     user.projectInRequirement.push({
-      id: req.body.projectId,
+      id: req.body._id,
       reqDescription: req.body.description,
     });
     user.save();
