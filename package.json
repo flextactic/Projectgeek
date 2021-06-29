@@ -6,17 +6,25 @@
   "scripts": {
     "start": "node server.js",
     "server": "nodemon server.js",
+<<<<<<< HEAD
     "test": "echo \"Error: no test specified\" && exit 1"
+=======
+    "client": "npm start --prefix client",
+    "clientinstall": "npm install --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+>>>>>>> 25dcd4571a00e04a0a3a66ee70655b70026dc53d
   },
-  "author": "Anshul Sharma , Krishan Mishra , Drishtdyumn Srivastava",
+  "author": "Anshul Sharma , Krishan Mishra , Drishtdyumn Shrivastava",
   "license": "ISC",
   "dependencies": {
     "@sendgrid/mail": "^7.4.4",
     "bcryptjs": "^2.4.3",
+    "concurrently": "^6.2.0",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
     "fawn": "^2.1.5",
+    "global": "^4.4.0",
     "joi": "^17.4.0",
     "joi-objectid": "^3.0.1",
     "joi-password-complexity": "^5.1.0",
@@ -26,6 +34,7 @@
     "nodemailer": "^6.6.1",
     "nodemon": "^2.0.7",
     "randomstring": "^1.2.1",
+    "uuid": "^8.3.2",
     "validator": "^13.6.0"
   }
 }
