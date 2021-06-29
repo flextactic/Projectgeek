@@ -37,7 +37,8 @@ router.post('/create_project', auth, async (req, res) => {
 // TODO: GET MY PROJECT
 router.get('/my_project', auth, async (req, res) => {
   try {
-    const projectData = await Project.find(req.user._id).populate('Author');
+    const projectData = await Project.find({Author:req.user._id}).populate('Author');
+    console.log(projectData);
     res.status(200).send(projectData);
   } catch {
     res.status(400).send('Something went wrong try again later...');

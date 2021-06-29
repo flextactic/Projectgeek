@@ -75,7 +75,11 @@ route.get('/me', auth, async (req, res) => {
 
 route.put('/update', auth, async (req, res) => {
   try {
-    const { error } = validateEdit(req.body);
+    const data={
+      _id:req.body._id,
+      description:req.body.description,
+    }
+    const { error } = validateEdit(data);
     if (error) return res.status(400).send(error.details[0].message);
     const project = await ProjectInRequirement.findById(req.body._id);
     if(!project) return res.status(400).send('Project does not exist with the given id');
