@@ -6,6 +6,7 @@ import {
   CLEAR_PROJECT,
   CLEAR_REQUIRED,
   ADD_PROJECT,
+  ADD_REQUIRED,
   SHOW_PROJECT,
   SHOW_PROJECTREQ,
   DELETE_PROJECT,
@@ -43,6 +44,11 @@ const error = (state, action) => {
       return {
         ...state,
         projects: [action.payload, ...state.projects],
+      };
+    case ADD_REQUIRED:
+      return {
+        ...state,
+        required: [action.payload, ...state.required],
       };
     case SHOW_PROJECT:
       return {
@@ -91,7 +97,7 @@ const error = (state, action) => {
     case UPDATE_PROFILE:
       return {
         ...state,
-        profile: [...state.profile, action.payload],
+        profile: [action.payload],
       };
     case SET_CURRENT:
     case SET_REQUIRED:

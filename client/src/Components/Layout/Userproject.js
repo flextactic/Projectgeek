@@ -6,8 +6,14 @@ import ProjectContext from '../../context/project/projectContext';
 const Userproject = (props) => {
   const projectContext = useContext(ProjectContext);
 
-  const { deleteProject, setCurrent, clearCurrent, updateProject, current } =
-    projectContext;
+  const {
+    deleteProject,
+    setCurrent,
+    clearCurrent,
+    updateProject,
+    current,
+    addRequired,
+  } = projectContext;
 
   const { usrproject, key } = props;
 
@@ -71,13 +77,22 @@ const Userproject = (props) => {
     clearCurrent();
   };
 
+  const change = () => {
+    setProjectdetail({ _id: _id, description: description });
+    addRequired(setProjectdetail);
+    setProjectdetail({ _id: '', description: '' });
+  };
+
   return (
     <Fragment>
       <div className='user-glasspanel'>
         <i className='fas fa-expand-arrows-alt' onClick={toggle}></i>
         <h1>{name}</h1>
         <p>{description}</p>
-        <button style={{ padding: '2px 5px', borderRadius: '5px' }}>
+        <button
+          style={{ padding: '2px 5px', borderRadius: '5px' }}
+          onclick={change}
+        >
           Move to requirement
         </button>
         <div className='user-glasstoolbar' style={{ display: 'flex' }}>

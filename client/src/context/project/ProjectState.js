@@ -11,6 +11,7 @@ import {
   CLEAR_PROJECT,
   CLEAR_REQUIRED,
   ADD_PROJECT,
+  ADD_REQUIRED,
   DELETE_PROJECT,
   DELETE_REQUIRED,
   SET_CURRENT,
@@ -115,6 +116,27 @@ const ProjectState = (props) => {
       dispatch({
         type: ADD_PROJECT,
         payload: res.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: PROJECT_ERROR,
+        payload: err.response.data,
+      });
+    }
+  };
+
+  //add required
+  const addRequired = async (project) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    try {
+      await axios.post('/api/requirement/add', project, config);
+      dispatch({
+        type: ADD_REQUIRED,
+        payload: project,
       });
     } catch (err) {
       dispatch({
@@ -298,6 +320,7 @@ const ProjectState = (props) => {
         filtered: state.filtered,
         error: state.error,
         addProject,
+        addRequired,
         showProject,
         showProjectreq,
         getUser,

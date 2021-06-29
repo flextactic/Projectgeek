@@ -22,7 +22,6 @@ const Profile = (props) => {
   }, [projectContext, current]);
 
   const [userProfile, setuserProfile] = useState({
-    _id: '',
     name: '',
     email: '',
     githubUrl: '',
@@ -36,14 +35,15 @@ const Profile = (props) => {
 
   const { name, email, githubUrl, about, sex } = profile;
 
-  const onChange = (e) => setuserProfile({ [e.target.name]: e.target.value });
+  const onChange = (e) =>
+    setuserProfile({ ...userProfile, [e.target.name]: e.target.value });
 
   const onSubmit = (e) => {
     toggle();
     e.preventDefault();
+    console.log(userProfile);
     updateProfile(userProfile);
     setuserProfile({
-      _id: '',
       name: '',
       email: '',
       githubUrl: '',

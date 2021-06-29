@@ -122,8 +122,14 @@ route.post('/add', async (req, res) => {
 
 route.put('/edit', auth, async (req, res) => {
   try {
-    // const { error } = validateEditUser(req.body);
-    // if (error) return res.status(400).send(error.details[0].message);
+    const data = {
+      name: req.body.name,
+      githubUrl: req.body.githubUrl,
+      sex: req.body.sex,
+      about: req.body.about,
+    };
+    const { error } = validateEditUser(data);
+    if (error) return res.status(402).send(error.details[0].message);
 
     console.log(req.user._id);
     const result = await User.updateOne(
@@ -137,6 +143,7 @@ route.put('/edit', auth, async (req, res) => {
         },
       }
     );
+    console.log(result);
     if (result.n)
       res.status(200).send('Your profile has been successfully updated.');
     else res.status(500).send('Error! please, try again later...');

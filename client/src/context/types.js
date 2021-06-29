@@ -5,6 +5,7 @@ export const GET_REQUIRED = 'GET_REQUIRED';
 export const CLEAR_PROJECT = 'CLEAR_PROJECT';
 export const CLEAR_REQUIRED = 'CLEAR_REQUIRED';
 export const ADD_PROJECT = 'ADD_PROJECT';
+export const ADD_REQUIRED = 'ADD_REQUIRED';
 export const DELETE_PROJECT = 'DELETE_PROJECT';
 export const DELETE_REQUIRED = 'DELETE_REQUIRED';
 export const SHOW_PROJECT = 'SHOW_PROJECT';
