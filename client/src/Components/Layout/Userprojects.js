@@ -3,47 +3,45 @@ import Userproject from './Userproject';
 import './Userprojects.css';
 import ProjectContext from '../../context/project/projectContext';
 
-const Userprojects = (props) => {
-  const { projects } = props.profile;
-
+const Userprojects = () => {
   const projectContext = useContext(ProjectContext);
 
-  const { addProject } = projectContext;
+  const { addProject, projects } = projectContext;
 
-  const [project, setProject] = useState({
-    tags: '',
-    name: '',
-    description: '',
-    url: '',
-  });
+  // const [project, setProject] = useState({
+  //   tags: '',
+  //   name: '',
+  //   description: '',
+  //   url: '',
+  // });
 
-  const { tags, name, description, url } = project;
+  // const { tags, name, description, url } = project;
 
-  const onChange = (e) =>
-    setProject({ ...project, [e.target.name]: e.target.value });
+  // const onChange = (e) =>
+  //   setProject({ ...project, [e.target.name]: e.target.value });
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-    toggleproject();
-    addProject(project);
-    console.log('this is project ' + project);
-    setProject({
-      tags: '',
-      name: '',
-      description: '',
-      url: '',
-    });
-  };
+  // const onSubmit = (e) => {
+  //   e.preventDefault();
+  //   toggleproject();
+  //   addProject(project);
+  //   console.log('this is project ' + project);
+  //   setProject({
+  //     tags: '',
+  //     name: '',
+  //     description: '',
+  //     url: '',
+  //   });
+  // };
 
-  const toggleproject = () => {
-    var popup = document.getElementById('popup-projectfield');
-    popup.classList.toggle('active');
-  };
+  // const toggleproject = () => {
+  //   var popup = document.getElementById('popup-projectfield');
+  //   popup.classList.toggle('active');
+  // };
 
   return (
     <Fragment>
       <div className='empty'></div>
-      <input
+      {/* <input
         type='text'
         style={{
           display: 'block',
@@ -62,14 +60,12 @@ const Userprojects = (props) => {
           width: '50px',
         }}
         onClick={toggleproject}
-      ></i>
-
-      {projects.map((project) => (
-        <Userproject project={project} />
+      ></i> */}
+      {projects.map((usrproject) => (
+        <Userproject usrproject={usrproject} />
       ))}
-
       {/* popup for edit project */}
-      <div id='popup-projectfield'>
+      {/* <div id='popup-projectfield'>
         <i className='fas fa-window-close' onClick={toggleproject}></i>
         <form className='profile-form2' onSubmit={onSubmit}>
           <input
@@ -103,7 +99,7 @@ const Userprojects = (props) => {
           />
           <input type='submit' />
         </form>
-      </div>
+      </div> */}
     </Fragment>
   );
 };

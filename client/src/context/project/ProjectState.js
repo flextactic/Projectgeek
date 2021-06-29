@@ -12,6 +12,7 @@ import {
   CLEAR_REQUIRED,
   ADD_PROJECT,
   DELETE_PROJECT,
+  DELETE_REQUIRED,
   SET_CURRENT,
   SHOW_PROJECT,
   SHOW_PROJECTREQ,
@@ -19,9 +20,11 @@ import {
   CLEAR_CURRENT,
   UPDATE_PROJECT,
   UPDATE_PROFILE,
+  UPDATE_REQUIRED,
   FILTER_PROJECTS,
   CLEAR_FILTER,
   PROJECT_ERROR,
+  FETCH_ERROR,
 } from '../types';
 
 const ProjectState = (props) => {
@@ -56,9 +59,9 @@ const ProjectState = (props) => {
   };
 
   //get projects
-  const getProject = async (id) => {
+  const getProject = async () => {
     try {
-      const res = await axios.get(`/api/user_projects/get_project/${id}`);
+      const res = await axios.get('/my_project');
 
       dispatch({
         type: GET_PROJECT,
@@ -66,7 +69,7 @@ const ProjectState = (props) => {
       });
     } catch (err) {
       dispatch({
-        type: PROJECT_ERROR,
+        type: FETCH_ERROR,
         payload: err.response.data,
       });
     }
@@ -160,10 +163,27 @@ const ProjectState = (props) => {
   //delete project
   const deleteProject = async (id) => {
     try {
-      await axios.delete(`/api/user_projects/delete_project/${id}`);
+      await axios.delete(`/delete_project/${id}`);
 
       dispatch({
         type: DELETE_PROJECT,
+        payload: id,
+      });
+    } catch (err) {
+      dispatch({
+        type: PROJECT_ERROR,
+        payload: err.response.msg,
+      });
+    }
+  };
+
+  //delete required
+  const deleteRequired = async (id) => {
+    try {
+      await axios.delete(`/api/requirement/delete/${id}`);
+
+      dispatch({
+        type: DELETE_REQUIRED,
         payload: id,
       });
     } catch (err) {
@@ -205,10 +225,31 @@ const ProjectState = (props) => {
       },
     };
     try {
-      const res = await axios.put('/api/requirement/update', project, config);
+      await axios.put(`/update_project/${project._id}`, project, config);
       dispatch({
         type: UPDATE_PROJECT,
-        payload: res.project,
+        payload: project,
+      });
+    } catch (err) {
+      dispatch({
+        type: PROJECT_ERROR,
+        payload: err.response.msg,
+      });
+    }
+  };
+
+  //update required
+  const updateRequired = async (project) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    try {
+      await axios.put('/api/requirement/update', project, config);
+      dispatch({
+        type: UPDATE_REQUIRED,
+        payload: project,
       });
     } catch (err) {
       dispatch({
@@ -250,10 +291,12 @@ const ProjectState = (props) => {
         getProject,
         getRequired,
         deleteProject,
+        deleteRequired,
         setCurrent,
         setCurrentreq,
         clearCurrent,
         updateProject,
+        updateRequired,
         filterProject,
         clearFilter,
         clearUser,

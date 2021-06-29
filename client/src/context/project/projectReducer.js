@@ -9,13 +9,16 @@ import {
   SHOW_PROJECT,
   SHOW_PROJECTREQ,
   DELETE_PROJECT,
+  DELETE_REQUIRED,
   SET_CURRENT,
   CLEAR_CURRENT,
   UPDATE_PROJECT,
+  UPDATE_REQUIRED,
   UPDATE_PROFILE,
   FILTER_PROJECTS,
   CLEAR_FILTER,
   PROJECT_ERROR,
+  FETCH_ERROR,
   SET_REQUIRED,
 } from '../types';
 
@@ -57,6 +60,17 @@ const error = (state, action) => {
         projects: state.projects.map((project) =>
           project._id === action.payload._id ? action.payload : project
         ),
+      };
+    case UPDATE_REQUIRED:
+      return {
+        ...state,
+        required: state.required.map((req) =>
+          req._id === action.payload._id ? action.payload : req
+        ),
+      };
+    case DELETE_REQUIRED:
+      return {
+        required: state.required.filter((req) => req._id !== action.payload),
       };
     case DELETE_PROJECT:
       return {
@@ -102,6 +116,11 @@ const error = (state, action) => {
           const regex = new RegExp(`${action.payload}`, 'gi');
           return project.name.match(regex) || project.email.match(regex);
         }),
+      };
+    case FETCH_ERROR:
+      return {
+        ...state,
+        error: action.payload,
       };
     case PROJECT_ERROR:
       return {

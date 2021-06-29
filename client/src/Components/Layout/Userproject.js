@@ -9,24 +9,15 @@ const Userproject = (props) => {
   const { deleteProject, setCurrent, clearCurrent, updateProject, current } =
     projectContext;
 
-  const { project, key } = props;
+  const { usrproject, key } = props;
 
-  const { id } = project;
+  const { _id, tags, name, description, githubUrl } = usrproject;
 
   useEffect(() => {
     if (current !== null) {
       setProjectdetail(current);
-    } else {
-      setProjectdetail({
-        tags: '',
-        name: '',
-        description: '',
-        url: '',
-      });
     }
   }, [projectContext, current]);
-
-  const { _id, tags, name, description, githubUrl } = id;
 
   const toggle = () => {
     var popup = document.getElementById(`popup-userproject${_id}`);
@@ -39,7 +30,7 @@ const Userproject = (props) => {
   };
 
   const [projectdetail, setProjectdetail] = useState({
-    tags: '',
+    _id: '',
     name: '',
     description: '',
     githubUrl: '',
@@ -48,9 +39,9 @@ const Userproject = (props) => {
   const onSubmit = (e) => {
     toggleproject();
     e.preventDefault();
+    console.log(projectdetail);
     updateProject(projectdetail);
     setProjectdetail({
-      tags: '',
       name: '',
       description: '',
       githubUrl: '',
@@ -66,7 +57,7 @@ const Userproject = (props) => {
   };
 
   const onCall = () => {
-    setCurrent(_id);
+    setCurrent(usrproject);
     toggleproject();
   };
 
@@ -133,13 +124,6 @@ const Userproject = (props) => {
             placeholder='Project Title'
             name='name'
             value={projectdetail.name}
-            onChange={onChange}
-          />
-          <input
-            type='text'
-            placeholder='Enter Project Tags with , in between'
-            name='tags'
-            value={projectdetail.tags}
             onChange={onChange}
           />
           <input

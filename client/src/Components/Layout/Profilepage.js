@@ -17,7 +17,6 @@ const Profilepage = () => {
   useEffect(() => {
     getUser();
     getProject(user._id);
-    console.log('abcd  ' + user._id);
     getRequired();
     //loadUser();
     //eslint-disable-next-line
@@ -41,9 +40,7 @@ const Profilepage = () => {
             {/* projects */}
             <div className='project-main'>
               <div className='user-projects'>
-                {profile.map((profile) => (
-                  <Userprojects profile={profile} />
-                ))}
+                <Userprojects />
                 <h3>PROJECT IN REQUIREMENT </h3>
                 <Requireduserprojects />
               </div>

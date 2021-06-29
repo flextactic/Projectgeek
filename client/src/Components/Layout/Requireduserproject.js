@@ -5,8 +5,13 @@ import Tag from '../Tags';
 const Requireduserproject = (props) => {
   const projectContext = useContext(ProjectContext);
 
-  const { deleteProject, setCurrentreq, clearCurrent, updateProject, current } =
-    projectContext;
+  const {
+    deleteRequired,
+    setCurrentreq,
+    clearCurrent,
+    updateRequired,
+    current,
+  } = projectContext;
 
   const { require } = props;
 
@@ -21,7 +26,7 @@ const Requireduserproject = (props) => {
 
   useEffect(() => {
     if (current !== null) {
-      setRequiredetail({ ...requiredetail, current });
+      setRequiredetail(current);
     } else {
       setRequiredetail({
         description: '',
@@ -42,7 +47,8 @@ const Requireduserproject = (props) => {
   const onSubmit = (e) => {
     toggledit();
     e.preventDefault();
-    updateProject(requiredetail);
+    console.log(requiredetail);
+    updateRequired(requiredetail);
     setRequiredetail({
       description: '',
     });
@@ -55,7 +61,7 @@ const Requireduserproject = (props) => {
     });
 
   const onDelete = () => {
-    deleteProject(_id);
+    deleteRequired(_id);
     clearCurrent();
   };
 
