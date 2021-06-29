@@ -12,7 +12,11 @@ const mongoose = require('mongoose');
 
 route.post('/add', auth, async (req, res) => {
   try {
-    const { error } = validateData(req.body);
+    const data={
+      projectId:req.body._id,
+      description:req.body.description
+    }
+    const { error } = validateData(data);
     if (error) return res.status(400).send(error.details[0].message);
     const project = await ProjectInRequirement.findOne({
       projectID: req.body.projectId,

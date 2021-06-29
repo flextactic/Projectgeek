@@ -143,7 +143,6 @@ route.put('/edit', auth, async (req, res) => {
         },
       }
     );
-    console.log(result);
     if (result.n)
       res.status(200).send('Your profile has been successfully updated.');
     else res.status(500).send('Error! please, try again later...');
