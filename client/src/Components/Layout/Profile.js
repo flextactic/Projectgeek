@@ -2,13 +2,14 @@ import React, { Fragment, useState, useEffect, useContext } from 'react';
 import ProjectContext from '../../context/project/projectContext';
 import './Profile.css';
 const Profile = (props) => {
+  const projectContext = useContext(ProjectContext);
   useEffect(() => {
     setuserProfile(profile);
     //eslint-disable-next-line
   }, []);
-  const projectContext = useContext(ProjectContext);
 
   const [userProfile, setuserProfile] = useState({
+    _id: '',
     name: '',
     email: '',
     description: '',
@@ -19,7 +20,7 @@ const Profile = (props) => {
 
   const { profile } = props;
 
-  const { name, email, description, githuburl } = userProfile;
+  const { _id, name, email, description, githuburl } = userProfile;
 
   const onChange = (e) =>
     setuserProfile({ ...userProfile, [e.target.name]: e.target.value });

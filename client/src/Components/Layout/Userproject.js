@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useState } from 'react';
+import React, { Fragment, useContext, useEffect, useState } from 'react';
 import './Userproject.css';
 import Tag from '../Tags';
 import ProjectContext from '../../context/project/projectContext';
@@ -6,39 +6,80 @@ import ProjectContext from '../../context/project/projectContext';
 const Userproject = (props) => {
   const projectContext = useContext(ProjectContext);
 
-  const { project, parent } = props;
-
-  console.log(project);
-
-  const { _id, tags, name, description, url } = project;
-
-  const { deleteProject, setCurrent, clearCurrent, updateProject } =
+  const { deleteProject, setCurrent, clearCurrent, updateProject, current } =
     projectContext;
+
+  const { project, key } = props;
+
+  const { id } = project;
+
+  useEffect(() => {
+    if (current !== null) {
+      setProjectdetail(current);
+    } else {
+      setProjectdetail({
+        tags: '',
+        name: '',
+        description: '',
+        url: '',
+      });
+    }
+  }, [projectContext, current]);
+
+  const { _id, tags, name, description, githubUrl } = id;
+
+  const toggle = () => {
+    var popup = document.getElementById(`popup-userproject${_id}`);
+    popup.classList.toggle('active');
+  };
+
+  const toggleproject = () => {
+    var popup = document.getElementById(`popup-projectfield${_id}`);
+    popup.classList.toggle('active');
+  };
+
+  const [projectdetail, setProjectdetail] = useState({
+    tags: '',
+    name: '',
+    description: '',
+    githubUrl: '',
+  });
+
+  const onSubmit = (e) => {
+    toggleproject();
+    e.preventDefault();
+    updateProject(projectdetail);
+    setProjectdetail({
+      tags: '',
+      name: '',
+      description: '',
+      githubUrl: '',
+    });
+  };
+
+  const onChange = (e) =>
+    setProjectdetail({ ...projectdetail, [e.target.name]: e.target.value });
 
   const onDelete = () => {
     deleteProject(_id);
     clearCurrent();
   };
 
-  const toggle = () => {
-    var popup = document.getElementById('popup-userproject');
-    popup.classList.toggle('active');
+  const onCall = () => {
+    setCurrent(_id);
+    toggleproject();
   };
 
-  const onCall = () => {
-    setCurrent(project);
-    parent();
+  const clearAll = () => {
+    clearCurrent();
   };
 
   return (
     <Fragment>
       <div className='user-glasspanel'>
         <i className='fas fa-expand-arrows-alt' onClick={toggle}></i>
-        <h1>C1</h1>
-        <p>
-          Glassmorphism is achieved using transparency and background blur to
-          get a frosted-glass like effect.
-        </p>
+        <h1>{name}</h1>
+        <p>{description}</p>
         <button style={{ padding: '2px 5px', borderRadius: '5px' }}>
           Move to requirement
         </button>
@@ -57,49 +98,67 @@ const Userproject = (props) => {
       </div>
 
       {/* popup for  project desc*/}
-      <div id='popup-userproject'>
+      <div id={`popup-userproject${_id}`}>
         <i
           className='fas fa-window-close'
           onClick={toggle}
           style={{ fontSize: '2rem' }}
         ></i>
-        <h2>popup</h2>
+        <h2>{name}</h2>
         <h3>Description</h3>
-        <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cumque
-          corrupti consequuntur modi tempore, ducimus adipisci deleniti est
-          sequi, laborum ipsam voluptatem recusandae fuga quas molestias aliquam
-          at pariatur dolor assumenda? Lorem ipsum dolor, sit amet consectetur
-          adipisicing elit. Cumque corrupti consequuntur modi tempore, ducimus
-          adipisci deleniti est sequi, laborum ipsam voluptatem recusandae fuga
-          quas molestias aliquam at pariatur dolor assumenda? Lorem ipsum dolor,
-          sit amet consectetur adipisicing elit. Cumque corrupti consequuntur
-          modi tempore, ducimus adipisci deleniti est sequi, laborum ipsam
-          voluptatem recusandae fuga quas molestias aliquam at pariatur dolor
-          assumenda? Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-          Cumque corrupti consequuntur modi tempore, ducimus adipisci deleniti
-          est sequi, laborum ipsam voluptatem recusandae fuga quas molestias
-          aliquam at pariatur dolor assumenda? Lorem ipsum dolor, sit amet
-          consectetur adipisicing elit. Cumque corrupti consequuntur modi
-          tempore, ducimus adipisci deleniti est sequi, laborum ipsam voluptatem
-          recusandae fuga quas molestias aliquam at pariatur dolor assumenda?
-        </p>
+        <p>{description}</p>
         <h2>Tags</h2>
         <div
           className='projectags'
           style={{ display: 'flex', flexWrap: 'wrap' }}
         >
-          <Tag />
+          {tags && tags.map((tag) => <Tag tag={tag} />)}
         </div>
         <br />
         <br />
         <i
           className='fab fa-github'
-          style={{ float: 'left', fontSize: '1.6em' }}
+          style={{ float: 'left', fontSize: '1.3rem' }}
         >
-          {' '}
-          GithubUrl
+          {' ' + githubUrl}
         </i>
+      </div>
+
+      {/* popup for edit project */}
+      <div id={`popup-projectfield${_id}`}>
+        <i className='fas fa-window-close' onClick={toggleproject}></i>
+        <form className='profile-form2' onSubmit={onSubmit}>
+          <input
+            type='text'
+            placeholder='Project Title'
+            name='name'
+            value={projectdetail.name}
+            onChange={onChange}
+          />
+          <input
+            type='text'
+            placeholder='Enter Project Tags with , in between'
+            name='tags'
+            value={projectdetail.tags}
+            onChange={onChange}
+          />
+          <input
+            type='url'
+            placeholder='Project GithubUrl'
+            name='githubUrl'
+            value={projectdetail.githubUrl}
+            onChange={onChange}
+          />
+          <textarea
+            className='desc'
+            type='text'
+            placeholder='Description'
+            name='description'
+            value={projectdetail.description}
+            onChange={onChange}
+          />
+          <input type='submit' />
+        </form>
       </div>
     </Fragment>
   );

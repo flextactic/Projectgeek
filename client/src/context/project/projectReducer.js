@@ -1,6 +1,10 @@
 import {
   GET_USER,
   CLEAR_USER,
+  GET_PROJECT,
+  GET_REQUIRED,
+  CLEAR_PROJECT,
+  CLEAR_REQUIRED,
   ADD_PROJECT,
   SHOW_PROJECT,
   SHOW_PROJECTREQ,
@@ -22,6 +26,16 @@ const error = (state, action) => {
         ...state,
         profile: action.payload,
       };
+    case GET_PROJECT:
+      return {
+        ...state,
+        projects: action.payload,
+      };
+    case GET_REQUIRED:
+      return {
+        ...state,
+        required: action.payload,
+      };
     case ADD_PROJECT:
       return {
         ...state,
@@ -41,7 +55,7 @@ const error = (state, action) => {
       return {
         ...state,
         projects: state.projects.map((project) =>
-          project.id === action.payload.id ? action.payload : project
+          project._id === action.payload._id ? action.payload : project
         ),
       };
     case DELETE_PROJECT:

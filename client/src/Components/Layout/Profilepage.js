@@ -10,16 +10,18 @@ const Profilepage = () => {
 
   const authContext = useContext(AuthContext);
 
-  const { getUser, profile } = projectContext;
+  const { getUser, profile, getProject, getRequired } = projectContext;
 
-  const { loadUser } = authContext;
+  const { loadUser, user } = authContext;
 
   useEffect(() => {
     getUser();
+    getProject(user._id);
+    console.log('abcd  ' + user._id);
+    getRequired();
     //loadUser();
     //eslint-disable-next-line
   }, []);
-
   return (
     <Fragment>
       <div className='empty'></div>
@@ -39,7 +41,9 @@ const Profilepage = () => {
             {/* projects */}
             <div className='project-main'>
               <div className='user-projects'>
-                <Userprojects />
+                {profile.map((profile) => (
+                  <Userprojects profile={profile} />
+                ))}
                 <h3>PROJECT IN REQUIREMENT </h3>
                 <Requireduserprojects />
               </div>

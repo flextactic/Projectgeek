@@ -4,50 +4,30 @@ import './Userprojects.css';
 import ProjectContext from '../../context/project/projectContext';
 
 const Userprojects = (props) => {
-  const { projects } = props;
+  const { projects } = props.profile;
 
   const projectContext = useContext(ProjectContext);
 
-  const { addProject, clearCurrent, current, updateProject } = projectContext;
-
-  useEffect(() => {
-    if (current !== null) {
-      console.log(current);
-      setProject(current);
-      console.log('success');
-    } else {
-      setProject({
-        id: '',
-        tags: '',
-        name: '',
-        description: '',
-        url: '',
-      });
-    }
-  }, [projectContext, current]);
+  const { addProject } = projectContext;
 
   const [project, setProject] = useState({
-    id: 'asdas',
-    tags: 'asdas',
-    name: 'asdasds',
-    description: 'asdasd',
-    url: 'asdasd',
+    tags: '',
+    name: '',
+    description: '',
+    url: '',
   });
 
-  const { id, tags, name, description, url } = project;
+  const { tags, name, description, url } = project;
 
   const onChange = (e) =>
     setProject({ ...project, [e.target.name]: e.target.value });
 
   const onSubmit = (e) => {
     e.preventDefault();
-    if (current === null) {
-      addProject(project);
-    } else {
-      updateProject(project);
-    }
+    toggleproject();
+    addProject(project);
+    console.log('this is project ' + project);
     setProject({
-      id: '',
       tags: '',
       name: '',
       description: '',
@@ -58,14 +38,6 @@ const Userprojects = (props) => {
   const toggleproject = () => {
     var popup = document.getElementById('popup-projectfield');
     popup.classList.toggle('active');
-  };
-
-  const parent = () => {
-    toggleproject();
-  };
-
-  const clearAll = () => {
-    clearCurrent();
   };
 
   return (
@@ -92,7 +64,9 @@ const Userprojects = (props) => {
         onClick={toggleproject}
       ></i>
 
-      <Userproject project={project} parent={parent} />
+      {projects.map((project) => (
+        <Userproject project={project} />
+      ))}
 
       {/* popup for edit project */}
       <div id='popup-projectfield'>
@@ -128,7 +102,6 @@ const Userprojects = (props) => {
             onChange={onChange}
           />
           <input type='submit' />
-          {current && <button onClick={clearAll}>Clear</button>}
         </form>
       </div>
     </Fragment>

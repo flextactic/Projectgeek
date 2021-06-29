@@ -6,17 +6,17 @@ const Loginpage = (props) => {
 
   const { register, login, error, clearErrors, isAuthenticated } = authContext;
 
-  // useEffect(()=> {
-  //   if(isAuthenticated){
-  //     props.history.push('/profile');
-  //   }
+  useEffect(() => {
+    if (isAuthenticated) {
+      props.history.push('/profile');
+    }
 
-  //   // if(error==='User already registered.'){
-  //   //   setAlert(error,'danger');
-  //   //   clearErrors();
-  //   // }
-  //   //eslint-disable-next-line
-  // }, [isAuthenticated, props.history]);
+    // if(error==='User already registered.'){
+    //   setAlert(error,'danger');
+    //   clearErrors();
+    // }
+    //eslint-disable-next-line
+  }, [isAuthenticated, props.history]);
 
   const [user, setUser] = useState({
     name: '',

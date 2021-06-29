@@ -2,36 +2,30 @@ import React, { Fragment, useContext, useState } from 'react';
 import './Requireduserprojects.css';
 import Requireduserproject from './Requireduserproject';
 import ProjectContext from '../../context/project/projectContext';
-import Tag from '../Tags';
 const Requireduserprojects = () => {
   const projectContext = useContext(ProjectContext);
 
-  const { addProject, setCurrentreq, deleteProject, updateProject, profile } =
-    projectContext;
-
-  const { projectInRequirement } = profile;
+  const { addProject, required } = projectContext;
 
   const [project, setProject] = useState({
-    id: '',
     tags: '',
     name: '',
-    description: '',
     requirement: '',
     url: '',
   });
 
-  const { id, tags, name, requirement, description, url } = project;
+  const { tags, name, requirement, url } = project;
 
   const onChange = (e) =>
     setProject({ ...project, [e.target.name]: e.target.value });
 
   const onSubmit = (e) => {
+    e.preventDefault();
+    toggledit();
     addProject(project);
     setProject({
-      id: '',
       tags: '',
       name: '',
-      description: '',
       requirement: '',
       url: '',
     });
@@ -42,12 +36,11 @@ const Requireduserprojects = () => {
     popup.classList.toggle('active');
   };
 
-  const prnt = () => {
-    toggledit();
-  };
   return (
     <Fragment>
-      <Requireduserproject key={project.id} project={project} prnt={prnt} />
+      {required.map((require) => (
+        <Requireduserproject require={require} />
+      ))}
       {/* popup for edit project */}
       <div id='popup-requiredfield'>
         <i className='fas fa-window-close' onClick={toggledit}></i>
@@ -67,13 +60,6 @@ const Requireduserprojects = () => {
             onChange={onChange}
           />
           <input
-            type='text'
-            placeholder='Requirement'
-            name='requirement'
-            value={requirement}
-            onChange={onChange}
-          />
-          <input
             type='url'
             placeholder='Project GithubUrl'
             name='url'
@@ -81,13 +67,13 @@ const Requireduserprojects = () => {
             onChange={onChange}
           />
           <textarea
-            className='desc'
             type='text'
-            placeholder='Description'
-            name='description'
-            value={description}
+            placeholder='Requirement'
+            name='requirement'
+            value={requirement}
             onChange={onChange}
           />
+          hange={onChange}
           <input type='submit' />
         </form>
       </div>
