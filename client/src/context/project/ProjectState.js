@@ -260,11 +260,24 @@ const ProjectState = (props) => {
   };
 
   //update profile
-  const updateProfile = (profile) => {
-    dispatch({
-      type: UPDATE_PROJECT,
-      payload: profile,
-    });
+  const updateProfile = async (profile) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    try {
+      await axios.put('/api/users/edit', profile, config);
+      dispatch({
+        type: UPDATE_PROFILE,
+        payload: profile,
+      });
+    } catch (err) {
+      dispatch({
+        type: PROJECT_ERROR,
+        payload: err.response.msg,
+      });
+    }
   };
 
   //filter projects

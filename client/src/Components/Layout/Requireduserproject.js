@@ -56,6 +56,7 @@ const Requireduserproject = (props) => {
 
   const onChange = (e) =>
     setRequiredetail({
+      ...requiredetail,
       _id: _id,
       [e.target.name]: e.target.value,
     });

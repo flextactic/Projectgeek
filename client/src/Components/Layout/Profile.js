@@ -3,42 +3,63 @@ import ProjectContext from '../../context/project/projectContext';
 import './Profile.css';
 const Profile = (props) => {
   const projectContext = useContext(ProjectContext);
+
+  const { current, setCurrent, updateProfile } = projectContext;
+
   useEffect(() => {
-    setuserProfile(profile);
-    //eslint-disable-next-line
-  }, []);
+    if (current !== null) {
+      setuserProfile(current);
+    } else {
+      setuserProfile({
+        _id: '',
+        name: '',
+        email: '',
+        githubUrl: '',
+        about: '',
+        sex: '',
+      });
+    }
+  }, [projectContext, current]);
 
   const [userProfile, setuserProfile] = useState({
     _id: '',
     name: '',
     email: '',
-    description: '',
-    githuburl: '',
+    githubUrl: '',
+    about: '',
+    sex: '',
   });
 
   console.log(props);
 
   const { profile } = props;
 
-  const { _id, name, email, description, githuburl } = userProfile;
+  const { name, email, githubUrl, about, sex } = profile;
 
-  const onChange = (e) =>
-    setuserProfile({ ...userProfile, [e.target.name]: e.target.value });
+  const onChange = (e) => setuserProfile({ [e.target.name]: e.target.value });
 
   const onSubmit = (e) => {
+    toggle();
     e.preventDefault();
-    // updateProfile(userProfile);
+    updateProfile(userProfile);
     setuserProfile({
+      _id: '',
       name: '',
       email: '',
-      description: '',
-      githuburl: '',
+      githubUrl: '',
+      about: '',
+      sex: '',
     });
   };
 
   const toggle = () => {
     var popup = document.getElementById('popup-userprofile');
     popup.classList.toggle('active');
+  };
+
+  const onCall = () => {
+    toggle();
+    setCurrent(profile);
   };
   return (
     <Fragment>
@@ -52,14 +73,15 @@ const Profile = (props) => {
           <i
             className='fas fa-edit'
             style={{ fontSize: '1.8em' }}
-            onClick={toggle}
+            onClick={onCall}
           ></i>
-          <h3>{name.charAt(0).toUpperCase() + name.slice(1)}</h3>
+          {/* <h3>{name.charAt(0).toUpperCase() + name.slice(1)}</h3> */}
+          <h3>{name}</h3>
           <h4>Description</h4>
         </div>
         <div className='contact-main'>
           <div>
-            <p>description</p>
+            <p>{about}</p>
           </div>
           <div className='contact'>
             {email && (
@@ -70,14 +92,13 @@ const Profile = (props) => {
                 </i>
               </a>
             )}
-
             <br />
             <br />
-            {githuburl && (
+            {githubUrl && (
               <a href='#'>
                 {' '}
                 <i className='fab fa-github' style={{ fontSize: '1.4em' }}>
-                  {' ' + githuburl}
+                  {' ' + githubUrl}
                 </i>
               </a>
             )}
@@ -93,29 +114,29 @@ const Profile = (props) => {
             type='text'
             placeholder='Name'
             name='name'
-            value={name}
+            value={userProfile.name}
             onChange={onChange}
           />
           <input
-            type='email'
-            placeholder='Email'
-            name='email'
-            value={email}
+            type='text'
+            placeholder='Gender'
+            name='sex'
+            value={userProfile.sex}
             onChange={onChange}
           />
           <input
             type='url'
             placeholder='GithubUrl'
-            name='githuburl'
-            value={githuburl}
+            name='githubUrl'
+            value={userProfile.githubUrl}
             onChange={onChange}
           />
           <textarea
             className='desc'
             type='text'
             placeholder='About self'
-            name='description'
-            value={description}
+            name='about'
+            value={userProfile.about}
             onChange={onChange}
           />
           <input type='submit' />

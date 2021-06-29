@@ -16,6 +16,12 @@ const Userproject = (props) => {
   useEffect(() => {
     if (current !== null) {
       setProjectdetail(current);
+    } else {
+      setProjectdetail({
+        name: '',
+        description: '',
+        githubUrl: '',
+      });
     }
   }, [projectContext, current]);
 

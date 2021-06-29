@@ -9,6 +9,7 @@ export const DELETE_PROJECT = 'DELETE_PROJECT';
 export const DELETE_REQUIRED = 'DELETE_REQUIRED';
 export const SHOW_PROJECT = 'SHOW_PROJECT';
 export const SHOW_PROJECTREQ = 'SHOW_PROJECTREQ';
+export const SET_USER = 'SET_USER';
 export const SET_CURRENT = 'SET_CURRENT';
 export const SET_REQUIRED = 'SET_REQUIRED';
 export const CLEAR_CURRENT = 'CLEAR_CURRENT';
