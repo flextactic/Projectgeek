@@ -40,6 +40,20 @@ route.get('/', async(req,res)=>{
   }
 });
 
+route.get('/user',auth,async(req,res) => {
+    try{
+      const user = await User.findById(req.user._id);
+      if(!user) return res.status(404).send('User not Found.');
+      const projectInRequirement= await ProjectInRequirement.findById(req.user._id).populate('projectID');
+      if(!projectInRequirement) return res.status(400).send('You have no project In project Section');
+      res.status(200).send(projectInRequirement);
+    }
+    catch{
+      res.status(500).send("Something failed");
+    }
+});
+
+
 route.put('/update',auth, async(req,res)=>{
   try{
     const { error } = validateEdit(req.body);

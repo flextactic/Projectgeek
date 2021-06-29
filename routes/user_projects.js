@@ -23,7 +23,6 @@ router.post("/create_project",auth,async(req, res)=>{
         if(!user) return res.status(404).send('User not Found.');
         user.projects.push({id:createProject._id});
         user.save();
-        console.log(createProject);
         res.status(201).send(createProject);
     }
     catch(e){
@@ -32,17 +31,19 @@ router.post("/create_project",auth,async(req, res)=>{
     }
 })
 
-// TODO: GET MY PROJECT
+
 router.get("/my_project",auth,async(req,res)=>{
     try{
-        const projectData=await Project.find(req.user._id).populate("Author");
+        console.log(req.user._id);
+        const projectData=await Project.find({Author:req.user._id}).populate("Author");
+        // console.log(projectData);
         res.status(200).send(projectData);
     }catch{
         res.status(400).send("Something went wrong try again later...");
     }
 })
 
-// TODO: GET PROJECTS API
+
 router.get("/get_projects",async(req,res)=>{
     try{
         const projectData = await Project.find().populate("Author","-password");
@@ -134,7 +135,7 @@ router.put("/like/:id",auth,async(req,res)=>{
     const project= await Project.findById(id);
     if(!project) 
     {
-        res.status(400).send("Project is not a function..")
+        res.status(400).send("Project not found..")
         return;
     }
     const user=await User.findById(user_id);
@@ -186,7 +187,7 @@ router.put("/dislike/:id",auth,async(req,res)=>{
     const project= await Project.findById(id);
     if(!project) 
     {
-        res.status(400).send("Project is not a function..")
+        res.status(400).send("Project not found..")
         return;
     }
     const user=await User.findById(user_id);
