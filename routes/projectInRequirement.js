@@ -77,6 +77,12 @@ route.put('/update', auth, async (req, res) => {
   try {
     const { error } = validateEdit(req.body);
     if (error) return res.status(400).send(error.details[0].message);
+<<<<<<< HEAD
+    const project = await ProjectInRequirement.findById(req.body._id);
+    if(!project) return res.status(400).send('Project does not exist with the given id');
+    if(project.authorID!=req.user._id) return res.status(404).send('You dont have proper rights to update this project');
+    project.description=req.body.description;
+=======
     const project = await ProjectInRequirement.findById(req.body.id);
     if (!project)
       return res.status(400).send('Project does not exist with the given id');
@@ -85,6 +91,7 @@ route.put('/update', auth, async (req, res) => {
         .status(404)
         .send('You dont have proper rights to update this project');
     project.description = req.body.description;
+>>>>>>> 8a55f36c77419bbb7fb73a6ef4d61d49daf061dd
     project.save();
     res.status(200).send('Project updated successfully');
   } catch (ex) {
