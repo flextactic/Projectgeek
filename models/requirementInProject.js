@@ -45,7 +45,7 @@ function validateData(data)
 function validateEdit(data)
 {
     const schema = Joi.object({
-        id: Joi.objectId().required(),
+        _id: Joi.objectId().required(),
         description:Joi.string().required(),
     });
     return schema.validate(data);
