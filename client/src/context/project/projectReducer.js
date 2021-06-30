@@ -110,18 +110,18 @@ const error = (state, action) => {
         ...state,
         current: null,
       };
+    case FILTER_PROJECTS:
+      return {
+        ...state,
+        filtered: state.projects.filter((project) => {
+          const regex = new RegExp(`${action.payload}`, 'gi');
+          return project.name.match(regex);
+        }),
+      };
     case CLEAR_FILTER:
       return {
         ...state,
         filtered: null,
-      };
-    case FILTER_PROJECTS:
-      return {
-        ...state,
-        filtered: state.contacts.filter((project) => {
-          const regex = new RegExp(`${action.payload}`, 'gi');
-          return project.name.match(regex) || project.email.match(regex);
-        }),
       };
     case FETCH_ERROR:
       return {

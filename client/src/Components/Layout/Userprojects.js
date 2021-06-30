@@ -1,12 +1,13 @@
 import React, { Fragment, useContext, useState, useEffect } from 'react';
 import Userproject from './Userproject';
+import Searchbar from './Searchbox';
 import './Userprojects.css';
 import ProjectContext from '../../context/project/projectContext';
 
 const Userprojects = () => {
   const projectContext = useContext(ProjectContext);
 
-  const { addProject, projects } = projectContext;
+  const { addProject, projects, filtered } = projectContext;
 
   const [project, setProject] = useState({
     tags: '',
@@ -14,6 +15,10 @@ const Userprojects = () => {
     description: '',
     githubUrl: '',
   });
+
+  if (projects.length === 0) {
+    return <h3>Please Add Some Projects</h3>;
+  }
 
   const { tags, name, description, githubUrl } = project;
 
@@ -41,15 +46,7 @@ const Userprojects = () => {
   return (
     <Fragment>
       <div className='empty'></div>
-      {/* <input
-        type='text'
-        style={{
-          display: 'block',
-          width: '90%',
-          margin: 'auto',
-          borderBottom: '2px solid lightskyblue',
-        }}
-      />
+      <Searchbar />
       <i
         className='fas fa-plus-circle'
         style={{
@@ -60,10 +57,10 @@ const Userprojects = () => {
           width: '50px',
         }}
         onClick={toggleproject}
-      ></i> */}
-      {projects.map((usrproject) => (
-        <Userproject usrproject={usrproject} />
-      ))}
+      ></i>{' '}
+      {filtered !== null
+        ? filtered.map((usrproject) => <Userproject usrproject={usrproject} />)
+        : projects.map((usrproject) => <Userproject usrproject={usrproject} />)}
       {/* popup for edit project */}
       <div id='popup-projectfield'>
         <i className='fas fa-window-close' onClick={toggleproject}></i>

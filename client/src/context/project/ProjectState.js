@@ -304,10 +304,19 @@ const ProjectState = (props) => {
   };
 
   //filter projects
-  const filterProject = () => {};
+  const filterProject = (text) => {
+    dispatch({
+      type: FILTER_PROJECTS,
+      payload: text,
+    });
+  };
 
   //clear filter
-  const clearFilter = () => {};
+  const clearFilter = () => {
+    dispatch({
+      type: CLEAR_FILTER,
+    });
+  };
 
   return (
     <ContactContext.Provider
