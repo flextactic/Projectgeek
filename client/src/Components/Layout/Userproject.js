@@ -85,14 +85,22 @@ const Userproject = (props) => {
     <Fragment>
       <div className='user-glasspanel'>
         <i className='fas fa-expand-arrows-alt' onClick={toggle}></i>
-        <h1>{name}</h1>
+        <h1 style={{ color: '#00f2fe' }}>{name}</h1>
         <p>{description}</p>
         <button
-          style={{ padding: '2px 5px', borderRadius: '5px' }}
+          className='move-button'
+          style={{
+            padding: '5px 7px',
+            borderRadius: '7px',
+            background: '#3f4161',
+          }}
           onClick={change}
         >
-          Move to requirement
+          ADD
         </button>
+        <div className='hover-text'>
+          Move the project to requirement section
+        </div>
         <div className='user-glasstoolbar' style={{ display: 'flex' }}>
           <a href='!#'>
             <i className='fab fa-github'> </i>
@@ -116,8 +124,8 @@ const Userproject = (props) => {
         ></i>
         <h2>{name}</h2>
         <h3>Description</h3>
-        <p>{description}</p>
-        <h2>Tags</h2>
+        <p style={{ widht: '100%', height: '30px' }}>{description}</p>
+        <h2 style={{ margin: '0 0 -20px 0' }}>Tags</h2>
         <div
           className='projectags'
           style={{ display: 'flex', flexWrap: 'wrap' }}
@@ -126,12 +134,12 @@ const Userproject = (props) => {
         </div>
         <br />
         <br />
-        <i
-          className='fab fa-github'
-          style={{ float: 'left', fontSize: '1.3rem' }}
-        >
-          {' ' + githubUrl}
-        </i>
+        <a href={githubUrl}>
+          <i
+            className='fab fa-github'
+            style={{ float: 'left', fontSize: '2rem' }}
+          ></i>
+        </a>
       </div>
 
       {/* popup for edit project */}

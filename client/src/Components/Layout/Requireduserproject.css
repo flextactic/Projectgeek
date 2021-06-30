@@ -45,7 +45,7 @@ div[id*='popup-requiredproject'] {
   padding: 50px;
   box-shadow: 0 5px 30px rgba(31, 26, 26, 0.3);
   border-radius: 15px;
-  background-color: black;
+  background-color: #045175 !important;
   visibility: hidden;
   opacity: 0;
   z-index: 50;
@@ -60,6 +60,7 @@ div[id*='popup-requiredproject'] i {
 }
 
 div[id*='popup-requiredproject'] h2 {
+  color: #00f2fe;
   min-height: 80px;
   width: 90%;
   max-width: 700px;
@@ -68,12 +69,10 @@ div[id*='popup-requiredproject'] h2 {
   text-decoration: none;
   text-transform: capitalize;
   color: #fff;
-  color: red;
 }
 
 div[id*='popup-requiredproject'] p {
   width: 100%;
-  color: red !important;
   padding-bottom: 32px;
   color: rgba(255, 255, 255, 1);
 }

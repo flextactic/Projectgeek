@@ -28,6 +28,8 @@ import {
   FETCH_ERROR,
 } from '../types';
 
+// initial global state
+
 const ProjectState = (props) => {
   const initialState = {
     profile: null,
@@ -108,11 +110,7 @@ const ProjectState = (props) => {
       },
     };
     try {
-      const res = await axios.post(
-        '/api/user_projects/create_project',
-        project,
-        config
-      );
+      const res = await axios.post('/create_project', project, config);
       dispatch({
         type: ADD_PROJECT,
         payload: res.data,

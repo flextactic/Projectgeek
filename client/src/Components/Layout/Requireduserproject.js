@@ -79,7 +79,7 @@ const Requireduserproject = (props) => {
     <Fragment>
       <div className='user-glasspanel'>
         <i className='fas fa-expand-arrows-alt' onClick={toggle}></i>
-        <h1>{name}</h1>
+        <h1 style={{ color: '#00f2fe' }}>{name}</h1>
         <p>{description}</p>
         <div className='user-glasstoolbar' style={{ display: 'flex' }}>
           <a href='!#'>
@@ -98,10 +98,10 @@ const Requireduserproject = (props) => {
       {/* popup for project desc */}
       <div id={`popup-requiredproject${_id}`}>
         <i className='fas fa-window-close' onClick={toggle}></i>
-        <h2>{name}</h2>
-        <h3>Description</h3>
+        <h2 style={{ color: '#00f2fe' }}>{name}</h2>
+        <h3 style={{ color: '#00f2fe' }}>DESCRIPTION</h3>
         <p>{description}</p>
-        <h2>Tags</h2>
+        <h2 style={{ color: '#00f2fe' }}>TAGS</h2>
         <div
           className='projectags'
           style={{ display: 'flex', flexWrap: 'wrap' }}
@@ -110,12 +110,12 @@ const Requireduserproject = (props) => {
         </div>
         <br />
         <br />
-        <i
-          className='fab fa-github'
-          style={{ float: 'left', fontSize: '1.2rem' }}
-        >
-          {' ' + githubUrl}
-        </i>
+        <a href={githubUrl}>
+          <i
+            className='fab fa-github'
+            style={{ float: 'left', fontSize: '2rem' }}
+          ></i>
+        </a>
       </div>
 
       {/* popup for edit project */}

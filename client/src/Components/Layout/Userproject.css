@@ -1,6 +1,5 @@
 .user-glasspanel {
-  color: #000;
-  background-color: #000;
+  background: #28293d !important;
   border: 1px solid;
   border-radius: 15px;
   padding: 32px;
@@ -46,7 +45,7 @@ div[id*='popup-userproject'] {
   padding: 50px;
   box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
   border-radius: 15px;
-  background-color: black;
+  background-color: #045175 !important;
   visibility: hidden;
   opacity: 0;
   z-index: 50;
@@ -68,8 +67,7 @@ div[id*='popup-userproject'] h2 {
   text-align: left;
   text-decoration: none;
   text-transform: capitalize;
-  color: #fff;
-  color: rgba(255, 255, 255, 1);
+  color: #00f2fe;
 }
 
 div[id*='popup-userproject'] p {
@@ -126,7 +124,7 @@ div[id*='popup-projectfield'] {
   padding: 50px;
   box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
   border-radius: 15px;
-  background-color: lightskyblue;
+  background-color: #045175 !important;
   visibility: hidden;
   opacity: 0;
   z-index: 100;

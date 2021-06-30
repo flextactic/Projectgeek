@@ -65,7 +65,7 @@ const Profile = (props) => {
     <Fragment>
       <div className='upper-container'>
         <div className='image-container'>
-          <img src='' />
+          <img src='https://avatarfiles.alphacoders.com/865/thumb-86573.jpg' />
         </div>
       </div>
       <div className='lower-container'>
@@ -76,20 +76,24 @@ const Profile = (props) => {
             onClick={onCall}
           ></i>
           {/* <h3>{name.charAt(0).toUpperCase() + name.slice(1)}</h3> */}
-          <h3>{name}</h3>
-          <h4>Description</h4>
+          <h3 style={{ margin: '20px 0 0 0' }}>{name}</h3>
+          {sex && <h3 style={{ margin: '0 0 20px 0' }}>{sex}</h3>}
+          <h4 style={{ margin: '0 0 30px 0' }}>DESCRIPTION</h4>
         </div>
         <div className='contact-main'>
-          <div>
-            <p>{about}</p>
+          <div style={{ overflow: 'hidden' }}>
+            <p style={{ width: '100%', margin: '0 0 20px 0', color: 'white' }}>
+              {about}
+            </p>
           </div>
           <div className='contact'>
             {email && (
               <a href='#'>
                 {' '}
-                <i className='fas fa-envelope' style={{ fontSize: '1.4rem' }}>
-                  {' ' + email}
-                </i>
+                <i
+                  className='fas fa-envelope'
+                  style={{ fontSize: '2.5rem' }}
+                ></i>
               </a>
             )}
             <br />
@@ -97,9 +101,7 @@ const Profile = (props) => {
             {githubUrl && (
               <a href='#'>
                 {' '}
-                <i className='fab fa-github' style={{ fontSize: '1.4em' }}>
-                  {' ' + githubUrl}
-                </i>
+                <i className='fab fa-github' style={{ fontSize: '2.5rem' }}></i>
               </a>
             )}
           </div>

@@ -28,7 +28,6 @@ const Userprojects = () => {
   const onSubmit = (e) => {
     toggleproject();
     e.preventDefault();
-    toggleproject();
     addProject(project);
     setProject({
       tags: '',
@@ -47,17 +46,9 @@ const Userprojects = () => {
     <Fragment>
       <div className='empty'></div>
       <Searchbar />
-      <i
-        className='fas fa-plus-circle'
-        style={{
-          margin: '30px 0 0 5%',
-          cursor: 'pointer',
-          display: 'block',
-          fontSize: '3em',
-          width: '50px',
-        }}
-        onClick={toggleproject}
-      ></i>{' '}
+      <button className='add-button' onClick={toggleproject}>
+        Add Project
+      </button>
       {filtered !== null
         ? filtered.map((usrproject) => <Userproject usrproject={usrproject} />)
         : projects.map((usrproject) => <Userproject usrproject={usrproject} />)}

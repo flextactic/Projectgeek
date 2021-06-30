@@ -23,12 +23,23 @@ const Searchbox = () => {
   return (
     <Fragment>
       <form>
-        <input
-          ref={text}
-          type='text'
-          placeholder='Filter Projects...'
-          onChange={onChange}
-        />
+        <div class='input-container' style={{ width: '100%' }}>
+          <i
+            className='fas fa-search icon'
+            style={{
+              height: '30px',
+              transform: 'translateX(30px)',
+            }}
+          ></i>
+          <input
+            className='Search-styling'
+            ref={text}
+            type='text'
+            placeholder='Filter Projects...'
+            onChange={onChange}
+            style={{ color: '#4facfe' }}
+          ></input>
+        </div>
       </form>
     </Fragment>
   );

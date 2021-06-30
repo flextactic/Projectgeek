@@ -35,7 +35,7 @@ const App = () => {
               <PrivateRoute exact path='/profile' component={Profile} />
               <PrivateRoute exact path='/required' component={Requireditem} />
             </Switch>
-            {/* <Footer/> */}
+            <Footer />
           </Fragment>
         </Router>
         {/* </AlertState> */}
