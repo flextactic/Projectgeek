@@ -52,7 +52,8 @@ function validateProject(project) {
     const schema = Joi.object({
         name: Joi.string().required().min(3).max(50),
        // Author: Joi.objectId().required(),
-        tags: Joi.array().items(Joi.string()),
+       // tags: Joi.array().items(Joi.string()),
+        tags:Joi.string().required(),
         description: Joi.string().required().min(10).max(200),
         githubUrl: Joi.string().required(),
     });
