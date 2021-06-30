@@ -2,36 +2,53 @@ import React, { Fragment, useState, useEffect, useContext } from 'react';
 import ProjectContext from '../../context/project/projectContext';
 import './Profile.css';
 const Profile = (props) => {
-  useEffect(() => {
-    setuserProfile(profile);
-    //eslint-disable-next-line
-  }, []);
   const projectContext = useContext(ProjectContext);
+
+  const { current, setCurrent, updateProfile } = projectContext;
+
+  useEffect(() => {
+    if (current !== null) {
+      setuserProfile(current);
+    } else {
+      setuserProfile({
+        _id: '',
+        name: '',
+        email: '',
+        githubUrl: '',
+        about: '',
+        sex: '',
+      });
+    }
+  }, [projectContext, current]);
 
   const [userProfile, setuserProfile] = useState({
     name: '',
     email: '',
-    description: '',
-    githuburl: '',
+    githubUrl: '',
+    about: '',
+    sex: '',
   });
 
   console.log(props);
 
   const { profile } = props;
 
-  const { name, email, description, githuburl } = userProfile;
+  const { name, email, githubUrl, about, sex } = profile;
 
   const onChange = (e) =>
     setuserProfile({ ...userProfile, [e.target.name]: e.target.value });
 
   const onSubmit = (e) => {
+    toggle();
     e.preventDefault();
-    // updateProfile(userProfile);
+    console.log(userProfile);
+    updateProfile(userProfile);
     setuserProfile({
       name: '',
       email: '',
-      description: '',
-      githuburl: '',
+      githubUrl: '',
+      about: '',
+      sex: '',
     });
   };
 
@@ -39,11 +56,16 @@ const Profile = (props) => {
     var popup = document.getElementById('popup-userprofile');
     popup.classList.toggle('active');
   };
+
+  const onCall = () => {
+    toggle();
+    setCurrent(profile);
+  };
   return (
     <Fragment>
       <div className='upper-container'>
         <div className='image-container'>
-          <img src='' />
+          <img src='https://avatarfiles.alphacoders.com/865/thumb-86573.jpg' />
         </div>
       </div>
       <div className='lower-container'>
@@ -51,33 +73,35 @@ const Profile = (props) => {
           <i
             className='fas fa-edit'
             style={{ fontSize: '1.8em' }}
-            onClick={toggle}
+            onClick={onCall}
           ></i>
-          <h3>{name.charAt(0).toUpperCase() + name.slice(1)}</h3>
-          <h4>Description</h4>
+          {/* <h3>{name.charAt(0).toUpperCase() + name.slice(1)}</h3> */}
+          <h3 style={{ margin: '20px 0 0 0' }}>{name}</h3>
+          {sex && <h3 style={{ margin: '0 0 20px 0' }}>{sex}</h3>}
+          <h4 style={{ margin: '0 0 30px 0' }}>DESCRIPTION</h4>
         </div>
         <div className='contact-main'>
-          <div>
-            <p>description</p>
+          <div style={{ overflow: 'hidden' }}>
+            <p style={{ width: '100%', margin: '0 0 20px 0', color: 'white' }}>
+              {about}
+            </p>
           </div>
           <div className='contact'>
             {email && (
               <a href='#'>
                 {' '}
-                <i className='fas fa-envelope' style={{ fontSize: '1.4rem' }}>
-                  {' ' + email}
-                </i>
+                <i
+                  className='fas fa-envelope'
+                  style={{ fontSize: '2.5rem' }}
+                ></i>
               </a>
             )}
-
             <br />
             <br />
-            {githuburl && (
+            {githubUrl && (
               <a href='#'>
                 {' '}
-                <i className='fab fa-github' style={{ fontSize: '1.4em' }}>
-                  {' ' + githuburl}
-                </i>
+                <i className='fab fa-github' style={{ fontSize: '2.5rem' }}></i>
               </a>
             )}
           </div>
@@ -92,29 +116,29 @@ const Profile = (props) => {
             type='text'
             placeholder='Name'
             name='name'
-            value={name}
+            value={userProfile.name}
             onChange={onChange}
           />
           <input
-            type='email'
-            placeholder='Email'
-            name='email'
-            value={email}
+            type='text'
+            placeholder='Gender'
+            name='sex'
+            value={userProfile.sex}
             onChange={onChange}
           />
           <input
             type='url'
             placeholder='GithubUrl'
-            name='githuburl'
-            value={githuburl}
+            name='githubUrl'
+            value={userProfile.githubUrl}
             onChange={onChange}
           />
           <textarea
             className='desc'
             type='text'
             placeholder='About self'
-            name='description'
-            value={description}
+            name='about'
+            value={userProfile.about}
             onChange={onChange}
           />
           <input type='submit' />

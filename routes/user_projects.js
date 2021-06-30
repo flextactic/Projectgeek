@@ -37,8 +37,9 @@ router.post('/create_project', auth, async (req, res) => {
 // TODO: GET MY PROJECT
 router.get('/my_project', auth, async (req, res) => {
   try {
-    const projectData = await Project.find({Author:req.user._id}).populate('Author');
-    console.log(projectData);
+    const projectData = await Project.find({ Author: req.user._id }).populate(
+      'Author'
+    );
     res.status(200).send(projectData);
   } catch {
     res.status(400).send('Something went wrong try again later...');
@@ -77,8 +78,8 @@ router.get('/get_project/:id', async (req, res) => {
 // TODO UPDATE YOUR PROJECT DETAIL
 router.put('/update_project/:id', auth, async (req, res) => {
   try {
-    const { error } = validateEditProject(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
+    // const { error } = validateEditProject(req.body);
+    // if (error) return res.status(402).send(error.details[0].message);
     const project = await Project.findById(req.params.id);
     console.log(project);
     if (!project)

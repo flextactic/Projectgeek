@@ -10,16 +10,17 @@ const Profilepage = () => {
 
   const authContext = useContext(AuthContext);
 
-  const { getUser, profile } = projectContext;
+  const { getUser, profile, getProject, getRequired } = projectContext;
 
-  const { loadUser } = authContext;
+  const { loadUser, user } = authContext;
 
   useEffect(() => {
     getUser();
+    getProject(user._id);
+    getRequired();
     //loadUser();
     //eslint-disable-next-line
   }, []);
-
   return (
     <Fragment>
       <div className='empty'></div>

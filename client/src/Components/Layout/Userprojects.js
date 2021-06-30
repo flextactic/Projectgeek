@@ -1,57 +1,39 @@
 import React, { Fragment, useContext, useState, useEffect } from 'react';
 import Userproject from './Userproject';
+import Searchbar from './Searchbox';
 import './Userprojects.css';
 import ProjectContext from '../../context/project/projectContext';
 
-const Userprojects = (props) => {
-  const { projects } = props;
-
+const Userprojects = () => {
   const projectContext = useContext(ProjectContext);
 
-  const { addProject, clearCurrent, current, updateProject } = projectContext;
-
-  useEffect(() => {
-    if (current !== null) {
-      console.log(current);
-      setProject(current);
-      console.log('success');
-    } else {
-      setProject({
-        id: '',
-        tags: '',
-        name: '',
-        description: '',
-        url: '',
-      });
-    }
-  }, [projectContext, current]);
+  const { addProject, projects, filtered } = projectContext;
 
   const [project, setProject] = useState({
-    id: 'asdas',
-    tags: 'asdas',
-    name: 'asdasds',
-    description: 'asdasd',
-    url: 'asdasd',
+    tags: '',
+    name: '',
+    description: '',
+    githubUrl: '',
   });
 
-  const { id, tags, name, description, url } = project;
+  if (projects.length === 0) {
+    return <h3>Please Add Some Projects</h3>;
+  }
+
+  const { tags, name, description, githubUrl } = project;
 
   const onChange = (e) =>
     setProject({ ...project, [e.target.name]: e.target.value });
 
   const onSubmit = (e) => {
+    toggleproject();
     e.preventDefault();
-    if (current === null) {
-      addProject(project);
-    } else {
-      updateProject(project);
-    }
+    addProject(project);
     setProject({
-      id: '',
       tags: '',
       name: '',
       description: '',
-      url: '',
+      githubUrl: '',
     });
   };
 
@@ -60,40 +42,16 @@ const Userprojects = (props) => {
     popup.classList.toggle('active');
   };
 
-  const parent = () => {
-    toggleproject();
-  };
-
-  const clearAll = () => {
-    clearCurrent();
-  };
-
   return (
     <Fragment>
       <div className='empty'></div>
-      <input
-        type='text'
-        style={{
-          display: 'block',
-          width: '90%',
-          margin: 'auto',
-          borderBottom: '2px solid lightskyblue',
-        }}
-      />
-      <i
-        className='fas fa-plus-circle'
-        style={{
-          margin: '30px 0 0 5%',
-          cursor: 'pointer',
-          display: 'block',
-          fontSize: '3em',
-          width: '50px',
-        }}
-        onClick={toggleproject}
-      ></i>
-
-      <Userproject project={project} parent={parent} />
-
+      <Searchbar />
+      <button className='add-button' onClick={toggleproject}>
+        Add Project
+      </button>
+      {filtered !== null
+        ? filtered.map((usrproject) => <Userproject usrproject={usrproject} />)
+        : projects.map((usrproject) => <Userproject usrproject={usrproject} />)}
       {/* popup for edit project */}
       <div id='popup-projectfield'>
         <i className='fas fa-window-close' onClick={toggleproject}></i>
@@ -115,8 +73,8 @@ const Userprojects = (props) => {
           <input
             type='url'
             placeholder='Project GithubUrl'
-            name='url'
-            value={url}
+            name='githubUrl'
+            value={githubUrl}
             onChange={onChange}
           />
           <textarea
@@ -128,7 +86,6 @@ const Userprojects = (props) => {
             onChange={onChange}
           />
           <input type='submit' />
-          {current && <button onClick={clearAll}>Clear</button>}
         </form>
       </div>
     </Fragment>
