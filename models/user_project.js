@@ -53,7 +53,6 @@ function validateProject(project) {
     description: Joi.string().required().min(10).max(200),
     githubUrl: Joi.string().required(),
   });
-
   return schema.validate(project);
 }
 
