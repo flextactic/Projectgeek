@@ -73,7 +73,6 @@ route.get('/me', auth, async (req, res) => {
   }
 });
 
-<<<<<<< HEAD
 route.get('/user',auth,async(req,res) => {
     try{
       const user = await User.findById(req.user._id);
@@ -90,10 +89,6 @@ route.get('/user',auth,async(req,res) => {
 
 route.put('/update',auth, async(req,res)=>{
   try{
-=======
-route.put('/update', auth, async (req, res) => {
-  try {
->>>>>>> 25dcd4571a00e04a0a3a66ee70655b70026dc53d
     const { error } = validateEdit(req.body);
     if (error) return res.status(400).send(error.details[0].message);
     const project = await ProjectInRequirement.findById(req.body._id);

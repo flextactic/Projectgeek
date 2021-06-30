@@ -10,63 +10,18 @@ const {
 const { User } = require('../models/user');
 
 // TODO: "CREATE PROJECT API";
-<<<<<<< HEAD
-router.post("/create_project",auth,async(req, res)=>{
-    
-    try{
-        const { error } = validateProject(req.body);
-        if (error) return res.status(400).send(error.details[0].message);
-        const project= new Project({
-            name: req.body.name,
-            Author: req.body.Author,
-            description: req.body.description,
-            tags: req.body.tags,
-            githubUrl: req.body.githubUrl
-        });
-        const createProject =await project.save();
-        const user = await User.findById(req.user._id);
-        if(!user) return res.status(404).send('User not Found.');
-        user.projects.push({id:createProject._id});
-        user.save();
-        res.status(201).send(createProject);
-    }
-    catch(e){
-        console.log(e);
-        res.status(400).send(e);
-    }
-})
-
-
-router.get("/my_project",auth,async(req,res)=>{
-    try{
-        console.log(req.user._id);
-        const projectData=await Project.find({Author:req.user._id}).populate("Author");
-        // console.log(projectData);
-        res.status(200).send(projectData);
-    }catch{
-        res.status(400).send("Something went wrong try again later...");
-    }
-})
-
-
-router.get("/get_projects",async(req,res)=>{
-    try{
-        const projectData = await Project.find().populate("Author","-password");
-        res.status(200).send(projectData);
-    }catch(e){
-        res.status(400).send(e);
-    }
-})
-=======
 router.post('/create_project', auth, async (req, res) => {
   try {
     const { error } = validateProject(req.body);
     if (error) return res.status(400).send(error.details[0].message);
+    
+    let tags_string = req.body.tags;
+    let tag_array = tag_string.split(",");
     const project = new Project({
       name: req.body.name,
       Author: req.user._id,
       description: req.body.description,
-      tags: req.body.tags,
+      tags: tags_array,
       githubUrl: req.body.githubUrl,
     });
     const createProject = await project.save();
@@ -85,7 +40,7 @@ router.post('/create_project', auth, async (req, res) => {
 // TODO: GET MY PROJECT
 router.get('/my_project', auth, async (req, res) => {
   try {
-    const projectData = await Project.find(req.user._id).populate('Author');
+    const projectData = await Project.find({Author: req.user._id}).populate('Author');
     res.status(200).send(projectData);
   } catch {
     res.status(400).send('Something went wrong try again later...');
@@ -101,7 +56,6 @@ router.get('/get_projects', async (req, res) => {
     res.status(400).send('project error');
   }
 });
->>>>>>> 25dcd4571a00e04a0a3a66ee70655b70026dc53d
 
 //TODO GET SINGLE PROJECT API
 router.get('/get_project/:id', async (req, res) => {
@@ -131,7 +85,7 @@ router.put('/update_project/:id', auth, async (req, res) => {
     console.log(project);
     if (!project)
       return res.status(400).send('Project does not exist with the given id');
-    if (project.Author != req.user._id)
+    if (project.Author!= req.user._id)
       return res
         .status(404)
         .send('You dont have proper rights to update this project');
@@ -157,49 +111,6 @@ router.put('/update_project/:id', auth, async (req, res) => {
 });
 
 // TODO: Delete particular project of a user
-<<<<<<< HEAD
-router.delete("/delete_project/:id",auth,async(req,res)=>{
-    try{
-        
-        const project = await Project.findById(req.params.id);
-        if(!project) return res.status(400).send('Project does not exist with the given id');
-        if(project.Author!=req.user._id) return res.status(404).send('You dont have proper rights to delete this project');
-       
-        const user = await User.updateOne(
-            { _id: req.user._id },
-            {
-              $pull: {
-                projects: { id: project._id, contentType: mongoose.Schema.Types.ObjectId },
-              },
-            }
-          );
-         
-        const deleteProject= await Project.findByIdAndDelete(req.params.id);
-        res.status(200).send(deleteProject);
-    }
-    catch(e){
-        res.status(500).send("OPPS... Please try again later");
-    }
-})
-
-router.put("/like/:id",auth,async(req,res)=>{
-    const user_id=req.user._id;
-    const id=req.params.id;
-    const project= await Project.findById(id);
-    if(!project) 
-    {
-        res.status(400).send("Project not found..")
-        return;
-    }
-    const user=await User.findById(user_id);
-    if(!user) res.status(400).send("Register Yourself to Like the Project...");
-    const upvoted =await User.findOne({_id:req.user._id,upvoted:{id:project._id}});
-    if(!upvoted){
-        
-        const downvoted =await User.findOne({_id:req.user._id,downvoted:{id:project._id}});
-
-        if(downvoted)
-=======
 router.delete('/delete_project/:id', auth, async (req, res) => {
   try {
     const project = await Project.findById(req.params.id);
@@ -252,7 +163,6 @@ router.put('/like/:id', auth, async (req, res) => {
     if (downvoted) {
       const user = await User.updateOne(
         { _id: user_id },
->>>>>>> 25dcd4571a00e04a0a3a66ee70655b70026dc53d
         {
           $pull: {
             downvoted: {
@@ -290,25 +200,6 @@ router.put('/like/:id', auth, async (req, res) => {
 
 // TODO: DISLIKE THE PROJECT
 
-<<<<<<< HEAD
-router.put("/dislike/:id",auth,async(req,res)=>{
-    const user_id=req.user._id;
-    const id=req.params.id;
-    const project= await Project.findById(id);
-    if(!project) 
-    {
-        res.status(400).send("Project not found..")
-        return;
-    }
-    const user=await User.findById(user_id);
-    if(!user) res.status(400).send("Register Yourself to Like the Project...");
-    const downvoted =await User.findOne({_id:req.user._id,downvoted:{id:project._id}});
-    if(!downvoted){
-        
-        const upvoted =await User.findOne({_id:req.user._id,upvoted:{id:project._id}});
-
-        if(upvoted)
-=======
 router.put('/dislike/:id', auth, async (req, res) => {
   const user_id = req.user._id;
   const id = req.params.id;
@@ -332,7 +223,6 @@ router.put('/dislike/:id', auth, async (req, res) => {
     if (upvoted) {
       const user = await User.updateOne(
         { _id: user_id },
->>>>>>> 25dcd4571a00e04a0a3a66ee70655b70026dc53d
         {
           $pull: {
             upvoted: {
