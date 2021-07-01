@@ -12,7 +12,11 @@ const mongoose = require('mongoose');
 
 route.post('/add', auth, async (req, res) => {
   try {
-    const { error } = validateData(req.body);
+    const data={
+      projectId:req.body._id,
+      description:req.body.description
+    }
+    const { error } = validateData(data);
     if (error) return res.status(400).send(error.details[0].message);
     const project = await ProjectInRequirement.findOne({
       projectID: req.body.projectId,
@@ -21,7 +25,7 @@ route.post('/add', auth, async (req, res) => {
       return res
         .status(400)
         .send('This project is already in the requirement section');
-    const projectData = await Project.findById(req.body.projectId);
+    const projectData = await Project.findById(data.projectId);
     if (projectData.Author != req.user._id)
       return res
         .send(400)
@@ -30,13 +34,13 @@ route.post('/add', auth, async (req, res) => {
         );
     const projectInRequirement = new ProjectInRequirement({
       authorID: req.user._id,
-      projectID: req.body.projectId,
-      description: req.body.description,
+      projectID: data.projectId,
+      description: data.description,
     });
     const user = await User.findById(req.user._id);
     if (!user) return res.status(404).send('User not Found.');
     user.projectInRequirement.push({
-      id: req.body.projectId,
+      id: req.body._id,
       reqDescription: req.body.description,
     });
     user.save();
@@ -73,23 +77,13 @@ route.get('/me', auth, async (req, res) => {
   }
 });
 
-route.get('/user',auth,async(req,res) => {
-    try{
-      const user = await User.findById(req.user._id);
-      if(!user) return res.status(404).send('User not Found.');
-      const projectInRequirement= await ProjectInRequirement.findById(req.user._id).populate('projectID');
-      if(!projectInRequirement) return res.status(400).send('You have no project In project Section');
-      res.status(200).send(projectInRequirement);
+route.put('/update', auth, async (req, res) => {
+  try {
+    const data={
+      _id:req.body._id,
+      description:req.body.description,
     }
-    catch{
-      res.status(500).send("Something failed");
-    }
-});
-
-
-route.put('/update',auth, async(req,res)=>{
-  try{
-    const { error } = validateEdit(req.body);
+    const { error } = validateEdit(data);
     if (error) return res.status(400).send(error.details[0].message);
     const project = await ProjectInRequirement.findById(req.body._id);
     if(!project) return res.status(400).send('Project does not exist with the given id');

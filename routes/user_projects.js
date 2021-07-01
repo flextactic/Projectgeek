@@ -14,14 +14,13 @@ router.post('/create_project', auth, async (req, res) => {
   try {
     const { error } = validateProject(req.body);
     if (error) return res.status(400).send(error.details[0].message);
-    
-    let tags_string = req.body.tags;
-    let tag_array = tag_string.split(",");
+    let string=req.body.tags;
+    let tagsArray=string.split(',');
     const project = new Project({
       name: req.body.name,
       Author: req.user._id,
       description: req.body.description,
-      tags: tags_array,
+      tags: tagsArray,
       githubUrl: req.body.githubUrl,
     });
     const createProject = await project.save();
@@ -29,10 +28,8 @@ router.post('/create_project', auth, async (req, res) => {
     if (!user) return res.status(404).send('User not Found.');
     user.projects.push({ id: createProject._id });
     user.save();
-    console.log(createProject);
     res.status(201).send(createProject);
   } catch (e) {
-    console.log(e);
     res.status(400).send(e);
   }
 });
@@ -40,7 +37,8 @@ router.post('/create_project', auth, async (req, res) => {
 // TODO: GET MY PROJECT
 router.get('/my_project', auth, async (req, res) => {
   try {
-    const projectData = await Project.find({Author: req.user._id}).populate('Author');
+    const projectData = await Project.find({Author:req.user._id}).populate('Author');
+    console.log(projectData);
     res.status(200).send(projectData);
   } catch {
     res.status(400).send('Something went wrong try again later...');

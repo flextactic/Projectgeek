@@ -124,7 +124,13 @@ route.post('/add',async(req,res)=>{
 
 route.put('/edit', auth, async (req, res) => {
   try {
-    const { error } = validateEditUser(req.body);
+    const data={
+      name:req.body.name,
+      githubUrl:req.body.githubUrl,
+      sex:req.body.sex,
+      about:req.body.about,
+    }
+    const { error } = validateEditUser(data);
     if (error) return res.status(400).send(error.details[0].message);
 
     console.log(req.user._id);
