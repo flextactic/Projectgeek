@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 module.exports = function()
 {
-  mongoose.connect('mongodb://localhost:27017/ProjectGeek',{
+  mongoose.connect(process.env.MONGODB_URL||'mongodb://localhost:27017/ProjectGeek',{
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true,
