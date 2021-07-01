@@ -1,17 +1,25 @@
 import {
   GET_USER,
   CLEAR_USER,
+  GET_PROJECT,
+  GET_REQUIRED,
+  CLEAR_PROJECT,
+  CLEAR_REQUIRED,
   ADD_PROJECT,
+  ADD_REQUIRED,
   SHOW_PROJECT,
   SHOW_PROJECTREQ,
   DELETE_PROJECT,
+  DELETE_REQUIRED,
   SET_CURRENT,
   CLEAR_CURRENT,
   UPDATE_PROJECT,
+  UPDATE_REQUIRED,
   UPDATE_PROFILE,
   FILTER_PROJECTS,
   CLEAR_FILTER,
   PROJECT_ERROR,
+  FETCH_ERROR,
   SET_REQUIRED,
 } from '../types';
 
@@ -22,10 +30,25 @@ const error = (state, action) => {
         ...state,
         profile: action.payload,
       };
+    case GET_PROJECT:
+      return {
+        ...state,
+        projects: action.payload,
+      };
+    case GET_REQUIRED:
+      return {
+        ...state,
+        required: action.payload,
+      };
     case ADD_PROJECT:
       return {
         ...state,
         projects: [action.payload, ...state.projects],
+      };
+    case ADD_REQUIRED:
+      return {
+        ...state,
+        required: [action.payload, ...state.required],
       };
     case SHOW_PROJECT:
       return {
@@ -41,8 +64,19 @@ const error = (state, action) => {
       return {
         ...state,
         projects: state.projects.map((project) =>
-          project.id === action.payload.id ? action.payload : project
+          project._id === action.payload._id ? action.payload : project
         ),
+      };
+    case UPDATE_REQUIRED:
+      return {
+        ...state,
+        required: state.required.map((req) =>
+          req._id === action.payload._id ? action.payload : req
+        ),
+      };
+    case DELETE_REQUIRED:
+      return {
+        required: state.required.filter((req) => req._id !== action.payload),
       };
     case DELETE_PROJECT:
       return {
@@ -63,7 +97,7 @@ const error = (state, action) => {
     case UPDATE_PROFILE:
       return {
         ...state,
-        profile: [...state.profile, action.payload],
+        profile: [action.payload],
       };
     case SET_CURRENT:
     case SET_REQUIRED:
@@ -76,18 +110,23 @@ const error = (state, action) => {
         ...state,
         current: null,
       };
+    case FILTER_PROJECTS:
+      return {
+        ...state,
+        filtered: state.projects.filter((project) => {
+          const regex = new RegExp(`${action.payload}`, 'gi');
+          return project.name.match(regex);
+        }),
+      };
     case CLEAR_FILTER:
       return {
         ...state,
         filtered: null,
       };
-    case FILTER_PROJECTS:
+    case FETCH_ERROR:
       return {
         ...state,
-        filtered: state.contacts.filter((project) => {
-          const regex = new RegExp(`${action.payload}`, 'gi');
-          return project.name.match(regex) || project.email.match(regex);
-        }),
+        error: action.payload,
       };
     case PROJECT_ERROR:
       return {

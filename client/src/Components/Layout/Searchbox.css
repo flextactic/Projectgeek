@@ -1,0 +1,18 @@
+* {
+  text-decoration: none;
+}
+
+div .Search-styling {
+  width: 90%;
+  height: 40px;
+  text-align: center;
+  border-radius: 5px;
+  z-index: -110000;
+  background: none;
+  border: 2px solid #545781 !important;
+}
+
+input[type='text']:focus {
+  outline: 1px #777bb6;
+  background: #3f4161;
+}
