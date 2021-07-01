@@ -18,7 +18,7 @@ const Profilepage = () => {
     getUser();
     getProject(user._id);
     getRequired();
-    //loadUser();
+    loadUser();
     //eslint-disable-next-line
   }, []);
   return (
