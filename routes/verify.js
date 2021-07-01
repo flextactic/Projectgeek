@@ -9,7 +9,6 @@ Fawn.init(mongoose);
 route.post('/', async(req, res)=>{
     const { error } = validateVerification(req.body);
     if (error) return res.status(400).send(`Invalid request: ${error.details[0].message}`);
-    console.log("hii");
    
     const verificationToken = await TokenVerification.findOne({token: req.body.token});
     if(!verificationToken) return res.status(401).send('Invalid/expired token.');

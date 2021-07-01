@@ -84,7 +84,7 @@ router.put('/update_project/:id', auth, async (req, res) => {
     console.log(project);
     if (!project)
       return res.status(400).send('Project does not exist with the given id');
-    if (project.Author != req.user._id)
+    if (project.Author!= req.user._id)
       return res
         .status(404)
         .send('You dont have proper rights to update this project');

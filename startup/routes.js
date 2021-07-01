@@ -12,6 +12,6 @@ module.exports = function(app)
    app.use('/api/users',user);
    app.use('/api/login',login);
    app.use('/api/verify',verify);
-   app.use(project);
+   app.use('/api/project',project);
    app.use('/api/requirement',requirement);
 }

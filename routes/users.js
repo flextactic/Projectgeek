@@ -73,8 +73,8 @@ route.get('/profile/:id', async (req, res) => {
   }
 });
 
-route.post('/add', async (req, res) => {
-  try {
+route.post('/add',async(req,res)=>{
+  try{
     const { error } = validateUser(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
@@ -92,7 +92,7 @@ route.post('/add', async (req, res) => {
     const verificationToken = new TokenVerification(usertoken);
     await verificationToken.save();
     // const msg = {
-    //   to: user.email,
+    //   to: user.email, 
     //   from: 'anshulmudgil38@gmail.com',
     //   subject: 'Sending with SendGrid is Fun',
     //   text: 'and easy to do anywhere, even with Node.js',
@@ -114,9 +114,11 @@ route.post('/add', async (req, res) => {
     // .catch((error) => {
     //   console.error(error)
     // })
-    res.status(200).send(_.pick(user, ['_id', 'name', 'email']));
-  } catch (ex) {
-    res.status(500).send('something failed');
+    res.status(200).send(_.pick(user, ["_id", "name", "email"]));
+  }
+  catch(ex)
+  {
+     res.status(500).send('Something fialed');
   }
 });
 
