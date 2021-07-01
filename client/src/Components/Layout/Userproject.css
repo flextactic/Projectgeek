@@ -1,120 +1,187 @@
 .user-glasspanel {
-    color: #000;
-    background-color: #000;
-    border: 1px solid ;
-    border-radius: 15px;
-    padding: 32px;
-    margin: 50px;
-    max-height: 400px;
-  }
-  
-  .user-glasspanel {  
-    max-width: 90%;
-  }
+  background: #28293d !important;
+  border: 1px solid;
+  border-radius: 15px;
+  padding: 32px;
+  margin: 50px;
+  max-height: 400px;
+}
 
-  .user-glasspanel i{
-    float: right;
-    font-size: 2rem;
-    cursor: pointer;
-  }
-  
-  h1, h1 a {
-    min-height: 80px;
-    width: 90%;
-    max-width: 700px;
-    vertical-align: middle;
-    text-align: left;
-    text-decoration: none;
-    color: #fff;
-    color: rgba(255,255,255,1);
-  }
-  
-  p {
-    width: 80%;
-    padding-bottom: 32px;
-    color: rgba(255,255,255,1);
-  }
+.user-glasspanel {
+  max-width: 90%;
+}
 
+.user-glasspanel i {
+  float: right;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+h1,
+h1 a {
+  min-height: 80px;
+  width: 90%;
+  max-width: 700px;
+  vertical-align: middle;
+  text-align: left;
+  text-decoration: none;
+  color: #fff;
+  color: rgba(255, 255, 255, 1);
+}
+
+p {
+  width: 80%;
+  padding-bottom: 32px;
+  color: rgba(255, 255, 255, 1);
+}
 
 /* project description pop up */
-  #popup-userproject{
-    position: fixed;
-    top: 55%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    max-height: 500px;
-    padding: 50px;
-    box-shadow: 0 5px 30px rgba(0,0,0,.30);
-    border-radius: 15px;
-    background-color: black ;
-    visibility: hidden;
-    opacity: 0;
-    z-index: 50;
-    overflow-y: auto;
-    width: 90%;
-    max-width: 700px;
-  }
-  #popup-userproject i{
-      float: right;
-      font-size: 1.3rem;
-      cursor: pointer;
-  }
+div[id*='popup-userproject'] {
+  position: fixed;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-height: 500px;
+  padding: 50px;
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+  background-color: #045175 !important;
+  visibility: hidden;
+  opacity: 0;
+  z-index: 50;
+  overflow-y: auto;
+  width: 90%;
+  max-width: 700px;
+}
+div[id*='popup-userproject'] i {
+  float: right;
+  font-size: 1.3rem;
+  cursor: pointer;
+}
 
-  #popup-userproject h2 {
-    min-height: 80px;
-    width: 90%;
-    max-width: 700px;
-    vertical-align: middle;
-    text-align: left;
-    text-decoration: none;
-    text-transform: capitalize;
-    color: #fff;
-    color: rgba(255,255,255,1);
-  }
+div[id*='popup-userproject'] h2 {
+  min-height: 80px;
+  width: 90%;
+  max-width: 700px;
+  vertical-align: middle;
+  text-align: left;
+  text-decoration: none;
+  text-transform: capitalize;
+  color: #00f2fe;
+}
 
-  #popup-userproject p {
+div[id*='popup-userproject'] p {
+  width: 100%;
+  padding-bottom: 32px;
+  color: rgba(255, 255, 255, 1);
+}
+
+div[id*='popup-userproject'].active {
+  visibility: visible;
+  opacity: 1;
+  max-height: 500px;
+}
+
+.user-glasstoolbar {
+  margin: 10% 0;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.user-glasstoolbar i {
+  font-size: 2rem;
+}
+.subtoolbar {
+  width: 100%;
+}
+.subtoolbar i {
+  padding-left: 30px;
+}
+
+@media (max-width: 1020px) {
+  .user-glasspanel {
     width: 100%;
-    padding-bottom: 32px;
-    color: rgba(255,255,255,1);
   }
-  
-  #popup-userproject.active{
-    visibility: visible;
-    opacity: 1;
-    max-height: 500px;
-  }
-
-
-  .user-glasstoolbar{
-    margin: 10% 0;
-    color: rgba(255,255,255,0.6);
-  }
-
-  .user-glasstoolbar i{
-    font-size: 2rem;
-  }
-  .subtoolbar{
-      width: 100%;
-  }
-  .subtoolbar i{
-      padding-left: 30px;
 }
-
-@media(max-width:1020px){
-    .user-glasspanel{
-        width: 100%;
-    }
-}
-@media(max-width:700px){
-    .user-glasspanel{
+@media (max-width: 700px) {
+  .user-glasspanel {
     margin-left: 5%;
-    }
+  }
 }
 
-@media(max-width:340px){
-    .user-glasspanel{
-        height: 850px;
-        }
+@media (max-width: 340px) {
+  .user-glasspanel {
+    height: 850px;
+  }
 }
 
+/* edit part popup */
+div[id*='popup-projectfield'] {
+  position: fixed;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-height: 500px;
+  padding: 50px;
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+  background-color: #045175 !important;
+  visibility: hidden;
+  opacity: 0;
+  z-index: 100;
+  overflow-y: auto;
+  width: 90%;
+  max-width: 700px;
+}
+div[id*='popup-projectfield'] i {
+  float: right;
+  font-size: 1.3rem;
+  cursor: pointer;
+}
 
+div[id*='popup-projectfield'] p {
+  width: 100%;
+  padding-bottom: 32px;
+  color: rgba(255, 255, 255, 1);
+}
+
+div[id*='popup-projectfield'].active {
+  visibility: visible;
+  opacity: 1;
+  max-height: 500px;
+}
+
+div[id*='popup-projectfield'] .profile-form2 {
+  display: flex;
+  flex-direction: column;
+}
+div[id*='popup-projectfield'] .profile-form2 input {
+  margin: 10px 0;
+  background: transparent;
+  border: 0px;
+  border-bottom: 2px solid #c5ecfd;
+  padding: 10px;
+  color: #c5ecfd;
+  width: 100%;
+}
+div[id*='popup-projectfield'] input[type='submit'] {
+  vertical-align: middle;
+  text-align: left;
+  text-decoration: none;
+  text-transform: capitalize;
+  border-bottom: none !important;
+  background: limegreen;
+  width: auto;
+}
+
+::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  color: #c5ecfd;
+}
+::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #c5ecfd;
+}
+:-ms-input-placeholder {
+  /* IE 10+ */
+  color: #c5ecfd;
+}

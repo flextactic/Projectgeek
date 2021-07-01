@@ -6,8 +6,14 @@ import contactReducer from './projectReducer';
 import {
   GET_USER,
   CLEAR_USER,
+  GET_PROJECT,
+  GET_REQUIRED,
+  CLEAR_PROJECT,
+  CLEAR_REQUIRED,
   ADD_PROJECT,
+  ADD_REQUIRED,
   DELETE_PROJECT,
+  DELETE_REQUIRED,
   SET_CURRENT,
   SHOW_PROJECT,
   SHOW_PROJECTREQ,
@@ -15,10 +21,14 @@ import {
   CLEAR_CURRENT,
   UPDATE_PROJECT,
   UPDATE_PROFILE,
+  UPDATE_REQUIRED,
   FILTER_PROJECTS,
   CLEAR_FILTER,
   PROJECT_ERROR,
+  FETCH_ERROR,
 } from '../types';
+
+// initial global state
 
 const ProjectState = (props) => {
   const initialState = {
@@ -26,6 +36,7 @@ const ProjectState = (props) => {
     projectary: [],
     requiredary: [],
     projects: [],
+    required: [],
     current: null,
     filtered: null,
     error: null,
@@ -40,6 +51,40 @@ const ProjectState = (props) => {
 
       dispatch({
         type: GET_USER,
+        payload: res.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: PROJECT_ERROR,
+        payload: err.response.data,
+      });
+    }
+  };
+
+  //get projects
+  const getProject = async () => {
+    try {
+      const res = await axios.get('/my_project');
+
+      dispatch({
+        type: GET_PROJECT,
+        payload: res.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: FETCH_ERROR,
+        payload: err.response.data,
+      });
+    }
+  };
+
+  //get required
+  const getRequired = async () => {
+    try {
+      const res = await axios.get('/api/requirement/me');
+
+      dispatch({
+        type: GET_REQUIRED,
         payload: res.data,
       });
     } catch (err) {
@@ -65,14 +110,32 @@ const ProjectState = (props) => {
       },
     };
     try {
-      const res = await axios.post(
-        '/api/user_projects/create_project',
-        project,
-        config
-      );
+      const res = await axios.post('/create_project', project, config);
       dispatch({
         type: ADD_PROJECT,
         payload: res.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: PROJECT_ERROR,
+        payload: err.response.data,
+      });
+    }
+  };
+
+  //add required
+  const addRequired = async (project) => {
+    console.log(project);
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    try {
+      await axios.post('/api/requirement/add', project, config);
+      dispatch({
+        type: ADD_REQUIRED,
+        payload: project,
       });
     } catch (err) {
       dispatch({
@@ -121,10 +184,27 @@ const ProjectState = (props) => {
   //delete project
   const deleteProject = async (id) => {
     try {
-      await axios.delete(`/api/user_projects/delete_project/${id}`);
+      await axios.delete(`/delete_project/${id}`);
 
       dispatch({
         type: DELETE_PROJECT,
+        payload: id,
+      });
+    } catch (err) {
+      dispatch({
+        type: PROJECT_ERROR,
+        payload: err.response.msg,
+      });
+    }
+  };
+
+  //delete required
+  const deleteRequired = async (id) => {
+    try {
+      await axios.delete(`/api/requirement/delete/${id}`);
+
+      dispatch({
+        type: DELETE_REQUIRED,
         payload: id,
       });
     } catch (err) {
@@ -159,21 +239,82 @@ const ProjectState = (props) => {
   };
 
   //update project
-  const updateProject = ([project]) => {
-    dispatch({
-      type: UPDATE_PROJECT,
-      payload: project,
-    });
+  const updateProject = async (project) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    try {
+      await axios.put(`/update_project/${project._id}`, project, config);
+      dispatch({
+        type: UPDATE_PROJECT,
+        payload: project,
+      });
+    } catch (err) {
+      dispatch({
+        type: PROJECT_ERROR,
+        payload: err.response.msg,
+      });
+    }
+  };
+
+  //update required
+  const updateRequired = async (project) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    try {
+      await axios.put('/api/requirement/update', project, config);
+      dispatch({
+        type: UPDATE_REQUIRED,
+        payload: project,
+      });
+    } catch (err) {
+      dispatch({
+        type: PROJECT_ERROR,
+        payload: err.response.msg,
+      });
+    }
   };
 
   //update profile
-  const updateProfile = () => {};
+  const updateProfile = async (profile) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    try {
+      await axios.put('/api/users/edit', profile, config);
+      dispatch({
+        type: UPDATE_PROFILE,
+        payload: profile,
+      });
+    } catch (err) {
+      dispatch({
+        type: PROJECT_ERROR,
+        payload: err.response.msg,
+      });
+    }
+  };
 
   //filter projects
-  const filterProject = () => {};
+  const filterProject = (text) => {
+    dispatch({
+      type: FILTER_PROJECTS,
+      payload: text,
+    });
+  };
 
   //clear filter
-  const clearFilter = () => {};
+  const clearFilter = () => {
+    dispatch({
+      type: CLEAR_FILTER,
+    });
+  };
 
   return (
     <ContactContext.Provider
@@ -182,18 +323,24 @@ const ProjectState = (props) => {
         projectary: state.projectary,
         requiredary: state.requiredary,
         projects: state.projects,
+        required: state.required,
         current: state.current,
         filtered: state.filtered,
         error: state.error,
         addProject,
+        addRequired,
         showProject,
         showProjectreq,
         getUser,
+        getProject,
+        getRequired,
         deleteProject,
+        deleteRequired,
         setCurrent,
         setCurrentreq,
         clearCurrent,
         updateProject,
+        updateRequired,
         filterProject,
         clearFilter,
         clearUser,
