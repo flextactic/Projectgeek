@@ -22,7 +22,7 @@ const Required = (props) => {
       <div className='requiredglass-panel'>
         <i class='fas fa-expand-arrows-alt' onClick={toggle}></i>
         <h1>{name}</h1>
-        <p>{description}</p>
+        <div className='usrdescription'>{description}</div>
         <div className='requiredglass-toolbar' style={{ display: 'flex' }}>
           <i className='far fa-thumbs-up '></i>
           <i className='far fa-thumbs-down '></i>
@@ -34,7 +34,7 @@ const Required = (props) => {
         <i class='fas fa-window-close' onClick={toggle}></i>
         <h2>{name}</h2>
         <h3>Autor: {authorID.name}</h3>
-        <h3>Requirement</h3>
+        <h2>Requirement</h2>
         <p>{description}</p>
         <h2>Tags</h2>
         <div
@@ -47,10 +47,10 @@ const Required = (props) => {
         </div>
         <br />
         <br />
-        <i class='fab fa-github' style={{ float: 'left', fontSize: '1.6em' }}>
-          {' '}
-          {githubUrl}
-        </i>
+        <i
+          class='fab fa-github'
+          style={{ float: 'left', fontSize: '2rem' }}
+        ></i>
       </div>
     </Fragment>
   );

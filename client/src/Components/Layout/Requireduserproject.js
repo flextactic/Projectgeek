@@ -80,7 +80,7 @@ const Requireduserproject = (props) => {
       <div className='user-glasspanel'>
         <i className='fas fa-expand-arrows-alt' onClick={toggle}></i>
         <h1 style={{ color: '#00f2fe' }}>{name}</h1>
-        <p>{description}</p>
+        <div className='usrdescription'>{description}</div>
         <div className='user-glasstoolbar' style={{ display: 'flex' }}>
           <a href='!#'>
             <i className='fab fa-github'> </i>
