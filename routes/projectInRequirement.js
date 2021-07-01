@@ -71,7 +71,21 @@ route.get('/me', auth, async (req, res) => {
     }).populate('projectID');
     if (!projectInRequirement)
       return res.status(400).send('NO project exist for this user.');
-    res.status(200).send(projectInRequirement);
+    let projects=[];
+    for(let i=0; i<projectInRequirement.length; i++)
+    {
+       const data={
+         _id:projectInRequirement[i]._id,
+         authorID:projectInRequirement[i].authorID,
+         tags:projectInRequirement[i].projectID.tags,
+         name:projectInRequirement[i].projectID.name,
+         description:projectInRequirement[i].description,
+         githubUrl:projectInRequirement[i].projectID.githubUrl
+      }
+      projects.push(data);
+      //console.log(projectInRequirement[i]);
+    }
+    res.status(200).send(projects);
   } catch (ex) {
     res.status(500).send('Something failed');
   }
