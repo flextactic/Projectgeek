@@ -4,18 +4,12 @@ import AuthContext from '../../context/auth/authContext';
 const Loginpage = (props) => {
   const authContext = useContext(AuthContext);
 
-  const { register, login, error, clearErrors, isAuthenticated } = authContext;
+  const { register, login, isAuthenticated } = authContext;
 
   useEffect(() => {
     if (isAuthenticated) {
       props.history.push('/profile');
     }
-
-    // if(error==='User already registered.'){
-    //   setAlert(error,'danger');
-    //   clearErrors();
-    // }
-    //eslint-disable-next-line
   }, [isAuthenticated, props.history]);
 
   const [user, setUser] = useState({
@@ -134,8 +128,8 @@ const Loginpage = (props) => {
           <div className='content'>
             <h3>New here ?</h3>
             <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis,
-              ex ratione. Aliquid!
+              Dont Worry ! Join now and become part of a community that help you
+              reach the your new potential.
             </p>
             <button className='btn transparent' id='sign-up-btn'>
               Sign up
@@ -146,12 +140,11 @@ const Loginpage = (props) => {
         <div className='panel right-panel'>
           <div className='content'>
             <h3>One of us ?</h3>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum
-              laboriosam ad deleniti.
+            <p style={{ fontSize: '1.3rem' }}>
+              Sign out of the past...Login to the new
             </p>
             <button className='btn transparent' id='sign-in-btn'>
-              Sign in
+              SIGN IN
             </button>
           </div>
           <img src='img/register.svg' className='image' alt='' />

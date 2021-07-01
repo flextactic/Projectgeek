@@ -1,4 +1,4 @@
-import { React, Fragment } from 'react';
+import { React } from 'react';
 import './Footer.css';
 
 const Footer = () => {
@@ -9,46 +9,34 @@ const Footer = () => {
         background: 'linear-gradient(to bottom, #0082e6, #023f70, #023257)',
       }}
     >
-      <div className='container-fluid'>
-        <div className='row'>
-          <div className='col-md-6'>
-            <h5 className='title'>Footer Content</h5>
+      <div
+        className='container-fluid'
+        style={{ display: 'flex', flex: 'flexWrap' }}
+      >
+        <div className='row' style={{ width: '100%' }}>
+          <div className='' style={{ width: '600px' }}>
+            <h5 className='title'>Contact US</h5>
             <p>
-              Here you can use rows and columns here to organize your footer
-              content.
+              <i className='fab fa-facebook-f'></i>
+              <i className='fab fa-twitter'></i>
+              <i className='fab fa-google-plus-g'></i>
+              <i className='fab fa-linkedin-in'></i>
+              <i className='fab fa-buffer'></i>
             </p>
           </div>
-          <div className='col-md-3'>
-            <h5 className='title'>Links</h5>
+          <div className='' style={{ width: '400px' }}>
+            <h5 className='title' style={{ marginBottom: '20px' }}>
+              Made With <i className='fas fa-heart'></i>
+            </h5>
             <ul>
               <li>
-                <a href='#!'>Link 1</a>
+                <p>Anshul Sharma</p>
               </li>
               <li>
-                <a href='#!'>Link 2</a>
+                <p>Krishan Mishra</p>
               </li>
               <li>
-                <a href='#!'>Link 3</a>
-              </li>
-              <li>
-                <a href='#!'>Link 4</a>
-              </li>
-            </ul>
-          </div>
-          <div className='col-md-3'>
-            <h5 className='title'>Links</h5>
-            <ul>
-              <li>
-                <a href='#!'>Link 1</a>
-              </li>
-              <li>
-                <a href='#!'>Link 2</a>
-              </li>
-              <li>
-                <a href='#!'>Link 3</a>
-              </li>
-              <li>
-                <a href='#!'>Link 4</a>
+                <p>Drishtdyumn Shrivastava</p>
               </li>
             </ul>
           </div>
@@ -57,7 +45,7 @@ const Footer = () => {
       <hr />
       <div className='footer-copyright'>
         <div className='container-fluid'>
-          &copy;{new Date().getFullYear()} THIS IS MINE | All rights reserved |
+          ProjectGeek &copy;{new Date().getFullYear()} All Rights Reserved |
           Terms Of Service | Privacy
         </div>
       </div>
