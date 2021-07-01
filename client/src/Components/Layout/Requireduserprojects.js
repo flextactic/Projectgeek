@@ -7,8 +7,6 @@ const Requireduserprojects = () => {
 
   const { required } = projectContext;
 
-  useEffect(() => {}, [required]);
-
   return (
     <Fragment>
       {required.map((require) => (

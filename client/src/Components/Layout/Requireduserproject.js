@@ -15,9 +15,9 @@ const Requireduserproject = (props) => {
 
   const { require } = props;
 
-  const { _id, projectID, description } = require;
+  const { _id, description, name, tags, githubUrl } = require;
 
-  const { name, tags, githubUrl } = projectID;
+  console.log(_id);
 
   const [requiredetail, setRequiredetail] = useState({
     _id: '',

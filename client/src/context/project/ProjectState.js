@@ -64,7 +64,7 @@ const ProjectState = (props) => {
   //get projects
   const getProject = async () => {
     try {
-      const res = await axios.get('/my_project');
+      const res = await axios.get('/api/project/my_project');
 
       dispatch({
         type: GET_PROJECT,
@@ -110,7 +110,11 @@ const ProjectState = (props) => {
       },
     };
     try {
-      const res = await axios.post('/create_project', project, config);
+      const res = await axios.post(
+        '/api/project/create_project',
+        project,
+        config
+      );
       dispatch({
         type: ADD_PROJECT,
         payload: res.data,
@@ -148,7 +152,7 @@ const ProjectState = (props) => {
   //show project array
   const showProject = async () => {
     try {
-      const res = await axios.get('/get_projects');
+      const res = await axios.get('/api/project/get_projects');
 
       dispatch({
         type: SHOW_PROJECT,
@@ -184,7 +188,7 @@ const ProjectState = (props) => {
   //delete project
   const deleteProject = async (id) => {
     try {
-      await axios.delete(`/delete_project/${id}`);
+      await axios.delete(`/api/project/delete_project/${id}`);
 
       dispatch({
         type: DELETE_PROJECT,
@@ -246,7 +250,11 @@ const ProjectState = (props) => {
       },
     };
     try {
-      await axios.put(`/update_project/${project._id}`, project, config);
+      await axios.put(
+        `/api/project/update_project/${project._id}`,
+        project,
+        config
+      );
       dispatch({
         type: UPDATE_PROJECT,
         payload: project,
