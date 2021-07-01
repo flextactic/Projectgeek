@@ -13,3 +13,8 @@ const port=process.env.port||7000;
 app.listen(port, ()=>{
     console.log(`listening on port ${port}`)
 });
+
+if(process.env.NODE_ENV==='production')
+{
+    app.use(express.static('client/build'));
+}
