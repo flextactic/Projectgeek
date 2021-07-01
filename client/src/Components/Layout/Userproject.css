@@ -29,10 +29,19 @@ h1 a {
   color: rgba(255, 255, 255, 1);
 }
 
-p {
-  width: 80%;
-  padding-bottom: 32px;
-  color: rgba(255, 255, 255, 1);
+.usrdescription {
+  width: 100%;
+  height: 60px;
+  line-height: 30px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.usrdescription {
+  white-space: normal;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 /* project description pop up */

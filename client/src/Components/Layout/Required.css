@@ -1,7 +1,7 @@
 .requiredglass-panel {
   color: black !important;
   background-color: rgba(255, 255, 255, 0.06);
-  border: 1px solid;
+  border: 1px solid none;
   width: 600px;
   border-radius: 15px;
   padding: 32px;

@@ -1,49 +1,68 @@
-import {React, Fragment} from 'react';
+import { React, Fragment } from 'react';
 import './Footer.css';
 
 const Footer = () => {
-    return (
-        <div className="main-footer">
-        <div className="footer-container">
-          <div className="row">
-            {/* Column1 */}
-            <div className="col">
-              <h4>ABOUT US</h4>
-              <h1 className="list-unstyled">
-                <li>dd</li>
-                <li>ans</li>
-                <li>kri</li>
-              </h1>
-            </div>
-            {/* Column2 */}
-            <div className="col">
-              <h4>heading</h4>
-              <ui className="list-unstyled">
-                <li>xD</li>
-                <li>PP</li>
-                <li>Dx</li>
-              </ui>
-            </div>
-            {/* Column3 */}
-            <div className="col">
-              <h4>Heading</h4>
-              <ui className="list-unstyled">
-                <li>no1</li>
-                <li>no2</li>
-                <li>no3</li>
-              </ui>
-            </div>
-          </div>
-          <hr />
-          <div className="row">
-            <p className="col-sm">
-              &copy;{new Date().getFullYear()} THIS IS MINE | All rights reserved |
-              Terms Of Service | Privacy
+  return (
+    <footer
+      className='page-footer blue center-on-small-only'
+      style={{
+        background: 'linear-gradient(to bottom, #0082e6, #023f70, #023257)',
+      }}
+    >
+      <div className='container-fluid'>
+        <div className='row'>
+          <div className='col-md-6'>
+            <h5 className='title'>Footer Content</h5>
+            <p>
+              Here you can use rows and columns here to organize your footer
+              content.
             </p>
+          </div>
+          <div className='col-md-3'>
+            <h5 className='title'>Links</h5>
+            <ul>
+              <li>
+                <a href='#!'>Link 1</a>
+              </li>
+              <li>
+                <a href='#!'>Link 2</a>
+              </li>
+              <li>
+                <a href='#!'>Link 3</a>
+              </li>
+              <li>
+                <a href='#!'>Link 4</a>
+              </li>
+            </ul>
+          </div>
+          <div className='col-md-3'>
+            <h5 className='title'>Links</h5>
+            <ul>
+              <li>
+                <a href='#!'>Link 1</a>
+              </li>
+              <li>
+                <a href='#!'>Link 2</a>
+              </li>
+              <li>
+                <a href='#!'>Link 3</a>
+              </li>
+              <li>
+                <a href='#!'>Link 4</a>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
-    )
-}
+      <hr />
+      <div className='footer-copyright'>
+        <div className='container-fluid'>
+          &copy;{new Date().getFullYear()} THIS IS MINE | All rights reserved |
+          Terms Of Service | Privacy
+        </div>
+      </div>
+    </footer>
+  );
+};
 
 export default Footer;

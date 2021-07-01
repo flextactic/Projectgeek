@@ -15,9 +15,9 @@ const Requireduserproject = (props) => {
 
   const { require } = props;
 
-  const { _id, projectID, description } = require;
+  const { _id, description, name, tags, githubUrl } = require;
 
-  const { name, tags, githubUrl } = projectID;
+  console.log(_id);
 
   const [requiredetail, setRequiredetail] = useState({
     _id: '',
@@ -80,7 +80,7 @@ const Requireduserproject = (props) => {
       <div className='user-glasspanel'>
         <i className='fas fa-expand-arrows-alt' onClick={toggle}></i>
         <h1 style={{ color: '#00f2fe' }}>{name}</h1>
-        <p>{description}</p>
+        <div className='usrdescription'>{description}</div>
         <div className='user-glasstoolbar' style={{ display: 'flex' }}>
           <a href='!#'>
             <i className='fab fa-github'> </i>

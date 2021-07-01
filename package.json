@@ -6,13 +6,9 @@
   "scripts": {
     "start": "node server.js",
     "server": "nodemon server.js",
-<<<<<<< HEAD
-    "test": "echo \"Error: no test specified\" && exit 1"
-=======
     "client": "npm start --prefix client",
     "clientinstall": "npm install --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
->>>>>>> 25dcd4571a00e04a0a3a66ee70655b70026dc53d
   },
   "author": "Anshul Sharma , Krishan Mishra , Drishtdyumn Shrivastava",
   "license": "ISC",
@@ -34,6 +30,7 @@
     "nodemailer": "^6.6.1",
     "nodemon": "^2.0.7",
     "randomstring": "^1.2.1",
+    "react-tooltip": "^4.2.21",
     "uuid": "^8.3.2",
     "validator": "^13.6.0"
   }

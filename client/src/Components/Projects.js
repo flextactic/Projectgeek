@@ -20,18 +20,23 @@ function Projects(props) {
       <div className='glass-panel'>
         <i className='fas fa-expand-arrows-alt' onClick={toggle}></i>
         <h1>{name}</h1>
-        <p>{description}</p>
+        <div className='usrdescription'>{description}</div>
         <div className='glass-toolbar' style={{ display: 'flex' }}>
           <i className='far fa-thumbs-up ' onClick={likeproject}></i>
           <i className='far fa-thumbs-down ' onClick={dislikeproject}></i>
         </div>
       </div>
 
+      {/* pop up */}
+
       <div id={`popup-project${_id}`}>
         <i className='fas fa-window-close' onClick={toggle}></i>
-        <h1>{name}</h1>
+        <div className='heading' style={{ width: '10%' }}>
+          <h2>{name}</h2>
+        </div>
+
         <h3>Autor: {Author.name} </h3>
-        <h3>Description</h3>
+        <h2>Description</h2>
         <p>{description}</p>
         <h2>Tags</h2>
         <div
@@ -46,11 +51,8 @@ function Projects(props) {
         <br />
         <i
           className='fab fa-github'
-          style={{ float: 'left', fontSize: '1.6em' }}
-        >
-          {' '}
-          {githubUrl}
-        </i>
+          style={{ float: 'left', fontSize: '2rem' }}
+        ></i>
       </div>
     </Fragment>
   );

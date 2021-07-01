@@ -2,6 +2,8 @@ import React, { Fragment, useContext, useEffect, useState } from 'react';
 import './Userproject.css';
 import Tag from '../Tags';
 import ProjectContext from '../../context/project/projectContext';
+import Button from '@material-ui/core/Button';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const Userproject = (props) => {
   const projectContext = useContext(ProjectContext);
@@ -86,20 +88,25 @@ const Userproject = (props) => {
       <div className='user-glasspanel'>
         <i className='fas fa-expand-arrows-alt' onClick={toggle}></i>
         <h1 style={{ color: '#00f2fe' }}>{name}</h1>
-        <p>{description}</p>
-        <button
-          className='move-button'
-          style={{
-            padding: '5px 7px',
-            borderRadius: '7px',
-            background: '#3f4161',
-          }}
-          onClick={change}
-        >
-          ADD
-        </button>
-        <div className='hover-text'>
-          Move the project to requirement section
+        <div className='usrdescription'>{description}</div>
+        <div className='App'>
+          <Tooltip
+            title='Move the project to requirement section'
+            placement=''
+            style={{ fontSize: '100px' }}
+          >
+            <Button
+              variant='contained'
+              style={{
+                padding: '5px 7px',
+                borderRadius: '7px',
+                background: '#3f4161',
+              }}
+              onClick={change}
+            >
+              ADD
+            </Button>
+          </Tooltip>
         </div>
         <div className='user-glasstoolbar' style={{ display: 'flex' }}>
           <a href='!#'>
@@ -124,7 +131,7 @@ const Userproject = (props) => {
         ></i>
         <h2>{name}</h2>
         <h3>Description</h3>
-        <p style={{ widht: '100%', height: '30px' }}>{description}</p>
+        <div style={{ widht: '50%', marginBottom: '20px' }}>{description}</div>
         <h2 style={{ margin: '0 0 -20px 0' }}>Tags</h2>
         <div
           className='projectags'

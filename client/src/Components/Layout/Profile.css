@@ -1,8 +1,9 @@
 .card-container {
+  font-family: 'Slabo 27px', serif;
   min-height: 700px;
   min-width: 300px;
   width: 30%;
-  height: 750px;
+  height: auto;
   background: #28293d;
   border-radius: 6px;
   border: 2px solid black;
@@ -29,9 +30,10 @@
   border-radius: 50%;
 }
 .lower-container {
-  height: 300px;
+  height: 500px;
   background: transparent;
   margin: 0 20px;
+  overflow-y: auto;
 }
 .lower-container h3,
 h4 {
@@ -73,7 +75,6 @@ h4 {
   .card-container {
     margin: auto;
     width: 70%;
-    height: 750px;
   }
 }
 

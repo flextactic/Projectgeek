@@ -36,6 +36,8 @@ p {
   color: rgba(255, 255, 255, 1);
 }
 
+/* popup fro desc */
+
 div[id*='popup-requiredproject'] {
   position: fixed;
   top: 55%;

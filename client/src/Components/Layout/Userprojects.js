@@ -16,10 +16,6 @@ const Userprojects = () => {
     githubUrl: '',
   });
 
-  if (projects.length === 0) {
-    return <h3>Please Add Some Projects</h3>;
-  }
-
   const { tags, name, description, githubUrl } = project;
 
   const onChange = (e) =>
