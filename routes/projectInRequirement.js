@@ -19,7 +19,7 @@ route.post('/add', auth, async (req, res) => {
     const { error } = validateData(data);
     if (error) return res.status(400).send(error.details[0].message);
     const project = await ProjectInRequirement.findOne({
-      projectID: req.body.projectId,
+      projectID: data.projectId,
     });
     if (project)
       return res
