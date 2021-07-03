@@ -129,7 +129,6 @@ const ProjectState = (props) => {
 
   //add required
   const addRequired = async (project) => {
-    console.log(project);
     const config = {
       headers: {
         'Content-Type': 'application/json',

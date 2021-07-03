@@ -14,11 +14,16 @@ const error = (state, action) => {
     case USER_LOADED:
       return {
         ...state,
+        user: action.payload,
         isAuthenticated: true,
         loading: false,
-        user: action.payload,
       };
     case REGISTER_SUCCESS:
+      localStorage.setItem('token', action.payload.token);
+      return {
+        ...state,
+        ...action.paylaod,
+      };
     case LOGIN_SUCCESS:
       localStorage.setItem('token', action.payload.token);
       return {
