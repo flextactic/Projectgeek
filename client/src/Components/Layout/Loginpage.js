@@ -4,23 +4,27 @@ import AuthContext from '../../context/auth/authContext';
 const Loginpage = (props) => {
   const authContext = useContext(AuthContext);
 
-  const { register, login, isAuthenticated } = authContext;
+  const { register, login, isAuthenticated, loadUser, user } = authContext;
 
   useEffect(() => {
+    if (localStorage.token) {
+      loadUser();
+    }
     if (isAuthenticated) {
       props.history.push('/profile');
     }
-  }, [isAuthenticated, props.history]);
+    //eslint-disable-next-line
+  }, [user, isAuthenticated, props.history]);
 
-  const [user, setUser] = useState({
+  const [usr, setUser] = useState({
     name: '',
     email: '',
     password: '',
   });
 
-  const { name, email, password } = user;
+  const { name, email, password } = usr;
 
-  const onChange = (e) => setUser({ ...user, [e.target.name]: e.target.value });
+  const onChange = (e) => setUser({ ...usr, [e.target.name]: e.target.value });
 
   const onSubmitsif = (e) => {
     e.preventDefault();
@@ -39,19 +43,28 @@ const Loginpage = (props) => {
     });
   };
 
-  window.onload = function () {
-    const sign_in_btn = document.querySelector('#sign-in-btn');
-    const sign_up_btn = document.querySelector('#sign-up-btn');
-    const container = document.querySelector('.logincontainer');
-
-    sign_up_btn.addEventListener('click', () => {
-      container.classList.add('sign-up-mode');
-    });
-
-    sign_in_btn.addEventListener('click', () => {
-      container.classList.remove('sign-up-mode');
-    });
+  const toggle = () => {
+    let container = document.querySelector('.logincontainer');
+    container.classList.add('sign-up-mode');
   };
+
+  const toogle = () => {
+    let container = document.querySelector('.logincontainer');
+    container.classList.remove('sign-up-mode');
+  };
+  // window.onload = function () {
+  //   const sign_in_btn = document.querySelector('#sign-in-btn');
+  //   const sign_up_btn = document.querySelector('#sign-up-btn');
+  //   const container = document.querySelector('.logincontainer');
+
+  //   sign_up_btn.addEventListener('click', () => {
+  //     container.classList.add('sign-up-mode');
+  //   });
+
+  //   sign_in_btn.addEventListener('click', () => {
+  //     container.classList.remove('sign-up-mode');
+  //   });
+  // };
 
   return (
     <div className='logincontainer'>
@@ -126,7 +139,11 @@ const Loginpage = (props) => {
               Dont Worry ! Join now and become part of a community that help you
               reach the your new potential.
             </p>
-            <button className='btn transparent' id='sign-up-btn'>
+            <button
+              className='btn transparent'
+              id='sign-up-btn'
+              onClick={toggle}
+            >
               Sign up
             </button>
           </div>
@@ -138,7 +155,11 @@ const Loginpage = (props) => {
             <p style={{ fontSize: '1.3rem' }}>
               Sign out of the past...Login to the new
             </p>
-            <button className='btn transparent' id='sign-in-btn'>
+            <button
+              className='btn transparent'
+              id='sign-in-btn'
+              onClick={toogle}
+            >
               SIGN IN
             </button>
           </div>
