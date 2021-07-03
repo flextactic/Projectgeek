@@ -19,6 +19,11 @@ const error = (state, action) => {
         loading: false,
       };
     case REGISTER_SUCCESS:
+      localStorage.setItem('token', action.payload.token);
+      return {
+        ...state,
+        ...action.paylaod,
+      };
     case LOGIN_SUCCESS:
       localStorage.setItem('token', action.payload.token);
       return {
