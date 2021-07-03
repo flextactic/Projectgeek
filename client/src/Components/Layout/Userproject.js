@@ -53,7 +53,6 @@ const Userproject = (props) => {
   const onSubmit = (e) => {
     toggleproject();
     e.preventDefault();
-    console.log(projectdetail);
     updateProject(projectdetail);
     setProjectdetail({
       name: '',
@@ -73,10 +72,6 @@ const Userproject = (props) => {
   const onCall = () => {
     setCurrent(usrproject);
     toggleproject();
-  };
-
-  const clearAll = () => {
-    clearCurrent();
   };
 
   const change = () => {
@@ -109,7 +104,7 @@ const Userproject = (props) => {
           </Tooltip>
         </div>
         <div className='user-glasstoolbar' style={{ display: 'flex' }}>
-          <a href='!#'>
+          <a href={githubUrl} target='_blank' rel='noopener noreferrer'>
             <i className='fab fa-github'> </i>
           </a>
           <div
@@ -141,7 +136,7 @@ const Userproject = (props) => {
         </div>
         <br />
         <br />
-        <a href={githubUrl}>
+        <a href={githubUrl} target='_blank' rel='noopener noreferrer'>
           <i
             className='fab fa-github'
             style={{ float: 'left', fontSize: '2rem' }}

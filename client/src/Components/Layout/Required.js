@@ -8,10 +8,6 @@ const Required = (props) => {
 
   const { tags, name, githubUrl } = projectID;
 
-  const likeproject = () => {};
-
-  const dislikeproject = () => {};
-
   const toggle = () => {
     var popup = document.getElementById(`requiredpopup-project${_id}`);
     popup.classList.toggle('active');
@@ -24,14 +20,22 @@ const Required = (props) => {
         <h1>{name}</h1>
         <div className='usrdescription'>{description}</div>
         <div className='requiredglass-toolbar' style={{ display: 'flex' }}>
-          <i className='far fa-thumbs-up '></i>
-          <i className='far fa-thumbs-down '></i>
+          <a href={githubUrl} target='_blank' rel='noopener noreferrer'>
+            <i
+              className='fab fa-github'
+              style={{ float: 'left', fontSize: '2rem' }}
+            ></i>
+          </a>
         </div>
       </div>
 
       {/* popup */}
       <div id={`requiredpopup-project${_id}`}>
-        <i class='fas fa-window-close' onClick={toggle}></i>
+        <i
+          class='fas fa-window-close'
+          onClick={toggle}
+          style={{ fontSize: '2rem' }}
+        ></i>
         <h2>{name}</h2>
         <h3>Autor: {authorID.name}</h3>
         <h2>Requirement</h2>
@@ -47,10 +51,12 @@ const Required = (props) => {
         </div>
         <br />
         <br />
-        <i
-          class='fab fa-github'
-          style={{ float: 'left', fontSize: '2rem' }}
-        ></i>
+        <a href={githubUrl} target='_blank' rel='noopener noreferrer'>
+          <i
+            className='fab fa-github'
+            style={{ float: 'left', fontSize: '2rem' }}
+          ></i>
+        </a>
       </div>
     </Fragment>
   );

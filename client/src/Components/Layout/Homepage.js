@@ -95,7 +95,7 @@ export const Homepage = () => {
           </div>
 
           <div className='imgContainer opacity'>
-            <img src='/image.jpg' alt='' />
+            <img src='/des3.png' alt='' />
           </div>
         </div>
       </section>

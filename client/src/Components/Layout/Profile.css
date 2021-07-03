@@ -74,7 +74,7 @@ h4 {
 @media (max-width: 1020px) {
   .card-container {
     margin: auto;
-    width: 70%;
+    width: 450px;
   }
 }
 
