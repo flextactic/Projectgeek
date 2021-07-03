@@ -17,8 +17,6 @@ const Requireduserproject = (props) => {
 
   const { _id, description, name, tags, githubUrl } = require;
 
-  console.log(_id);
-
   const [requiredetail, setRequiredetail] = useState({
     _id: '',
     description: '',
@@ -47,7 +45,6 @@ const Requireduserproject = (props) => {
   const onSubmit = (e) => {
     toggledit();
     e.preventDefault();
-    console.log(requiredetail);
     updateRequired(requiredetail);
     setRequiredetail({
       description: '',
@@ -71,10 +68,6 @@ const Requireduserproject = (props) => {
     toggledit();
   };
 
-  const clearAll = () => {
-    clearCurrent();
-  };
-
   return (
     <Fragment>
       <div className='user-glasspanel'>
@@ -82,7 +75,7 @@ const Requireduserproject = (props) => {
         <h1 style={{ color: '#00f2fe' }}>{name}</h1>
         <div className='usrdescription'>{description}</div>
         <div className='user-glasstoolbar' style={{ display: 'flex' }}>
-          <a href='!#'>
+          <a href={githubUrl} target='_blank' rel='noopener noreferrer'>
             <i className='fab fa-github'> </i>
           </a>
           <div
@@ -110,7 +103,7 @@ const Requireduserproject = (props) => {
         </div>
         <br />
         <br />
-        <a href={githubUrl}>
+        <a href={githubUrl} target='_blank' rel='noopener noreferrer'>
           <i
             className='fab fa-github'
             style={{ float: 'left', fontSize: '2rem' }}

@@ -29,8 +29,6 @@ const Profile = (props) => {
     sex: '',
   });
 
-  console.log(props);
-
   const { profile } = props;
 
   const { name, email, githubUrl, about, sex } = profile;
@@ -41,7 +39,6 @@ const Profile = (props) => {
   const onSubmit = (e) => {
     toggle();
     e.preventDefault();
-    console.log(userProfile);
     updateProfile(userProfile);
     setuserProfile({
       name: '',
@@ -88,8 +85,7 @@ const Profile = (props) => {
           </div>
           <div className='contact'>
             {email && (
-              <a href='#'>
-                {' '}
+              <a href={email} target='_blank' rel='noopener noreferrer'>
                 <i
                   className='fas fa-envelope'
                   style={{ fontSize: '2.5rem' }}
@@ -99,9 +95,11 @@ const Profile = (props) => {
             <br />
             <br />
             {githubUrl && (
-              <a href='#'>
-                {' '}
-                <i className='fab fa-github' style={{ fontSize: '2.5rem' }}></i>
+              <a href={githubUrl} target='_blank' rel='noopener noreferrer'>
+                <i
+                  className='fab fa-github'
+                  style={{ fontSize: '2.5rem', marginBottom: '30px' }}
+                ></i>
               </a>
             )}
           </div>

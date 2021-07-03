@@ -66,7 +66,6 @@ const Loginpage = (props) => {
                 name='email'
                 value={email}
                 onChange={onChange}
-                required
                 placeholder='Email  '
               />
             </div>
@@ -77,7 +76,6 @@ const Loginpage = (props) => {
                 name='password'
                 value={password}
                 onChange={onChange}
-                required
                 placeholder='Password'
               />
             </div>
@@ -92,7 +90,6 @@ const Loginpage = (props) => {
                 name='name'
                 value={name}
                 onChange={onChange}
-                required
                 placeholder='Username'
               />
             </div>
@@ -103,7 +100,6 @@ const Loginpage = (props) => {
                 name='email'
                 value={email}
                 onChange={onChange}
-                required
                 placeholder='Email  '
               />
             </div>
@@ -114,7 +110,6 @@ const Loginpage = (props) => {
                 name='password'
                 value={password}
                 onChange={onChange}
-                required
                 placeholder='Password'
               />
             </div>

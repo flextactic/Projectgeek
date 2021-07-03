@@ -30,7 +30,11 @@ function Projects(props) {
       {/* pop up */}
 
       <div id={`popup-project${_id}`}>
-        <i className='fas fa-window-close' onClick={toggle}></i>
+        <i
+          className='fas fa-window-close'
+          style={{ fontSize: '2rem' }}
+          onClick={toggle}
+        ></i>
         <div className='heading' style={{ width: '10%' }}>
           <h2>{name}</h2>
         </div>
@@ -49,10 +53,12 @@ function Projects(props) {
         </div>
         <br />
         <br />
-        <i
-          className='fab fa-github'
-          style={{ float: 'left', fontSize: '2rem' }}
-        ></i>
+        <a href={githubUrl} target='_blank' rel='noopener noreferrer'>
+          <i
+            className='fab fa-github'
+            style={{ float: 'left', fontSize: '2rem' }}
+          ></i>
+        </a>
       </div>
     </Fragment>
   );

@@ -14,7 +14,7 @@ const Footer = () => {
         style={{ display: 'flex', flex: 'flexWrap' }}
       >
         <div className='row' style={{ width: '100%' }}>
-          <div className='' style={{ width: '600px' }}>
+          <div className='' style={{ width: '100%' }}>
             <h5 className='title'>Contact US</h5>
             <p>
               <i className='fab fa-facebook-f'></i>
@@ -23,22 +23,6 @@ const Footer = () => {
               <i className='fab fa-linkedin-in'></i>
               <i className='fab fa-buffer'></i>
             </p>
-          </div>
-          <div className='' style={{ width: '400px' }}>
-            <h5 className='title' style={{ marginBottom: '20px' }}>
-              Made With <i className='fas fa-heart'></i>
-            </h5>
-            <ul>
-              <li>
-                <p>Anshul Sharma</p>
-              </li>
-              <li>
-                <p>Krishan Mishra</p>
-              </li>
-              <li>
-                <p>Drishtdyumn Shrivastava</p>
-              </li>
-            </ul>
           </div>
         </div>
       </div>
