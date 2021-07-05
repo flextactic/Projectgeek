@@ -41,16 +41,10 @@ route.post('/add', auth, async (req, res) => {
     });
     const user = await User.findById(req.user._id);
     if (!user) return res.status(404).send('User not Found.');
-<<<<<<< HEAD
-    await  user.projectInRequirement.push({
-      id: req.body._id,
-      reqDescription: req.body.description,
-=======
     console.log(user);
     user.projectInRequirement.push({
       id: data.projectId,
       reqDescription: data.description,
->>>>>>> 9f59ca7577a5350e04704b6cb92d5f7ceb438a02
     });
     user.save();
     projectInRequirement.save();

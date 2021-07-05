@@ -6,13 +6,9 @@
   "scripts": {
     "start": "node server.js",
     "server": "nodemon server.js",
-<<<<<<< HEAD
-    "test": "echo \"Error: no test specified\" && exit 1"
-=======
     "client": "npm start --prefix client",
     "clientinstall": "npm install --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
->>>>>>> 9f59ca7577a5350e04704b6cb92d5f7ceb438a02
   },
   "author": "Anshul Sharma , Krishan Mishra , Drishtdyumn Shrivastava",
   "license": "ISC",
