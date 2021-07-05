@@ -1,49 +1,40 @@
-import {React, Fragment} from 'react';
+import { React } from 'react';
 import './Footer.css';
 
 const Footer = () => {
-    return (
-        <div className="main-footer">
-        <div className="footer-container">
-          <div className="row">
-            {/* Column1 */}
-            <div className="col">
-              <h4>ABOUT US</h4>
-              <h1 className="list-unstyled">
-                <li>dd</li>
-                <li>ans</li>
-                <li>kri</li>
-              </h1>
-            </div>
-            {/* Column2 */}
-            <div className="col">
-              <h4>heading</h4>
-              <ui className="list-unstyled">
-                <li>xD</li>
-                <li>PP</li>
-                <li>Dx</li>
-              </ui>
-            </div>
-            {/* Column3 */}
-            <div className="col">
-              <h4>Heading</h4>
-              <ui className="list-unstyled">
-                <li>no1</li>
-                <li>no2</li>
-                <li>no3</li>
-              </ui>
-            </div>
-          </div>
-          <hr />
-          <div className="row">
-            <p className="col-sm">
-              &copy;{new Date().getFullYear()} THIS IS MINE | All rights reserved |
-              Terms Of Service | Privacy
+  return (
+    <footer
+      className='page-footer blue center-on-small-only'
+      style={{
+        background: 'linear-gradient(to bottom, #0082e6, #023f70, #023257)',
+      }}
+    >
+      <div
+        className='container-fluid'
+        style={{ display: 'flex', flex: 'flexWrap' }}
+      >
+        <div className='row' style={{ width: '100%' }}>
+          <div className='' style={{ width: '100%' }}>
+            <h5 className='title'>Contact US</h5>
+            <p>
+              <i className='fab fa-facebook-f'></i>
+              <i className='fab fa-twitter'></i>
+              <i className='fab fa-google-plus-g'></i>
+              <i className='fab fa-linkedin-in'></i>
+              <i className='fab fa-buffer'></i>
             </p>
           </div>
         </div>
       </div>
-    )
-}
+      <hr />
+      <div className='footer-copyright'>
+        <div className='container-fluid'>
+          ProjectGeek &copy;{new Date().getFullYear()} All Rights Reserved |
+          Terms Of Service | Privacy
+        </div>
+      </div>
+    </footer>
+  );
+};
 
 export default Footer;

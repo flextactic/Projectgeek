@@ -12,10 +12,11 @@ const mongoose = require('mongoose');
 
 route.post('/add', auth, async (req, res) => {
   try {
-    const data={
-      projectId:req.body._id,
-      description:req.body.description
-    }
+    const data = {
+      projectId: req.body._id,
+      description: req.body.description,
+    };
+    console.log(data.projectId);
     const { error } = validateData(data);
     if (error) return res.status(400).send(error.details[0].message);
     const project = await ProjectInRequirement.findOne({
@@ -26,6 +27,7 @@ route.post('/add', auth, async (req, res) => {
         .status(400)
         .send('This project is already in the requirement section');
     const projectData = await Project.findById(data.projectId);
+    console.log(projectData);
     if (projectData.Author != req.user._id)
       return res
         .send(400)
@@ -39,14 +41,22 @@ route.post('/add', auth, async (req, res) => {
     });
     const user = await User.findById(req.user._id);
     if (!user) return res.status(404).send('User not Found.');
+<<<<<<< HEAD
     await  user.projectInRequirement.push({
       id: req.body._id,
       reqDescription: req.body.description,
+=======
+    console.log(user);
+    user.projectInRequirement.push({
+      id: data.projectId,
+      reqDescription: data.description,
+>>>>>>> 9f59ca7577a5350e04704b6cb92d5f7ceb438a02
     });
     user.save();
     projectInRequirement.save();
     res.status(200).send('Project Successfully added in requirement seciton');
   } catch (ex) {
+    console.log(ex);
     res.status(500).send('Something failed');
   }
 });
@@ -71,23 +81,22 @@ route.get('/me', auth, async (req, res) => {
     }).populate('projectID');
     if (!projectInRequirement)
       return res.status(400).send('NO project exist for this user.');
-    let projects=[];
-    for(let i=0; i<projectInRequirement.length; i++)
-    {
-       const data={
-         _id:projectInRequirement[i]._id,
-         authorID:projectInRequirement[i].authorID,
-         tags:projectInRequirement[i].projectID.tags,
-         name:projectInRequirement[i].projectID.name,
-         description:projectInRequirement[i].description,
-         githubUrl:projectInRequirement[i].projectID.githubUrl
-      }
+    let projects = [];
+    for (let i = 0; i < projectInRequirement.length; i++) {
+      const data = {
+        _id: projectInRequirement[i]._id,
+        authorID: projectInRequirement[i].authorID,
+        tags: projectInRequirement[i].projectID.tags,
+        name: projectInRequirement[i].projectID.name,
+        description: projectInRequirement[i].description,
+        githubUrl: projectInRequirement[i].projectID.githubUrl,
+      };
       projects.push(data);
-      //console.log(projectInRequirement[i]);
+      // console.log(projectInRequirement[i]);
     }
     res.status(200).send(projects);
   } catch (ex) {
-    res.status(500).send('Something failed');
+    res.status(500).send(ex.message);
   }
 });
 
@@ -123,19 +132,19 @@ route.delete('/delete/:id', auth, async (req, res) => {
       return res
         .status(404)
         .send('You dont have proper rights to delete this project');
-    const user = await User.updateOne(
-      { _id: req.user._id },
-      {
-        $pull: {
-          projectInRequirement: {
-            id: project.projectID,
-            contentType: mongoose.Schema.Types.ObjectId,
-          },
-        },
-      }
-    );
+    // const user = await User.updateOne(
+    //   { _id: req.user._id },
+    //   {
+    //     $pull: {
+    //       projectInRequirement: {
+    //         id: project.projectID,
+    //         contentType: mongoose.Schema.Types.ObjectId,
+    //       },
+    //     },
+    //   }
+    // );
     const del = await ProjectInRequirement.findByIdAndDelete(req.params.id);
-    res.status(200).send(user);
+    res.status(200).send(del);
   } catch (ex) {
     res.status(500).send('Something failed');
   }

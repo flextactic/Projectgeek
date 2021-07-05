@@ -76,6 +76,7 @@ const error = (state, action) => {
       };
     case DELETE_REQUIRED:
       return {
+        ...state,
         required: state.required.filter((req) => req._id !== action.payload),
       };
     case DELETE_PROJECT:

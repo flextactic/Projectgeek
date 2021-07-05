@@ -1,6 +1,33 @@
-.main-footer {
+.page-footer {
   color: white;
   background: linear-gradient(to bottom, #0082e6, #023f70, #023257);
   padding-top: 2rem;
   width: 100%;
+}
+
+p i {
+  padding: 2% 4%;
+  font-size: 300%;
+  cursor: pointer;
+}
+
+ul li {
+  margin-left: -30px;
+  line-height: 0.3;
+  font-size: 1.3rem;
+}
+@media (max-width: 980px) {
+  p i {
+    padding: 2% 3%;
+    font-size: 270%;
+    cursor: pointer;
+  }
+}
+
+@media (max-width: 400px) {
+  p i {
+    padding: 2% 2%;
+    font-size: 230%;
+    cursor: pointer;
+  }
 }
