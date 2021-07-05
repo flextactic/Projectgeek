@@ -8,6 +8,7 @@ const {
   validateEditProject,
 } = require('../models/user_project');
 const { User } = require('../models/user');
+const { ProjectInRequirement ,validateEdit,validateData }= require('../models/requirementInProject');
 
 // TODO: "CREATE PROJECT API";
 router.post('/create_project', auth, async (req, res) => {
@@ -119,7 +120,22 @@ router.delete('/delete_project/:id', auth, async (req, res) => {
       return res
         .status(404)
         .send('You dont have proper rights to delete this project');
-
+    const projectData= await ProjectInRequirement.findOne({projectID:req.params.id});
+    if(projectData)
+    {
+        const user = await User.updateOne(
+          { _id: req.user._id },
+          {
+            $pull: {
+              projectInrequirement: {
+                id: projectData._id,
+                contentType: mongoose.Schema.Types.ObjectId,
+              },
+            },
+          }
+        );
+        await ProjectInRequirement.deleteOne({projectID:req.params.id});    
+    }
     const user = await User.updateOne(
       { _id: req.user._id },
       {
@@ -135,6 +151,7 @@ router.delete('/delete_project/:id', auth, async (req, res) => {
     const deleteProject = await Project.findByIdAndDelete(req.params.id);
     res.status(200).send(deleteProject);
   } catch (e) {
+    console.log(e);
     res.status(500).send('OPPS... Please try again later');
   }
 });
